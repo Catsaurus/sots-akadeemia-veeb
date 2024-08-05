@@ -1,67 +1,43 @@
+'use client'
+
 /**
- * This config is used to set up Sanity Studio that's mounted on the `/pages/studio/[[...index]].tsx` route
+ * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 
-import { visionTool } from '@sanity/vision'
-import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
-import {
-  defineUrlResolver,
-  Iframe,
-  IframeOptions,
-} from 'sanity-plugin-iframe-pane'
-import { previewUrl } from 'sanity-plugin-iframe-pane/preview-url'
+import {visionTool} from '@sanity/vision'
+import {defineConfig} from 'sanity'
+import {structureTool} from 'sanity/structure'
 
-// see https://www.sanity.io/docs/api-versioning for how versioning works
-import {
-  apiVersion,
-  dataset,
-  previewSecretId,
-  projectId,
-} from '~/lib/sanity.api'
-import { schema } from '~/schemas'
+import { structure } from './sanity/struckture'
+import { defaultDocumentNode } from './sanity/struckture/defaultDocumentNode'
+import {media} from 'sanity-plugin-media'
 
-const iframeOptions = {
-  url: defineUrlResolver({
-    base: '/api/draft',
-    requiresSlug: ['post'],
-  }),
-  urlSecretId: previewSecretId,
-  reload: { button: true },
-} satisfies IframeOptions
+// Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
+import {apiVersion, dataset, projectId} from './sanity/env'
+import {schema} from './sanity/schema'
 
 export default defineConfig({
   basePath: '/studio',
-  name: 'project-name',
-  title: 'Project Name',
   projectId,
   dataset,
-  //edit schemas in './src/schemas'
+  // Add and edit the content schema in the './sanity/schema' folder
   schema,
   plugins: [
-    deskTool({
-      // `defaultDocumentNode` is responsible for adding a “Preview” tab to the document pane
-      // You can add any React component to `S.view.component` and it will be rendered in the pane
-      // and have access to content in the form in real-time.
-      // It's part of the Studio's “Structure Builder API” and is documented here:
-      // https://www.sanity.io/docs/structure-builder-reference
-      defaultDocumentNode: (S, { schemaType }) => {
-        return S.document().views([
-          // Default form view
-          S.view.form(),
-          // Preview
-          S.view.component(Iframe).options(iframeOptions).title('Preview'),
-        ])
+    structureTool({structure, defaultDocumentNode}),
+    // Vision is a tool that lets you query your content with GROQ in the studio
+    // https://www.sanity.io/docs/the-vision-plugin
+    visionTool({defaultApiVersion: apiVersion}),
+    media({ creditLine: { enabled: true,
+        // boolean - enables an optional "Credit Line" field in the plugin.
+        // Used to store credits e.g. photographer, licence information
+        excludeSources: ['unsplash'],
+        // string | string[] - when used with 3rd party asset sources, you may
+        // wish to prevent users overwriting the creditLine based on the `source.name`
       },
     }),
-    // Add the "Open preview" action
-    previewUrl({
-      base: '/api/draft',
-      requiresSlug: ['post'],
-      urlSecretId: previewSecretId,
-    }),
-    // Vision lets you query your content with GROQ in the studio
-    // https://www.sanity.io/docs/the-vision-plugin
-    visionTool({ defaultApiVersion: apiVersion }),
   ],
+  tools: (prev, {currentUser}) => {
+    const isAdmin = currentUser?.roles.some((role) => role.name === 'administrator')
+    if (isAdmin) { return prev } return prev.filter((tool) => tool.name !== 'vision')
+  },
 })

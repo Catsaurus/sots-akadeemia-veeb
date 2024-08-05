@@ -1,6 +1,4 @@
 /** @type {import('next').NextConfig} */
-const config = {
-  images: { remotePatterns: [{ hostname: 'cdn.sanity.io' }] },
-}
+const nextConfig = {};
 
-export default config
+export default nextConfig;
