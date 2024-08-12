@@ -37,9 +37,15 @@ export default defineType({
       type: 'blockContent',
       group: 'general',
     }),
+    defineField({
+      name: 'color',
+      title: 'Meistriklassi värv',
+      type: 'simplerColor',
+      group: 'general',
+    }),
 
     defineField({
-      name: 'ained2',
+      name: 'ainedList',
       title: 'Ained selles meistriklassis:',
       type: 'array',
       of: [
@@ -57,7 +63,7 @@ export default defineType({
 
 
     defineField({
-      name: 'register',
+      name: 'registrationLink',
       title: 'Registreerimise link (Google Forms)',
       type: 'url',
       group: 'general',
