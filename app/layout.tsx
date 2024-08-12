@@ -1,8 +1,41 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Unbounded } from "next/font/google";
+import localFont from 'next/font/local'
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+
+const unbounded = Unbounded({
+  subsets: ["latin"],
+  variable: '--font-unbounded',
+}
+
+);
+const helvetica = localFont({
+  variable: '--font-helvetica',
+  src: [
+    {
+      path: './../public/fonts/HelveticaNeueThin.otf',
+      weight: '300',
+      style: 'Light'
+    },
+    {
+      path: './../public/fonts/HelveticaNeueRegular.otf',
+      weight: '400',
+      style: 'Regular'
+    },
+    {
+      path: './../public/fonts/HelveticaNeueRoman.otf',
+      weight: '500',
+      style: 'Roman'
+    },
+    {
+      path: './../public/fonts/HelveticaNeue-Bold.woff',
+      weight: '600',
+      style: 'Bold'
+    },
+
+  ]
+})
 
 export const metadata: Metadata = {
   title: "Sotsiaaltöö akadeemia",
@@ -16,7 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${unbounded.variable} ${helvetica.variable}`}>
+        {children}
+      </body>
     </html>
   );
 }

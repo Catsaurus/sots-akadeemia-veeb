@@ -10,7 +10,9 @@ import {structureTool} from 'sanity/structure'
 
 import { structure } from './sanity/struckture'
 import { defaultDocumentNode } from './sanity/struckture/defaultDocumentNode'
-import {media} from 'sanity-plugin-media'
+import { media } from 'sanity-plugin-media'
+import { simplerColorInput } from 'sanity-plugin-simpler-color-input'
+
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import {apiVersion, dataset, projectId} from './sanity/env'
@@ -35,6 +37,19 @@ export default defineConfig({
         // wish to prevent users overwriting the creditLine based on the `source.name`
       },
     }),
+    simplerColorInput({
+      // Note: These are all optional
+      defaultColorFormat: 'rgba',
+      defaultColorList: [
+        { label: 'blue', value: '#7DD5D0' },
+        { label: 'pink', value: '#C299A1' },
+        { label: 'orange', value: '#CE6E52' },
+        { label: 'green', value: '#B6C98C' },
+        { label: 'yellow', value: '#E3D4AF' },
+        { label: 'Custom...', value: 'custom' },
+      ],
+      enableSearch: true,
+    })
   ],
   tools: (prev, {currentUser}) => {
     const isAdmin = currentUser?.roles.some((role) => role.name === 'administrator')
