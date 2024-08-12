@@ -1,6 +1,6 @@
 import React from 'react'
 
-const HeroCard = ({title}) => {
+const HeroCard = ({title}: any) => {
   return (
     <div 
      className='p-8 bg-yellow rounded-tr-md rounded-bl-md shadow shadow-neutral-900 hover:shadow-neutral-950'>
