@@ -3,6 +3,7 @@ import "server-only";
 import type { QueryParams } from "@sanity/client";
 import { draftMode } from "next/headers";
 import { client } from "./client";
+import { QueryOptions } from "next-sanity";
 
 const DEFAULT_PARAMS = {} as QueryParams;
 const DEFAULT_TAGS = [] as string[];
@@ -11,32 +12,39 @@ export const token = process.env.SANITY_API_READ_TOKEN;
 
 export async function sanityFetch<QueryResponse>({
   query,
-  params = DEFAULT_PARAMS,
-  tags = DEFAULT_TAGS,
+  params = {},
+  revalidate = 60,
+  tags = [],
 }: {
   query: string;
   params?: QueryParams;
+  revalidate?: number | false;
   tags?: string[];
-}): Promise<QueryResponse> {
+}) {
   const isDraftMode = draftMode().isEnabled;
   if (isDraftMode && !token) {
-    throw new Error(
-      "The `SANITY_API_READ_TOKEN` environment variable is required."
-    );
+    throw new Error("Missing environment variable SANITY_API_READ_TOKEN");
   }
-  const isDevelopment = process.env.NODE_ENV === "development";
 
-  return client
-    .withConfig({ useCdn: true })
-    .fetch<QueryResponse>(query, params, {
-      cache: isDevelopment || isDraftMode ? undefined : "force-cache",
-      ...(isDraftMode && {
+  let dynamicRevalidate = revalidate;
+  if (isDraftMode) {
+    // Do not cache in Draft Mode
+    dynamicRevalidate = 0;
+  } else if (tags.length) {
+    // Cache indefinitely if tags supplied, purge with revalidateTag()
+    dynamicRevalidate = false;
+  }
+
+  return client.fetch<QueryResponse>(query, params, {
+    ...(isDraftMode &&
+      ({
         token: token,
         perspective: "previewDrafts",
-      }),
-      next: {
-        ...(isDraftMode && { revalidate: 30 }),
-        tags,
-      },
-    });
+        stega: true,
+      } satisfies QueryOptions)),
+    next: {
+      revalidate: dynamicRevalidate,
+      tags,
+    },
+  });
 }

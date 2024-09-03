@@ -1,7 +1,8 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'moodul',
+  name: 'courseModule',
+  title: 'Eriklass',
   type: 'document',
   fields: [
     defineField({
@@ -10,7 +11,7 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'mooduliVarv',
+      name: 'color',
       title: 'Mooduli värv',
       description: 'Seda kuvataske ainult siin keskkonnas',
       type: 'string',
@@ -19,10 +20,10 @@ export default defineType({
   preview: {
     select: {
       title: 'name', 
-      mooduliVarv: 'mooduliVarv',
+      color: 'color',
       media: '#ccc'
     },
-    prepare: ({title, mooduliVarv}) => {
+    prepare: ({title, color}) => {
       const subtitle = 'Viimati muudetud: '
       return {
         title,

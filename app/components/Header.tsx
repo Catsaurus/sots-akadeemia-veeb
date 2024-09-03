@@ -2,9 +2,14 @@
 import React, { useState } from 'react'
 import { Logo } from './Logo';
 import Link from "next/link";
+import { SettingsQueryResult } from '@/sanity/types';
 
 
-export const Header = () => {
+interface HeaderProps {
+    settings: SettingsQueryResult;
+}
+
+export const Header = ({ settings }: Readonly<HeaderProps>) => {
 
     const [open, setOpen] = useState(false)
 
@@ -17,15 +22,32 @@ export const Header = () => {
                     <Logo />
                 </Link>
             </div>
-            <div className="flex w-full items-center justify-between">
-                <div className="z-50 flex relative w-8 h-8 flex-col justify-between items-center md:hidden" onClick={() => {
+            <div className="flex w-full items-center justify-end md:justify-between">
+                <button className="z-50 flex relative w-18 h-8 flex-col justify-between items-center md:hidden" onClick={() => {
                     setOpen(!open)
                 }}>
                     <span className='font-display text-md'>Menüü</span>
-                </div>
+                </button>
 
                 <div className="hidden md:flex">
-                    <NavLink to="/#">
+                    {
+                        settings?.menu?.map(item => {
+                            if (item.type === 'reference') {
+                                return (
+                                    <NavLink key={item._key} to={`/${item.slug}`}>
+                                        { item.name }
+                                    </NavLink>
+                                )
+                            } else {
+                                return (
+                                    <NavLink key={item._key} to="/#">
+                                        { item.name }
+                                    </NavLink>
+                                )
+                            }
+                        })
+                    }
+                    {/* <NavLink to="/#">
                         Meistriklassid
                     </NavLink>
                     <NavLink to="/#">
@@ -36,7 +58,7 @@ export const Header = () => {
                     </NavLink>
                     <NavLink to="/#">
                         Õppetöö korraldus
-                    </NavLink>
+                    </NavLink> */}
                 </div>
 
                 <div className="hidden md:flex">
@@ -50,7 +72,7 @@ export const Header = () => {
 }
 
 
-function MobileNav({ open, setOpen }: any) {
+function MobileNav({ settings, open, setOpen }: any) {
     return (
         <div className={`absolute top-0 left-0 h-screen w-full bg-white transform ${open ? "-translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out filter`}>
             <div className="flex items-center justify-center filter h-20">

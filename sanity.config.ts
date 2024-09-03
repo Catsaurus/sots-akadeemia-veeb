@@ -8,22 +8,26 @@ import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 
-import { structure } from './sanity/struckture'
-import { defaultDocumentNode } from './sanity/struckture/defaultDocumentNode'
+import { structure } from './sanity/structure'
+import { defaultDocumentNode } from './sanity/structure/defaultDocumentNode'
 import { media } from 'sanity-plugin-media'
-import { simplerColorInput } from 'sanity-plugin-simpler-color-input'
 
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import {apiVersion, dataset, projectId} from './sanity/env'
-import {schema} from './sanity/schema'
+import { schema, singletonTypes } from './sanity/schema'
+import { presentationTool } from 'sanity/presentation'
+import { colorInput } from '@sanity/color-input'
+
+// Define the actions that should be available for singleton documents
+const singletonActions = new Set(["publish", "discardChanges", "restore"])
 
 export default defineConfig({
   basePath: '/studio',
   projectId,
   dataset,
   // Add and edit the content schema in the './sanity/schema' folder
-  schema,
+  schema: schema,
   plugins: [
     structureTool({structure, defaultDocumentNode}),
     // Vision is a tool that lets you query your content with GROQ in the studio
@@ -37,22 +41,23 @@ export default defineConfig({
         // wish to prevent users overwriting the creditLine based on the `source.name`
       },
     }),
-    simplerColorInput({
-      // Note: These are all optional
-      defaultColorFormat: 'rgba',
-      defaultColorList: [
-        { label: 'blue', value: '#7DD5D0' },
-        { label: 'pink', value: '#C299A1' },
-        { label: 'orange', value: '#CE6E52' },
-        { label: 'green', value: '#B6C98C' },
-        { label: 'yellow', value: '#E3D4AF' },
-        { label: 'Custom...', value: 'custom' },
-      ],
-      enableSearch: true,
-    })
+    presentationTool({
+      previewUrl: {
+        draftMode: {
+          enable: '/api/draft-mode/enable',
+        },
+      },
+    }),
+    colorInput()
   ],
   tools: (prev, {currentUser}) => {
     const isAdmin = currentUser?.roles.some((role) => role.name === 'administrator')
     if (isAdmin) { return prev } return prev.filter((tool) => tool.name !== 'vision')
   },
+document: {
+  actions: (input, context) =>
+    singletonTypes.has(context.schemaType)
+      ? input.filter(({ action }) => action && singletonActions.has(action))
+      : input,
+} 
 })

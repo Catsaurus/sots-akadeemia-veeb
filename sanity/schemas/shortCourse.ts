@@ -1,15 +1,16 @@
-import { collate, defineField, defineType } from 'sanity'
+import { defineField, defineType } from 'sanity'
 
 export default defineType({
-  name: 'aine',
+  name: 'shortCourse',
+  title: 'Lühiklass',
   type: 'document',
   fieldsets: [
-    { name: 'osalejad', title: 'Osalejad', options: { columns: 2 } },
+    { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
   ],
   fields: [
     defineField({
       name: 'name',
-      title: 'Aine nimetus',
+      title: 'Lühiklassi nimetus',
       type: 'string',
     }),
     defineField({
@@ -24,37 +25,37 @@ export default defineType({
     }),
 
     defineField({
-      name: 'minOsalejateArv',
+      name: 'minParticipants',
       title: 'Minimaalne osalejate arv',
       type: 'string',
-      fieldset: 'osalejad',
+      fieldset: 'participants',
     }),
     defineField({
-      name: 'maxOsalejaArv',
+      name: 'maxParticipants',
       title: 'Maksimaalne osalejate arv',
       type: 'number',
       initialValue: 18,
-      fieldset: 'osalejad',
+      fieldset: 'participants',
     }),
     defineField({
-      name: 'maht',
-      title: 'Aine maht',
+      name: 'courseSize',
+      title: 'Lühiklassi ainemaht',
       type: 'number',
       initialValue: 20,
       description: 'Maht tundides'
     }),
 
     defineField({
-      name: 'moodul',
-      title: 'Moodul, kuhu kuulub',
+      name: 'courseModule',
+      title: 'Eriklass, kuhu kuulub',
       type: 'reference',
-      to: [{ type: 'moodul' }]
+      to: [{ type: 'courseModule' }]
     }),
   ], // list end
   preview: {
     select: {
       title: 'name',
-      subtitle: 'moodul.name',
+      subtitle: 'courseModule.name',
     },
   },
 })
