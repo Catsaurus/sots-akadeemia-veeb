@@ -1,15 +1,15 @@
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
-  name: 'meistriklass',
+  name: 'masterClass',
   title: 'Meistriklass',
   type: 'document',
   groups: [
     { name: 'general', title: 'Üldine' },
-    { name: 'classes', title: 'Ained' }
+    { name: 'shortCourses', title: 'Lühikursused' }
   ],
   fieldsets: [
-    { name: 'osalejad', title: 'Osalejad', options: { columns: 2 } },
+    { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
   ],
   fields: [
     defineField({
@@ -33,32 +33,42 @@ export default defineType({
     }),
     defineField({
       name: 'body',
-      title: 'Kursuse kirjeldus',
+      title: 'Meistriklassi kirjeldus',
       type: 'blockContent',
       group: 'general',
     }),
     defineField({
       name: 'color',
       title: 'Meistriklassi värv',
-      type: 'simplerColor',
+      type: 'color',
       group: 'general',
+      options: {
+        disableAlpha: true,
+        colorList: [
+          '#7DD5D0',
+          '#C299A1',
+          '#CE6E52',
+          '#B6C98C',
+          '#E3D4AF'
+        ]
+      }
     }),
 
     defineField({
-      name: 'ainedList',
-      title: 'Ained selles meistriklassis:',
+      name: 'courses',
+      title: 'Lühikursused selles meistriklassis:',
       type: 'array',
       of: [
         {
-          title: 'Vali aine',
+          title: 'Vali lühiklass',
           type: 'reference',
-          to: [{ type: 'aine' }],
+          to: [{ type: 'shortCourse' }],
         },
       ],
       validation: Rule => Rule.unique(),
 
-      description: 'Kõik kohustuslikud ained selles meistriklassis.',
-      group: 'classes',
+      description: 'Kõik kohustuslikud lühikursused selles meistriklassis.',
+      group: 'shortCourses',
     }),
 
 
@@ -69,31 +79,39 @@ export default defineType({
       group: 'general',
     }),
     defineField({
-      name: 'minOsalejaArv',
+      name: 'minParticipants',
       title: 'Minimaalne osalejate arv',
       type: 'number',
       initialValue: 10,
-      fieldset: 'osalejad',
+      fieldset: 'participants',
       group: 'general',
     }),
 
     defineField({
-      name: 'maxOsalejaArv',
+      name: 'maxParticipants',
       title: 'Maksimaalne osalejate arv',
       type: 'number',
       initialValue: 18,
-      fieldset: 'osalejad',
+      fieldset: 'participants',
       group: 'general',
     }),
 
     defineField({
-      name: 'koolitajad',
+      name: 'teachers',
       title: 'Kes õpetavad',
-      type: 'string',
+      type: 'array',
+      of: [
+        {
+          title: 'Vali akadeemik',
+          type: 'reference',
+          to: [{ type: 'teacher' }],
+        },
+      ],
+      validation: Rule => Rule.unique(),
       group: 'general',
     }),
     defineField({
-      name: 'kontakt',
+      name: 'contact',
       title: 'Meistriklassi kontaktisik',
       type: 'string',
       group: 'general',

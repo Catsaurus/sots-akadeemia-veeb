@@ -1,21 +1,22 @@
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
-  name: 'akadeemik',
+  name: 'teacher',
+  title: 'Akadeemik',
   type: 'document',
   fields: [
     defineField({
-      name: 'nimi',
+      name: 'name',
       title: 'Nimi',
       type: 'string',
     }),
     defineField({
-      name: 'pilt',
+      name: 'image',
       title: 'Pilt',
       type: 'image',
     }),
     defineField({
-      name: 'kirjeldus',
+      name: 'description',
       title: 'Kirjeldus',
       type: 'string',
     }),

@@ -1,16 +1,20 @@
-import { SchemaTypeDefinition } from 'sanity'
+import { SchemaPluginOptions } from 'sanity'
 
 import blockContent from './schemas/blockContent'
-import meistriklass from './schemas/meistriklass'
-import aine from './schemas/aine'
-import moodul from './schemas/moodul'
-import luhiklass from './schemas/luhiklass'
-import akadeemik from './schemas/akadeemik'
-import kalender from './schemas/kalender'
+import masterClass from './schemas/masterClass'
+import shortCourse from './schemas/shortCourse'
+import courseModule from './schemas/courseModule'
+import teacher from './schemas/teacher'
+import calendar from './schemas/calendar'
+import settings from './schemas/settings'
+import menuItem from './schemas/menuItem'
 
 
-export const schemaTypes = [blockContent, meistriklass, aine, moodul, luhiklass, akadeemik, ]
+export const schemaTypes = [blockContent, masterClass, shortCourse, courseModule, teacher, settings, menuItem];
+export const singletonTypes = new Set(["settings"])
 
-export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [kalender, meistriklass, luhiklass, moodul, aine, akadeemik, blockContent]
+export const schema: SchemaPluginOptions = {
+  types: [calendar, masterClass, shortCourse, courseModule, teacher, blockContent, settings, menuItem],
+  templates: (templates) =>
+    templates.filter(({ schemaType }) => !singletonTypes.has(schemaType))
 }

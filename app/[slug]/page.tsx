@@ -1,23 +1,27 @@
 import React from 'react';
-import { SanityDocument } from "next-sanity";
-import { meistriklassPathsQuery, MEISTRIKLASS_QUERY } from "@/sanity/lib/queries";
+import { CalendarEventByCourseQuery, MasterClassPathsQuery, MasterClassQuery, SettingsQuery } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { client } from "@/sanity/lib/client";
 import { DetailPage } from '../components/DetailPage';
+import { CalendarEventByCourseQueryResult, MasterClassQueryResult, SettingsQueryResult } from '@/sanity/types';
 
 
 export async function generateStaticParams() {
-    const meistriklassid = await client.fetch(meistriklassPathsQuery)
-    return meistriklassid
+    return await client.fetch(MasterClassPathsQuery);
 }
 
 
-const MeistriklassPage = async ({ params }: { params: any }) => {
-    const meistriklass = await sanityFetch<SanityDocument>({ query: MEISTRIKLASS_QUERY, params })
-    
+const MasterClassPage = async ({ params }: { params: any }) => {
+
+    const [settings, masterClass, events] = await Promise.all([
+        sanityFetch<SettingsQueryResult>({ query: SettingsQuery }),
+        sanityFetch<MasterClassQueryResult>({ query: MasterClassQuery, params }),
+        sanityFetch<CalendarEventByCourseQueryResult>({ query: CalendarEventByCourseQuery, params })
+    ]);
+
     return (
-        <DetailPage meistriklass={meistriklass}></DetailPage>
+        <DetailPage settings={settings} masterClass={masterClass} events={events}></DetailPage>
     )
 }
 
-export default MeistriklassPage
+export default MasterClassPage;
