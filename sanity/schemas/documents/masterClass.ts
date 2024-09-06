@@ -6,7 +6,7 @@ export default defineType({
   type: 'document',
   groups: [
     { name: 'general', title: 'Üldine' },
-    { name: 'shortCourses', title: 'Lühikursused' }
+    { name: 'shortCourses', title: 'Lühiklassid' }
   ],
   fieldsets: [
     { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
@@ -56,7 +56,7 @@ export default defineType({
 
     defineField({
       name: 'courses',
-      title: 'Lühikursused selles meistriklassis:',
+      title: 'Lühiklassid selles meistriklassis:',
       type: 'array',
       of: [
         {
@@ -67,7 +67,7 @@ export default defineType({
       ],
       validation: Rule => Rule.unique(),
 
-      description: 'Kõik kohustuslikud lühikursused selles meistriklassis.',
+      description: 'Kõik kohustuslikud lühiklassid selles meistriklassis.',
       group: 'shortCourses',
     }),
 

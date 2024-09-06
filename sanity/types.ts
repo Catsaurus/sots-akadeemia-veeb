@@ -68,6 +68,53 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Calendar = {
+  _id: string;
+  _type: "calendar";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  classes?:
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "shortCourse";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "masterClass";
+      };
+  timeConfirmed?: boolean;
+  startDate?: string;
+  endDate?: string;
+};
+
+export type TextBlock = {
+  _type: "textBlock";
+  content?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+};
+
 export type MenuItem = {
   _type: "menuItem";
   name?: string;
@@ -89,14 +136,15 @@ export type MenuItem = {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "calendar";
+        [internalGroqTypeReferenceTo]?: "courseModule";
       }
     | {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "courseModule";
+        [internalGroqTypeReferenceTo]?: "genericPage";
       };
+  dropdownType?: "MASTERCLASS" | "COURSE_MODULE";
 };
 
 export type Settings = {
@@ -131,25 +179,6 @@ export type Settings = {
     _key: string;
   }>;
 };
-
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-  listItem?: "bullet";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
 
 export type Teacher = {
   _id: string;
@@ -229,60 +258,28 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
-export type Calendar = {
+export type GenericPage = {
   _id: string;
-  _type: "calendar";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  classes?:
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "shortCourse";
-      }
-    | {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "masterClass";
-      };
-  timeConfirmed?: boolean;
-  startDate?: string;
-  endDate?: string;
-};
-
-export type MasterClass = {
-  _id: string;
-  _type: "masterClass";
+  _type: "genericPage";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
   name?: string;
   slug?: Slug;
-  body?: BlockContent;
-  color?: Color;
-  courses?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "shortCourse";
-  }>;
-  registrationLink?: string;
-  minParticipants?: number;
-  maxParticipants?: number;
-  teachers?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }>;
-  contact?: string;
-  payment?: string;
+  blocks?: Array<
+    | ({
+        _key: string;
+      } & TextBlock)
+    | ({
+        _key: string;
+      } & ShortCourseTable)
+  >;
+};
+
+export type ShortCourseTable = {
+  _type: "shortCourseTable";
+  title?: string;
+  description?: string;
 };
 
 export type ShortCourse = {
@@ -311,8 +308,76 @@ export type CourseModule = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  slug?: Slug;
   color?: string;
 };
+
+export type MasterClass = {
+  _id: string;
+  _type: "masterClass";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  body?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
+  color?: Color;
+  courses?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "shortCourse";
+  }>;
+  registrationLink?: string;
+  minParticipants?: number;
+  maxParticipants?: number;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
+  contact?: string;
+  payment?: string;
+};
+
+export type BlockContent = Array<{
+  children?: Array<{
+    marks?: Array<string>;
+    text?: string;
+    _type: "span";
+    _key: string;
+  }>;
+  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+  listItem?: "bullet";
+  markDefs?: Array<{
+    href?: string;
+    _type: "link";
+    _key: string;
+  }>;
+  level?: number;
+  _type: "block";
+  _key: string;
+}>;
 
 export type Color = {
   _type: "color";
@@ -368,19 +433,22 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Calendar
+  | TextBlock
   | MenuItem
   | Settings
-  | BlockContent
   | Teacher
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
   | SanityImageMetadata
-  | Calendar
-  | MasterClass
+  | GenericPage
+  | ShortCourseTable
   | ShortCourse
   | CourseModule
+  | MasterClass
+  | BlockContent
   | Color
   | RgbaColor
   | HsvaColor
@@ -397,32 +465,247 @@ export type MasterClassListQueryResult = Array<{
   slug: Slug | null;
   color: Color | null;
 }>;
-// Variable: MasterClassQuery
-// Query: *[_type == "masterClass" && slug.current == $slug][0]{     name, body, courses, registrationLink, minParticipants, maxParticipants, teachers, color  }
-export type MasterClassQueryResult = {
+// Variable: CourseModuleListQuery
+// Query: *[_type == "courseModule"] {  _id,  name,  slug,  color}
+export type CourseModuleListQueryResult = Array<{
+  _id: string;
   name: string | null;
-  body: BlockContent | null;
-  courses: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "shortCourse";
-  }> | null;
-  registrationLink: string | null;
-  minParticipants: number | null;
-  maxParticipants: number | null;
-  teachers: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }> | null;
-  color: Color | null;
-} | null;
+  slug: Slug | null;
+  color: string | null;
+}>;
+// Variable: ShortCourseListQuery
+// Query: *[_type == "shortCourse"]{  _id,  name,  "courseModule": @.courseModule->name,  slug}
+export type ShortCourseListQueryResult = Array<{
+  _id: string;
+  name: string | null;
+  courseModule: string | null;
+  slug: Slug | null;
+}>;
+// Variable: SingleClassModuleCourseQuery
+// Query: *[slug.current == $slug][0]
+export type SingleClassModuleCourseQueryResult =
+  | {
+      _id: string;
+      _type: "calendar";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      classes?:
+        | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "masterClass";
+          }
+        | {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "shortCourse";
+          };
+      timeConfirmed?: boolean;
+      startDate?: string;
+      endDate?: string;
+    }
+  | {
+      _id: string;
+      _type: "courseModule";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      color?: string;
+    }
+  | {
+      _id: string;
+      _type: "genericPage";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      blocks?: Array<
+        | ({
+            _key: string;
+          } & ShortCourseTable)
+        | ({
+            _key: string;
+          } & TextBlock)
+      >;
+    }
+  | {
+      _id: string;
+      _type: "masterClass";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      body?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+      color?: Color;
+      courses?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "shortCourse";
+      }>;
+      registrationLink?: string;
+      minParticipants?: number;
+      maxParticipants?: number;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
+      contact?: string;
+      payment?: string;
+    }
+  | {
+      _id: string;
+      _type: "media.tag";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: Slug;
+    }
+  | {
+      _id: string;
+      _type: "sanity.fileAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      source?: SanityAssetSourceData;
+    }
+  | {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    }
+  | {
+      _id: string;
+      _type: "settings";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      description?: string;
+      menu?: Array<
+        {
+          _key: string;
+        } & MenuItem
+      >;
+      footerContent?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
+    }
+  | {
+      _id: string;
+      _type: "shortCourse";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      minParticipants?: string;
+      maxParticipants?: number;
+      courseSize?: number;
+      courseModule?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "courseModule";
+      };
+    }
+  | {
+      _id: string;
+      _type: "teacher";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      image?: {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+      };
+      description?: string;
+    }
+  | null;
 // Variable: MasterClassPathsQuery
-// Query: *[_type == "masterClass" && defined(slug.current)][]{    "params": { "slug": slug.current }  }
+// Query: *[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{    "params": { "slug": slug.current }  }
 export type MasterClassPathsQueryResult = Array<{
   params: {
     slug: string | null;
@@ -448,13 +731,13 @@ export type SettingsQueryResult = {
           _ref: string;
           _type: "reference";
           _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "calendar";
+          [internalGroqTypeReferenceTo]?: "courseModule";
         }
       | {
           _ref: string;
           _type: "reference";
           _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "courseModule";
+          [internalGroqTypeReferenceTo]?: "genericPage";
         }
       | {
           _ref: string;
@@ -468,6 +751,7 @@ export type SettingsQueryResult = {
           _weak?: boolean;
           [internalGroqTypeReferenceTo]?: "shortCourse";
         };
+    dropdownType?: "COURSE_MODULE" | "MASTERCLASS";
     slug: string | null;
   }> | null;
   footerContent?: Array<{
@@ -552,8 +836,10 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    color\n}': MasterClassListQueryResult;
-    '*[_type == "masterClass" && slug.current == $slug][0]{ \n    name, body, courses, registrationLink, minParticipants, maxParticipants, teachers, color\n  }': MasterClassQueryResult;
-    '*[_type == "masterClass" && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
+    '*[_type == "courseModule"] {\n  _id,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
+    '*[_type == "shortCourse"]{\n  _id,\n  name,\n  "courseModule": @.courseModule->name,\n  slug\n}': ShortCourseListQueryResult;
+    "*[slug.current == $slug][0]": SingleClassModuleCourseQueryResult;
+    '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
     '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name\n  }\n}': CalendarQueryResult;
     '*[_type == "calendar" && classes->slug.current == $slug][]': CalendarEventByCourseQueryResult;

@@ -11,9 +11,20 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'slug',
+      title: 'URL',
+      type: 'slug',
+      description: 'See on osa antud lehekülje aadressist. Kui seda muuta, siis varem jagatud lingid võivad olla katki.',
+      validation: (Rule) => Rule.required().error('Väli on kohustuslik!'),
+      options: {
+        source: 'name',
+        maxLength: 96,
+      },
+    }),
+    defineField({
       name: 'color',
       title: 'Mooduli värv',
-      description: 'Seda kuvataske ainult siin keskkonnas',
+      description: 'Seda kuvatakse ainult siin keskkonnas',
       type: 'string',
     }),
   ], // list end

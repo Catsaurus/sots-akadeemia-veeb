@@ -26,8 +26,21 @@ export default defineType({
             name: 'reference',
             title: 'Viide',
             type: 'reference',
-            to: [{ type: 'masterClass' }, { type: 'shortCourse' }, { type: 'calendar' }, { type: 'courseModule' }],
+            to: [{ type: 'masterClass' }, { type: 'shortCourse' }, { type: 'courseModule' }, { type: 'genericPage' }],
             hidden: ({ parent }) => parent.type !== 'reference'
-          }),
+        }),
+        defineField({
+            name: 'dropdownType',
+            title: 'Valikmenüü kirjete tüüp',
+            type: 'string',
+            initialValue: 'MASTERCLASS',
+            options: {
+                list: [
+                  { title: 'Meistriklassid', value: 'MASTERCLASS' },
+                  { title: 'Eriklassid', value: 'COURSE_MODULE' }
+                ]
+            },
+            hidden: ({ parent }) => parent.type === 'reference'
+        }),
     ],
   })

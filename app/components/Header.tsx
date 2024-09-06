@@ -1,18 +1,20 @@
 "use client"
+
 import React, { useState } from 'react'
 import { Logo } from './Logo';
 import Link from "next/link";
-import { SettingsQueryResult } from '@/sanity/types';
-
+import { CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
+import Dropdown from './Dropdown';
 
 interface HeaderProps {
     settings: SettingsQueryResult;
+    masterClasses: MasterClassListQueryResult;
+    courseModules: CourseModuleListQueryResult;
 }
 
-export const Header = ({ settings }: Readonly<HeaderProps>) => {
+export const Header = ({ settings, masterClasses, courseModules }: Readonly<HeaderProps>) => {
 
-    const [open, setOpen] = useState(false)
-
+    const [open, setOpen] = useState(false);
 
     return (
         <nav className="flex filter px-4 py-4 h-20 items-center">
@@ -39,10 +41,14 @@ export const Header = ({ settings }: Readonly<HeaderProps>) => {
                                     </NavLink>
                                 )
                             } else {
+                                const options = item.dropdownType === 'MASTERCLASS' ? masterClasses : courseModules;
                                 return (
-                                    <NavLink key={item._key} to="/#">
-                                        { item.name }
-                                    </NavLink>
+                                    <Dropdown key={item._key} name={item.name ?? ''} options={
+                                        options.map(o => ({
+                                            name: o.name!,
+                                            slug: o.slug?.current ?? ''
+                                        })) ?? []
+                                    } />
                                 )
                             }
                         })

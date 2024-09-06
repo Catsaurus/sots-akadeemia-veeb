@@ -2,20 +2,26 @@
 
 import React from 'react'
 import { PortableText } from "@portabletext/react";
-import { Header } from './Header';
+import { Header } from '../Header';
 import Link from "next/link";
-import Card from './Card';
-import { CalendarEventByCourseQueryResult, MasterClassQueryResult, SettingsQueryResult } from '@/sanity/types';
+import Card from '../Card';
+import { CalendarEventByCourseQueryResult, CourseModuleListQueryResult, MasterClass, MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
 
+interface MasterClassPageProps {
+  settings: SettingsQueryResult;
+  masterClass: MasterClass;
+  events: CalendarEventByCourseQueryResult;
+  masterClasses: MasterClassListQueryResult;
+  courseModules: CourseModuleListQueryResult;
+}
 
-export const DetailPage = ({ settings, masterClass, events }: {
-  settings: SettingsQueryResult, masterClass: MasterClassQueryResult, events: CalendarEventByCourseQueryResult }) => {
+export default function MasterClassPage({ settings, masterClasses, courseModules, masterClass, events }: Readonly<MasterClassPageProps>) {
 
   return (
     <main className="min-h-screen">
 
       <section style={{ backgroundColor: masterClass?.color?.hex }}>
-        <Header settings={settings} />
+        <Header settings={settings} masterClasses={masterClasses} courseModules={courseModules} />
         <div className='container max-w-screen-xl mx-auto pb-28 pt-10'>
 
           <div className="mb-4">

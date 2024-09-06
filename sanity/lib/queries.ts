@@ -8,13 +8,25 @@ export const MasterClassListQuery = groq`*[_type == "masterClass"] {
     color
 }`;
 
+export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
+  _id,
+  name,
+  slug,
+  color
+}`;
+
+export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
+  _id,
+  name,
+  "courseModule": @.courseModule->name,
+  slug
+}`;
+
 // Get a single post by its slug
-export const MasterClassQuery = groq`*[_type == "masterClass" && slug.current == $slug][0]{ 
-    name, body, courses, registrationLink, minParticipants, maxParticipants, teachers, color
-  }`;
+export const SingleClassModuleCourseQuery = groq`*[slug.current == $slug][0]`;
 
 // Get all post slugs
-export const MasterClassPathsQuery = groq`*[_type == "masterClass" && defined(slug.current)][]{
+export const MasterClassPathsQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{
     "params": { "slug": slug.current }
   }`;
 

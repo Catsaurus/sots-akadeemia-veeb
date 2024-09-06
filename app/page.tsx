@@ -1,26 +1,27 @@
 import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/fetch"
-import { CalendarQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
+import { CalendarQuery, CourseModuleListQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
 import MasterClassCardLarge from "./components/MasterClassCardLarge"
 import { Header } from "./components/Header"
 import Hero from "./components/Hero"
 import Footer from "./components/Footer";
-import { CalendarQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
+import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
 import Calendar from "./components/Calendar";
 
 
 export default async function Home() {
 
-  const [settings, masterClasses, calendar] = await Promise.all([
+  const [settings, masterClasses, courseModules, calendar] = await Promise.all([
     sanityFetch<SettingsQueryResult>({ query: SettingsQuery }),
     sanityFetch<MasterClassListQueryResult>({ query: MasterClassListQuery }),
+    sanityFetch<CourseModuleListQueryResult>({ query: CourseModuleListQuery }),
     sanityFetch<CalendarQueryResult>({ query: CalendarQuery })
   ])
 
   return (
     <main>
       <div className="min-h-screen max-w-screen-xl mx-auto">
-        <Header settings={settings} />
+        <Header settings={settings} masterClasses={masterClasses} courseModules={courseModules} />
         <Hero></Hero>
 
         <div className="pt-40 h-[800px]">

@@ -1,6 +1,6 @@
 {
-  "name": "web",
-  "version": "0.1.0",
+  "name": "sots-akadeemia-veeb",
+  "version": "0.2.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,10 +10,13 @@
     "gen-types": "npx sanity@latest schema extract && npx sanity@latest typegen generate"
   },
   "dependencies": {
+    "@headlessui/react": "^2.1.5",
+    "@heroicons/react": "^2.1.5",
     "@sanity/color-input": "^3.1.1",
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-url-secret": "^1.6.20",
     "@sanity/vision": "^3.52.4",
+    "date-fns": "^3.6.0",
     "framer-motion": "^11.3.24",
     "next": "14.2.5",
     "next-sanity": "^9.4.3",

@@ -18,6 +18,9 @@ export const structure: StructureResolver = (S) =>
     .items([
       singletonListItem(S, 'settings', 'Seaded')
       .icon(CogIcon),
+      S.divider(),
+      S.documentTypeListItem('genericPage').title('Üldised lehed').icon(PinIcon),
+      S.divider(),
       S.documentTypeListItem('calendar').title('Kalender').icon(CalendarIcon),
       S.divider(),
       S.documentTypeListItem('masterClass').title('Meistriklassid').icon(UsersIcon),
