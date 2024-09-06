@@ -3,10 +3,8 @@ import HeroCard from './HeroCard'
 
 const Hero = () => {
     return (
-        <div className="bg-[url('/static/bg-image.png')] p-10 rounded-md">
+        <div className="bg-[url('/static/bg-image.png')] p-10 rounded-md -mx-5 lg:-mx-10">
             <div className="flex justify-center flex-col pt-40 ">
-
-
                 <div className='grid grid-cols-1 md:grid-cols-4 gap-4 pt-10'>
                     <HeroCard title="Sotsiaaltöö juhtimise meistriklass" />
                     <HeroCard title="Sotsiaaltöö juhtimise meistriklass" />

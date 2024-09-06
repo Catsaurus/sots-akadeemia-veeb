@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: 'selector',
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -16,6 +17,7 @@ const config: Config = {
       'dark': '#140F1C',
       'gray': '#EAEAEA',
       'gray-light': '#F5F5F5',
+      'gray-100': '#F6F6F6',
       'white': '#fff'
     },
     borderRadius: {

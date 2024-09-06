@@ -2,6 +2,7 @@ import { ShortCourseListQueryResult, CalendarQueryResult } from "@/sanity/types"
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import { formatDate } from "date-fns";
 import Link from "next/link";
+import Button from "./Button";
 
 interface ShortCourseTableProps {
     shortCourses: ShortCourseListQueryResult;
@@ -58,10 +59,10 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
                 </td>
                 <td className="px-6 py-3">{ getNextEvent(c.slug?.current) }</td>
                 <td>
-                  <button className="rounded-lg bg-blue px-4 py-2 flex items-center gap-2">
-                    Registreeri
-                    <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                  </button>
+                    <Button>
+                        Registreeri
+                        <ArrowTopRightOnSquareIcon className="h-4 w-4" />
+                    </Button>
                 </td>
               </tr>
             ))}

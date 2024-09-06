@@ -7,7 +7,7 @@ interface NavLinkProps {
 
 export default function NavLink({ to, children }: Readonly<NavLinkProps>) {
     return (
-        <a href={to} className="mx-4 hover:underline">
+        <a href={to} className="mx-4 hover:underline dark:text-white">
             { children }
         </a>
     );

@@ -16,6 +16,7 @@
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-url-secret": "^1.6.20",
     "@sanity/vision": "^3.52.4",
+    "@uidotdev/usehooks": "^2.4.1",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.3.24",
     "next": "14.2.5",

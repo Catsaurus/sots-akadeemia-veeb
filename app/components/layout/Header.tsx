@@ -6,22 +6,28 @@ import Link from "next/link";
 import { CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
 import Dropdown from '../Dropdown';
 import NavLink from '../links/NavLink';
+import { useWindowScroll } from "@uidotdev/usehooks";
 
 interface HeaderProps {
+    onDarkBackground?: boolean;
     settings: SettingsQueryResult;
     masterClasses: MasterClassListQueryResult;
     courseModules: CourseModuleListQueryResult;
 }
 
-export const Header = ({ settings, masterClasses, courseModules }: Readonly<HeaderProps>) => {
+export const Header = ({ onDarkBackground, settings, masterClasses, courseModules }: Readonly<HeaderProps>) => {
 
     const [open, setOpen] = useState(false);
+    const [{ y }] = useWindowScroll();
+
+    const isHeaderSticky = (y ?? 0) > 80;
 
     return (
-        <nav className="flex filter px-4 py-4 h-20 items-center">
+        <nav className={`flex px-4 py-4 h-20 items-center sticky top-0 ${onDarkBackground ? '' : '-mb-[80px]'} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
+            { isHeaderSticky && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-light dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div> }
             <MobileNav open={open} setOpen={setOpen} />
             <div className="flex items-center">
-                <Link href="/">
+                <Link href="/" className="dark:invert">
                     <Logo />
                 </Link>
             </div>

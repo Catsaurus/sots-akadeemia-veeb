@@ -1,10 +1,9 @@
 import React from 'react'
-import Image from "next/image";
 
 
 const Footer = () => {
   return (
-    <div className="bg-[url('/static/bg-image.png')] pt-20">
+    <div className="bg-[url('/static/bg-image.png')] pt-20 mt-auto">
 
       <div className='bg-dark p-20 max-w-screen-xl mx-auto rounded-tr-lg rounded-tl-lg'>
         <p className='text-white'>Sotsiaaltöö akadeemia</p>
