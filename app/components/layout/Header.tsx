@@ -1,10 +1,11 @@
 "use client"
 
 import React, { useState } from 'react'
-import { Logo } from './Logo';
+import { Logo } from '../Logo';
 import Link from "next/link";
 import { CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
-import Dropdown from './Dropdown';
+import Dropdown from '../Dropdown';
+import NavLink from '../links/NavLink';
 
 interface HeaderProps {
     settings: SettingsQueryResult;
@@ -53,18 +54,6 @@ export const Header = ({ settings, masterClasses, courseModules }: Readonly<Head
                             }
                         })
                     }
-                    {/* <NavLink to="/#">
-                        Meistriklassid
-                    </NavLink>
-                    <NavLink to="/#">
-                        Lühiklassid
-                    </NavLink>
-                    <NavLink to="/#">
-                        Kõik ained
-                    </NavLink>
-                    <NavLink to="/#">
-                        Õppetöö korraldus
-                    </NavLink> */}
                 </div>
 
                 <div className="hidden md:flex">
@@ -99,10 +88,4 @@ function MobileNav({ settings, open, setOpen }: any) {
             </div>
         </div>
     )
-}
-
-function NavLink({ to, children }: any) {
-    return <a href={to} className={`mx-4`}>
-        {children}
-    </a>
 }

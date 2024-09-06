@@ -2,9 +2,9 @@ import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { CalendarQuery, CourseModuleListQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
 import MasterClassCardLarge from "./components/MasterClassCardLarge"
-import { Header } from "./components/Header"
+import { Header } from "./components/layout/Header"
 import Hero from "./components/Hero"
-import Footer from "./components/Footer";
+import Footer from "./components/layout/Footer";
 import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
 import Calendar from "./components/Calendar";
 

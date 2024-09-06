@@ -14,7 +14,7 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
     return (
         <Menu as="div" className="relative inline-block text-left">
             <div>
-            <MenuButton className="mx-4 cursor-pointer flex gap-2 items-center" as="a">
+            <MenuButton className="mx-4 cursor-pointer flex gap-2 items-center hover:underline" as="button">
                 {({ active }) => (
                     <>
                     { name }
@@ -23,15 +23,16 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
                 )}
             </MenuButton>
             </div>
-            <MenuItems 
+            <MenuItems
+                modal={false}
                 anchor="bottom"
                 transition
-                className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-75 data-[enter]:ease-out data-[leave]:ease-in"
+                className="absolute right-0 z-10 mt-8 w-56 origin-top-right rounded-sm bg-white shadow-3xl transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-15 data-[enter]:ease-out data-[leave]:ease-in"
             >
             {
                 options.map(option => (
                     <MenuItem key={option.name}>
-                        <a className="block px-4 py-2 text-sm text-gray-700 data-[focus]:bg-gray-100 data-[focus]:text-gray-900" href={`/${option.slug}`}>
+                        <a className="block p-4 text-gray-700 data-[focus]:bg-gray-light hover:bg-gray-light data-[focus]:text-gray-900 transition" href={`/${option.slug}`}>
                             { option.name }
                         </a>
                     </MenuItem>

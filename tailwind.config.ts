@@ -19,6 +19,7 @@ const config: Config = {
       'white': '#fff'
     },
     borderRadius: {
+      'sm': '8px',
       'md': '16px',
       'lg': '40px',
 
@@ -28,6 +29,9 @@ const config: Config = {
         sans: ['var(--font-helvetica)'],
         display: ['var(--font-unbounded)'],
       },
+      boxShadow: {
+        '3xl': '0px 2px 100px 0px #2E2E2EB0',
+      }
     },
   },
   plugins: [],
