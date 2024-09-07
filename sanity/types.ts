@@ -279,7 +279,6 @@ export type GenericPage = {
 export type ShortCourseTable = {
   _type: "shortCourseTable";
   title?: string;
-  description?: string;
 };
 
 export type ShortCourse = {
@@ -320,6 +319,7 @@ export type MasterClass = {
   _rev: string;
   name?: string;
   slug?: Slug;
+  shortDescription?: string;
   body?: Array<{
     children?: Array<{
       marks?: Array<string>;
@@ -458,11 +458,12 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: MasterClassListQuery
-// Query: *[_type == "masterClass"] {    _id,    name,    slug,    color}
+// Query: *[_type == "masterClass"] {    _id,    name,    slug,    shortDescription,    color}
 export type MasterClassListQueryResult = Array<{
   _id: string;
   name: string | null;
   slug: Slug | null;
+  shortDescription: string | null;
   color: Color | null;
 }>;
 // Variable: CourseModuleListQuery
@@ -543,6 +544,7 @@ export type SingleClassModuleCourseQueryResult =
       _rev: string;
       name?: string;
       slug?: Slug;
+      shortDescription?: string;
       body?: Array<{
         children?: Array<{
           marks?: Array<string>;
@@ -835,7 +837,7 @@ export type CalendarEventByCourseQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    color\n}': MasterClassListQueryResult;
+    '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color\n}': MasterClassListQueryResult;
     '*[_type == "courseModule"] {\n  _id,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
     '*[_type == "shortCourse"]{\n  _id,\n  name,\n  "courseModule": @.courseModule->name,\n  slug\n}': ShortCourseListQueryResult;
     "*[slug.current == $slug][0]": SingleClassModuleCourseQueryResult;

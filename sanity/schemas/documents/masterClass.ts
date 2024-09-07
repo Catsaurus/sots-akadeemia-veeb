@@ -32,6 +32,12 @@ export default defineType({
       },
     }),
     defineField({
+      name: 'shortDescription',
+      title: 'Meistriklassi lühikirjeldus',
+      type: 'string',
+      group: 'general',
+    }),
+    defineField({
       name: 'body',
       title: 'Meistriklassi kirjeldus',
       type: 'blockContent',

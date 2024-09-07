@@ -5,6 +5,7 @@ export const MasterClassListQuery = groq`*[_type == "masterClass"] {
     _id,
     name,
     slug,
+    shortDescription,
     color
 }`;
 
@@ -44,7 +45,8 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
   "course": {
     "slug": @.classes->slug.current,
     "name": @.classes->name,
-    "moduleName": @.classes->courseModule->name
+    "moduleName": @.classes->courseModule->name,
+    "color": @.classes->color
   }
 }`;
 

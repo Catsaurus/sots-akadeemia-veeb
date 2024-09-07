@@ -44,17 +44,17 @@ export default function Calendar({ events }: Readonly<CalendarProps>) {
             </div>
             <div className="flex flex-col mt-4">
                 {eventsByYear[selectedYear]?.map(event => (
-                    <div className="border-b border-gray-300 py-5 flex flex-col md:flex-row">
+                    <div key={event._id} className="border-b border-gray-300 py-5 flex flex-col md:flex-row">
                          
-                        <span className="pr-10 text-sm md:text-md">{event.startDate} - {event.endDate}</span>
+                        <span className="pr-10 text-sm md:text-md pt-1">{event.startDate} - {event.endDate}</span>
                          {/* <span className="pr-10 text-md">10.veeb-13.veeb</span>*/}
                         
-                        <Link key={event._id} href={`/${event.course.slug}`} className="flex flex-auto items-center flex-row hover:text-gray-800 hover:pl-1 group transition-all justify-between active:text-gray-400">
+                        <Link key={event._id} href={`/${event.course.slug}`} className="flex flex-auto items-center flex-row md:hover:text-gray-800 md:hover:pl-1 group transition-all justify-between active:text-gray-400">
                             <div className="flex flex-col">
-                                <h6 className="text-xl font-medium group-hover:underline">{event.course.name}</h6>
-                                <small className="text-sm">lühiklass (20 ak), {event.course.moduleName}</small>
+                                <h6 className="text-md md:text-xl font-medium group-hover:underline">{event.course.name}</h6>
+                                <small className="text-xs md:text-sm">lühiklass (20 ak), {event.course.moduleName}</small>
                             </div>
-                            <ArrowRightIcon className="size-6 md:hidden text-gray-400 md:text-dark group-hover:block " />
+                            <ArrowRightIcon className="size-4 md:size-6 md:hidden text-gray-400 md:text-dark group-hover:block " />
                         </Link>
                       
                     </div>

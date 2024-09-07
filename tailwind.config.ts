@@ -36,7 +36,10 @@ const config: Config = {
         display: ['var(--font-unbounded)'],
       },
       boxShadow: {
+        'lg':'0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+        '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
         '3xl': '0px 2px 100px 0px #2E2E2EB0',
+        '4xl': '10px 10px 100px rgba(45.90, 45.90, 45.90, 0.88)',
       }
     },
   },
