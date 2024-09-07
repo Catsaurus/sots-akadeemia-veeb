@@ -24,7 +24,7 @@ export const Header = ({ onDarkBackground, settings, masterClasses, courseModule
 
     return (
         <nav className={`flex px-4 py-4 h-20 items-center sticky top-0 ${onDarkBackground ? '' : '-mb-[80px]'} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
-            { isHeaderSticky && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-light dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div> }
+            { isHeaderSticky && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div> }
             <MobileNav open={open} setOpen={setOpen} />
             <div className="flex items-center">
                 <Link href="/" className="dark:invert">

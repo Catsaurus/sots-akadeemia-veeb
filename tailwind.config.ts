@@ -16,9 +16,13 @@ const config: Config = {
       'yellow': '#E3D4AF',
       'dark': '#140F1C',
       'gray': '#EAEAEA',
-      'gray-light': '#F5F5F5',
+      'white': '#fff',
       'gray-100': '#F6F6F6',
-      'white': '#fff'
+      'gray-200': '#EAEAEA',
+      'gray-300': '#D4D4D4',
+      'gray-400':'#9E9E9D',
+      'gray-800': '#312D38',
+      'gray-900': '#140F1C',
     },
     borderRadius: {
       'sm': '8px',

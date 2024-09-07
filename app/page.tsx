@@ -27,12 +27,13 @@ export default async function Home() {
       headerOnDarkBackground
     >
       <Hero></Hero>
-      <div className="pt-40 h-[800px]">
+      <div className="mt-40 bg-gray-100 rounded-lg p-8 md:p-20">
         <h2 className="font-display mb-8">Kalender</h2>
         <Calendar events={calendar} />
       </div>
 
-      <h2 className="font-display mb-8">Meistriklassid</h2>
+
+      <h2 className="font-display mb-8 pt-40">Meistriklassid</h2>
       <MasterClassCardLarge masterClasses={masterClasses} />
 
 
