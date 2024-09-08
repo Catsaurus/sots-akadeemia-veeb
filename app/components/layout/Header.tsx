@@ -65,7 +65,7 @@ export const Header = ({ onDarkBackground, settings, masterClasses, courseModule
                 </div>
 
                 <div className="hidden md:flex">
-                    <NavLink to="/#">
+                    <NavLink to="/kontakt">
                         Kontakt
                     </NavLink>
                 </div>
@@ -128,6 +128,9 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                         }
                     })
                 }
+                    <NavLink to="/kontakt" className="text-lg">
+                        Kontakt
+                    </NavLink>
             </div>
         </div>
     )

@@ -24,7 +24,9 @@ export default function CourseModulePage({ settings, masterClasses, courseModule
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
-      <Card title="Lühiklassi kaart" content="Content"></Card>
+      <Card title="Lühiklassi kaart">
+        Content
+      </Card>
     </PageLayout>
   )
 }

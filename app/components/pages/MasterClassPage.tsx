@@ -31,16 +31,26 @@ export default function MasterClassPage({ settings, masterClasses, courseModules
       courseModules={courseModules}
       headingContainerBackground={masterClass?.color?.hex}
     >
-      <Card title="Üldinfo" content={!!masterClass?.body && <PortableText value={masterClass?.body} />}></Card>
-      <Card title="Järgmine event" content={events[0] ? format(events[0].startDate!, DATE_FORMAT_LONG) : ''}></Card>
-      <Card title="Keda ootame osalema" content={masterClass?.minParticipants}></Card>
+      <Card title="Üldinfo">
+        {!!masterClass?.body && <PortableText value={masterClass?.body} />}
+      </Card>
+      <Card title="Järgmine event">
+        {events[0] ? format(events[0].startDate!, DATE_FORMAT_LONG) : ''}
+      </Card>
+      <Card title="Keda ootame osalema">
+        {masterClass?.minParticipants}
+      </Card>
 
       <div className='grid grid-cols-2 gap-10'>
-        <Card title="Keda ootame osalema" content={masterClass?.minParticipants}></Card>
-        <Card title="Tasumine" content={masterClass?.minParticipants}></Card>
+        <Card title="Keda ootame osalema">
+          {masterClass?.minParticipants}
+        </Card>
+        <Card title="Tasumine">
+          {masterClass?.minParticipants}
+        </Card>
       </div>
 
-      <Card title="Kes õpetavad?" content={'keegi ikka'}></Card>
+      <Card title="Kes õpetavad?"></Card>
 
       <p>{masterClass?.registrationLink}</p>
     </PageLayout>

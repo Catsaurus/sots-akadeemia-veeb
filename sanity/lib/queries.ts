@@ -43,6 +43,19 @@ export const SettingsQuery = groq`*[_type == "settings"][0]
   }
 }`;
 
+export const ContactQuery = groq`*[_type == "contact"][0]{
+  ...,
+  teachers[]{
+    ...,
+    "name": @->name,
+    "image": @->image,
+    "description": @->description
+  }
+}`;
+
+export const TeachersQuery = groq`*[_type == "teacher"]`;
+
+
 export const CalendarQuery = groq`*[_type == "calendar"]{
   ...,
   "course": {

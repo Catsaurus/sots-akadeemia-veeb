@@ -11,6 +11,7 @@ import menuItem from './schemas/objects/menuItem'
 import genericPage from './schemas/documents/genericPage'
 import shortCourseTable from './schemas/objects/shortCourseTable'
 import textBlock from './schemas/objects/textBlock'
+import contact from './schemas/documents/contact'
 
 
 export const schemaTypes = [
@@ -24,10 +25,11 @@ export const schemaTypes = [
   settings,
   menuItem,
   textBlock,
-  calendar
+  calendar,
+  contact
 ];
 
-export const singletonTypes = new Set(["settings"])
+export const singletonTypes = new Set(['settings', 'contact']);
 
 export const schema: SchemaPluginOptions = {
   types: schemaTypes,

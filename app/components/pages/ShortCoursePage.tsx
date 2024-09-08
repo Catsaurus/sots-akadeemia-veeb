@@ -29,12 +29,20 @@ export const ShortCoursePage = ({ settings, masterClasses, courseModules, shortC
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
-      <Card title="Järgmine event" content={events[0] ? format(events[0].startDate!, DATE_FORMAT_LONG) : ''}></Card>
-      <Card title="Klassi maht" content={shortCourse?.courseSize}></Card>
+      <Card title="Järgmine event">
+        {events[0] ? format(events[0].startDate!, DATE_FORMAT_LONG) : ''}
+      </Card>
+      <Card title="Klassi maht">
+        {shortCourse?.courseSize}
+      </Card>
 
       <div className='grid grid-cols-2 gap-10'>
-        <Card title="Min osalejaid" content={shortCourse?.minParticipants}></Card>
-        <Card title="Max osalejaid" content={shortCourse?.maxParticipants}></Card>
+        <Card title="Min osalejaid">
+          {shortCourse?.minParticipants}
+        </Card>
+        <Card title="Max osalejaid">
+          {shortCourse?.maxParticipants}
+        </Card>
       </div>
     </PageLayout>
   );

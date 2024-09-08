@@ -68,6 +68,22 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type Contact = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
+};
+
 export type Calendar = {
   _id: string;
   _type: "calendar";
@@ -434,6 +450,7 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | Contact
   | Calendar
   | TextBlock
   | MenuItem
@@ -512,6 +529,21 @@ export type SingleClassModuleCourseQueryResult =
       timeConfirmed?: boolean;
       startDate?: string;
       endDate?: string;
+    }
+  | {
+      _id: string;
+      _type: "contact";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
     }
   | {
       _id: string;
@@ -780,6 +812,57 @@ export type SettingsQueryResult = {
     _key: string;
   }>;
 } | null;
+// Variable: ContactQuery
+// Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description  }}
+export type ContactQueryResult = {
+  _id: string;
+  _type: "contact";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  teachers: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    name: string | null;
+    image: {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    } | null;
+    description: string | null;
+  }> | null;
+} | null;
+// Variable: TeachersQuery
+// Query: *[_type == "teacher"]
+export type TeachersQueryResult = Array<{
+  _id: string;
+  _type: "teacher";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  image?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  description?: string;
+}>;
 // Variable: CalendarQuery
 // Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  }}
 export type CalendarQueryResult = Array<{
@@ -852,6 +935,8 @@ declare module "@sanity/client" {
     "*[slug.current == $slug][0]": SingleClassModuleCourseQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
+    '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description\n  }\n}': ContactQueryResult;
+    '*[_type == "teacher"]': TeachersQueryResult;
     '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  }\n}': CalendarQueryResult;
     '*[_type == "calendar" && classes->slug.current == $slug][]': CalendarEventByCourseQueryResult;
   }

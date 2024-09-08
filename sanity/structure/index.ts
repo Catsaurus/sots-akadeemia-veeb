@@ -1,5 +1,5 @@
 import type { StructureBuilder, StructureResolver } from 'sanity/structure'
-import { CalendarIcon, UsersIcon, PinIcon, CogIcon } from '@sanity/icons'
+import { CalendarIcon, UsersIcon, PinIcon, CogIcon, EnvelopeIcon } from '@sanity/icons'
 
 const singletonListItem = (
   S: StructureBuilder,
@@ -18,6 +18,8 @@ export const structure: StructureResolver = (S) =>
     .items([
       singletonListItem(S, 'settings', 'Seaded')
       .icon(CogIcon),
+      singletonListItem(S, 'contact', 'Kontakti leht')
+      .icon(EnvelopeIcon),
       S.divider(),
       S.documentTypeListItem('genericPage').title('Üldised lehed').icon(PinIcon),
       S.divider(),
