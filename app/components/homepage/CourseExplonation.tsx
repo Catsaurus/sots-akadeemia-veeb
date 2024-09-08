@@ -4,7 +4,7 @@ import React from 'react'
 const CourseExplonation = () => {
     return (
         <div className='flex flex-row h-[500px] gap-10'>
-            <div className="flex flex-1 relative">
+            <div className="flex-1 relative hidden lg:flex">
                 <Image
                     src="/static/courseExplonation.png"
                     alt="explonation"

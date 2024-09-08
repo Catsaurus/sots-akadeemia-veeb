@@ -6,7 +6,10 @@ export const MasterClassListQuery = groq`*[_type == "masterClass"] {
     name,
     slug,
     shortDescription,
-    color
+    color,
+    minParticipants,
+    maxParticipants,
+    courseSize
 }`;
 
 export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
@@ -43,10 +46,13 @@ export const SettingsQuery = groq`*[_type == "settings"][0]
 export const CalendarQuery = groq`*[_type == "calendar"]{
   ...,
   "course": {
+    "_type": @.classes->_type,
     "slug": @.classes->slug.current,
     "name": @.classes->name,
     "moduleName": @.classes->courseModule->name,
-    "color": @.classes->color
+    "color": @.classes->color,
+    "maxParticipants": @.classes->maxParticipants,
+    "minParticipants": @.classes->minParticipants
   }
 }`;
 

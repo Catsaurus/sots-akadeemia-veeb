@@ -101,7 +101,13 @@ export default defineType({
       fieldset: 'participants',
       group: 'general',
     }),
-
+    defineField({
+      name: 'courseSize',
+      title: 'Meistriklassi ainemaht',
+      type: 'number',
+      initialValue: 168,
+      description: 'Maht tundides'
+    }),
     defineField({
       name: 'teachers',
       title: 'Kes õpetavad',
@@ -133,13 +139,13 @@ export default defineType({
   preview: {
     select: {
       title: 'name',
+      subtitle: 'shortDescription'
     },
-    prepare: ({ title }) => {
-      const subtitle = 'Viimati muudetud: '
+    prepare: ({ title, subtitle }) => {
 
       return {
         title,
-        subtitle,
+        subtitle
       }
     },
   },

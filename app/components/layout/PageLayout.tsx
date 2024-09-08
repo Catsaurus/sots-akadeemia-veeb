@@ -28,7 +28,7 @@ export default function PageLayout({
                 onDarkBackground={headerOnDarkBackground}
             />
             { !!title && <Container background={headingContainerBackground} className="pb-10 pt-20">
-                <div className="mt-4 -mb-8">
+                <div className="mt-4 inline-block">
                     <BackLink />
                 </div>
                 <h1 className="font-display">{title}</h1>

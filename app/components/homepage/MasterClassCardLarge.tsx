@@ -4,13 +4,13 @@ import { MasterClassListQueryResult } from "@/sanity/types";
 
 const MasterClassCardLarge = ({ masterClasses = [] }: { masterClasses: MasterClassListQueryResult }) => {
     return (
-        <div className="mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
+        <div className="lg:mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
 
             {masterClasses.map((masterClass) =>
                 <div key={masterClass._id} className="rounded-tr-lg rounded-bl-lg group transition"
                     style={{ backgroundColor: masterClass.color?.hex }}>
 
-                    <div className="bg-[url('/static/bg-image.png')] p-4 md:p-6 w-full rounded-tr-lg relative">
+                    <div className="bg-[url('/static/bg-image.png')] p-6 lg:p-8 w-full rounded-tr-lg relative">
                         <span style={{ backgroundColor: masterClass.color?.hex }} className="opacity-40 w-full h-full absolute top-0 left-0 rounded-tr-lg" ></span>
                     </div>
 
@@ -27,11 +27,9 @@ const MasterClassCardLarge = ({ masterClasses = [] }: { masterClasses: MasterCla
                         <p className="text-sm md:text-base">{masterClass.shortDescription}</p>
 
                         <div className="flex flex-row gap-2">
-                            <span className="text-xs md:text-sm pb-1 pt-2 px-2 bg-dark bg-opacity-10 rounded-sm">10-18 osalejat</span>
-                            <span className="text-xs md:text-sm pb-1 pt-2 px-2 bg-dark bg-opacity-10 rounded-sm">168 ak h</span>
+                            <span className="text-xs md:text-sm pb-1 pt-2 px-2 bg-dark bg-opacity-10 rounded-sm">{ masterClass.minParticipants }-{ masterClass.maxParticipants } osalejat</span>
+                            <span className="text-xs md:text-sm pb-1 pt-2 px-2 bg-dark bg-opacity-10 rounded-sm">{ masterClass.courseSize } ak h</span>
                         </div>
-
-                        <span>Loe lähemalt</span>
                         {/*<Link className="p-2 hover:underline underline-offset-2"
                             key={masterClass._id}
                             href={`/${masterClass.slug?.current}`}

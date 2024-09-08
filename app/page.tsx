@@ -35,13 +35,13 @@ export default async function Home() {
         <Calendar events={calendar} />
       </div>
 
-      <div className="mt-60">
+      <div className="lg:mt-60">
         {/*<h2 className="font-display mb-8">..</h2>*/}
         <CourseExplonation></CourseExplonation>
       </div>
 
 
-      <h2 className="font-display mt-60">Meistriklassid</h2>
+      <h2 className="font-display lg:mt-60">Meistriklassid</h2>
       <MasterClassCardLarge masterClasses={masterClasses} />
 
 

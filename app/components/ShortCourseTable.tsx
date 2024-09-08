@@ -1,8 +1,8 @@
 import { ShortCourseListQueryResult, CalendarQueryResult } from "@/sanity/types";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
-import { formatDate } from "date-fns";
 import Link from "next/link";
 import Button from "./Button";
+import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
 
 interface ShortCourseTableProps {
     shortCourses: ShortCourseListQueryResult;
@@ -35,7 +35,7 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
         return '';
       }
   
-      return `${formatDate(event.startDate!, 'dd.MM.yyyy')}${event.endDate ? ' - ' + formatDate(event.endDate, 'dd.MM.yyyy') : ''}`;
+      return formatRange(event.startDate!, event.endDate, DATE_FORMAT);
     }
   
     return (
@@ -55,7 +55,7 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
               <tr key={c._id} className="bg-white">
                 { i === 0 && <td className="px-6 py-3 font-semibold" rowSpan={m.courses.length}>{ m.courseModule }</td> }
                 <td className="px-6 py-3">
-                  <Link href={`/${c.slug?.current}`} target="_blank" className="hover:underline">{ c.name }</Link>
+                  <Link href={`/${c.slug?.current}`} className="hover:underline">{ c.name }</Link>
                 </td>
                 <td className="px-6 py-3">{ getNextEvent(c.slug?.current) }</td>
                 <td>

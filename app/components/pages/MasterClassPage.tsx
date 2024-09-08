@@ -11,6 +11,7 @@ import {
   SettingsQueryResult
 } from '@/sanity/types';
 import PageLayout from '../layout/PageLayout';
+import { DATE_FORMAT_LONG, format } from '@/app/helpers/date.helper';
 
 interface MasterClassPageProps {
   settings: SettingsQueryResult;
@@ -31,10 +32,10 @@ export default function MasterClassPage({ settings, masterClasses, courseModules
       headingContainerBackground={masterClass?.color?.hex}
     >
       <Card title="Üldinfo" content={!!masterClass?.body && <PortableText value={masterClass?.body} />}></Card>
-      <Card title="Järgmine event" content={events[0]?.startDate}></Card>
+      <Card title="Järgmine event" content={events[0] ? format(events[0].startDate!, DATE_FORMAT_LONG) : ''}></Card>
       <Card title="Keda ootame osalema" content={masterClass?.minParticipants}></Card>
 
-      <div className='grid grid-cols-2 cap-10'>
+      <div className='grid grid-cols-2 gap-10'>
         <Card title="Keda ootame osalema" content={masterClass?.minParticipants}></Card>
         <Card title="Tasumine" content={masterClass?.minParticipants}></Card>
       </div>

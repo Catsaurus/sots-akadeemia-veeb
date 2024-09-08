@@ -349,6 +349,7 @@ export type MasterClass = {
   registrationLink?: string;
   minParticipants?: number;
   maxParticipants?: number;
+  courseSize?: number;
   teachers?: Array<{
     _ref: string;
     _type: "reference";
@@ -458,13 +459,16 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: MasterClassListQuery
-// Query: *[_type == "masterClass"] {    _id,    name,    slug,    shortDescription,    color}
+// Query: *[_type == "masterClass"] {    _id,    name,    slug,    shortDescription,    color,    minParticipants,    maxParticipants,    courseSize}
 export type MasterClassListQueryResult = Array<{
   _id: string;
   name: string | null;
   slug: Slug | null;
   shortDescription: string | null;
   color: Color | null;
+  minParticipants: number | null;
+  maxParticipants: number | null;
+  courseSize: number | null;
 }>;
 // Variable: CourseModuleListQuery
 // Query: *[_type == "courseModule"] {  _id,  name,  slug,  color}
@@ -574,6 +578,7 @@ export type SingleClassModuleCourseQueryResult =
       registrationLink?: string;
       minParticipants?: number;
       maxParticipants?: number;
+      courseSize?: number;
       teachers?: Array<{
         _ref: string;
         _type: "reference";
@@ -776,7 +781,7 @@ export type SettingsQueryResult = {
   }>;
 } | null;
 // Variable: CalendarQuery
-// Query: *[_type == "calendar"]{  ...,  "course": {    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name  }}
+// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  }}
 export type CalendarQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -801,9 +806,13 @@ export type CalendarQueryResult = Array<{
   startDate?: string;
   endDate?: string;
   course: {
+    _type: "masterClass" | "shortCourse" | null;
     slug: string | null;
     name: string | null;
     moduleName: null | string;
+    color: Color | null;
+    maxParticipants: number | null;
+    minParticipants: number | null | string;
   };
 }>;
 // Variable: CalendarEventByCourseQuery
@@ -837,13 +846,13 @@ export type CalendarEventByCourseQueryResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color\n}': MasterClassListQueryResult;
+    '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize\n}': MasterClassListQueryResult;
     '*[_type == "courseModule"] {\n  _id,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
     '*[_type == "shortCourse"]{\n  _id,\n  name,\n  "courseModule": @.courseModule->name,\n  slug\n}': ShortCourseListQueryResult;
     "*[slug.current == $slug][0]": SingleClassModuleCourseQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
-    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name\n  }\n}': CalendarQueryResult;
+    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  }\n}': CalendarQueryResult;
     '*[_type == "calendar" && classes->slug.current == $slug][]': CalendarEventByCourseQueryResult;
   }
 }

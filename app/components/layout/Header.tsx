@@ -118,7 +118,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                                 <Accordion key={item._key} title={item.name ?? ''} className="text-lg">
                                     <div className="flex flex-col ms-2 mb-4">
                                         { options.map(o => (
-                                            <NavLink key={item._key} to={`/${o.slug?.current}`} className="text-lg">
+                                            <NavLink key={o.name} to={`/${o.slug?.current}`} className="text-lg">
                                                 { o.name }
                                             </NavLink>
                                         )) }
@@ -127,16 +127,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                             )
                         }
                     })
-                }                
-                {/* <a className="text-xl my-4" href="/#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
-                    Meistriklass 1
-                </a>
-                <a className="text-xl my-4" href="/#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
-                    Meistriklass 1
-                </a>
-                <a className="text-xl my-4" href="/#" onClick={() => setTimeout(() => { setOpen(!open) }, 100)}>
-                    Meistriklass 1
-                </a> */}
+                }
             </div>
         </div>
     )

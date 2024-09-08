@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
 
 interface CalendarProps {
     events: CalendarQueryResult;
@@ -46,7 +47,7 @@ export default function Calendar({ events }: Readonly<CalendarProps>) {
                 {eventsByYear[selectedYear]?.map(event => (
                     <div key={event._id} className="border-b border-gray-300 py-5 flex flex-col md:flex-row">
                          
-                        <span className="pr-10 text-sm md:text-md pt-1">{event.startDate} - {event.endDate}</span>
+                        <span className="pr-10 text-sm md:text-md pt-1">{formatRange(event.startDate!, event.endDate, DATE_FORMAT)}</span>
                          {/* <span className="pr-10 text-md">10.veeb-13.veeb</span>*/}
                         
                         <Link key={event._id} href={`/${event.course.slug}`} className="flex flex-auto items-center flex-row md:hover:text-gray-800 md:hover:pl-1 group transition-all justify-between active:text-gray-400">

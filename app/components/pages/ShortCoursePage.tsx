@@ -10,6 +10,7 @@ import {
   ShortCourse
 } from '@/sanity/types';
 import PageLayout from '../layout/PageLayout';
+import { DATE_FORMAT_LONG, format } from '@/app/helpers/date.helper';
 
 interface ShortCoursePageProps {
   settings: SettingsQueryResult;
@@ -28,10 +29,10 @@ export const ShortCoursePage = ({ settings, masterClasses, courseModules, shortC
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
-      <Card title="Järgmine event" content={events[0]?.startDate}></Card>
+      <Card title="Järgmine event" content={events[0] ? format(events[0].startDate!, DATE_FORMAT_LONG) : ''}></Card>
       <Card title="Klassi maht" content={shortCourse?.courseSize}></Card>
 
-      <div className='grid grid-cols-2 cap-10'>
+      <div className='grid grid-cols-2 gap-10'>
         <Card title="Min osalejaid" content={shortCourse?.minParticipants}></Card>
         <Card title="Max osalejaid" content={shortCourse?.maxParticipants}></Card>
       </div>
