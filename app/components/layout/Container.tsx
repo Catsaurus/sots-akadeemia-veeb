@@ -9,11 +9,13 @@ interface ContainerProps {
 export default function Container({ background, className, children }: Readonly<ContainerProps>) {
 
     return (
-        <section
-            className={`container max-w-screen-xl mx-auto flex flex-col gap-10 px-5 lg:px-10 ${className ?? ''}`}
-            style={background ? { backgroundColor: background } : undefined}
-        >
-            { children }
-        </section>
+        <div className={background ? 'rounded-bl-md' : undefined} style={background ? { backgroundColor: background } : undefined}>
+            <section
+                className={`container max-w-screen-xl mx-auto flex flex-col gap-10 px-5 lg:px-10 ${className ?? ''}`}
+            >
+                { children }
+            </section>
+        </div>
+
     )
 }

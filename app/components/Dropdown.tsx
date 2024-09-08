@@ -18,7 +18,7 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
                 {({ active }) => (
                     <>
                     { name }
-                    <ArrowDownIcon aria-hidden="true" className={`-mt-1 h-4 w-4 text-gray-400 transition ${active ? 'rotate-180' : ''}`} />
+                    <ArrowDownIcon aria-hidden="true" className={`-mt-1 h-4 w-4 transition ${active ? 'rotate-180' : ''}`} />
                     </>
                 )}
             </MenuButton>
