@@ -1,6 +1,12 @@
 import React from 'react'
+import { ReactNode } from "react"
 
-const ContactCard = ({ title, content }) => {
+interface ContactCardProps {
+    title?: ReactNode | string;
+    content?: ReactNode | string;
+}
+
+const ContactCard = ({ title, content}: Readonly<ContactCardProps>) => {
     return (
         <div className="rounded-tr-md rounded-bl-md transition border-gray-200 border flex-1">
 
