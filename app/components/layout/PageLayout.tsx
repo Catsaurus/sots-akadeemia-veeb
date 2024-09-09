@@ -12,7 +12,7 @@ interface PageLayoutProps {
     settings: SettingsQueryResult;
     masterClasses: MasterClassListQueryResult;
     courseModules: CourseModuleListQueryResult;
-    children?: ReactNode | string; 
+    children?: ReactNode | string;
 }
 
 export default function PageLayout({
@@ -21,22 +21,26 @@ export default function PageLayout({
 
     return (
         <main className="min-h-screen flex flex-col">
-            <Header 
+            <Header
                 settings={settings}
                 masterClasses={masterClasses}
                 courseModules={courseModules}
                 onDarkBackground={headerOnDarkBackground}
             />
-            { !!title && <Container background={headingContainerBackground} className="pb-10 pt-20">
-                <div className="mt-4 inline-block">
+            {!!title && <Container background={headingContainerBackground} className="pb-10 pt-20">
+                {/*<div className="mt-4 inline-block">
                     <BackLink />
-                </div>
-                <h1 className="font-display">{title}</h1>
+                </div>*/}
+
             </Container>}
-            <Container className="flex-grow">
-                { children }
+
+            {/*Layout 2*/}
+            <Container className="flex-grow bg-white p-8 rounded-lg">
+                <h1 className="font-display font-normal">{title}</h1>
+                {children}
             </Container>
+
             <Footer />
-      </main>
+        </main>
     )
 }
