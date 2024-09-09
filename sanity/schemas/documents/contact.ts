@@ -9,6 +9,18 @@ export default defineType({
       title: 'Lehe pealkiri',
       type: 'string'
     }),
+
+    defineField({
+      name: 'locationCardTitle',
+      title: 'Asukoha kaardi pealkiri',
+      type: 'string'
+    }),
+    defineField({
+      name: 'contactCardTitle',
+      title: 'Kontakti kaardi pealkiri',
+      type: 'string'
+    }),
+
     defineField({
       name: 'teachers',
       title: 'Akadeemikud',

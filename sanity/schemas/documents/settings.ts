@@ -15,9 +15,43 @@ export default defineType({
     {
       name: 'footer',
       title: 'Jalus'
+    },
+    {
+      name: 'company',
+      title: 'Ettevõte andmed'
     }
   ],
   fields: [
+    defineField({
+      name: 'address',
+      title: 'Ettevõtte aadress',
+      type: 'string',
+      group: 'company'
+    }),
+    defineField({
+      name: 'mainContactEmail',
+      title: 'Ettevõtte põhikontakt, email',
+      type: 'string',
+      group: 'company'
+    }),
+    defineField({
+      name: 'mainContactPhone',
+      title: 'Ettevõtte põhikontakt, telefon',
+      type: 'string',
+      group: 'company'
+    }),
+    defineField({
+      name: 'companyCode',
+      title: 'Registrikood',
+      type: 'string',
+      group: 'company'
+    }),
+    defineField({
+      name: 'bankIban',
+      title: 'Panga IBAN',
+      type: 'string',
+      group: 'company'
+    }),
     defineField({
       name: 'title',
       title: 'Lehe pealkiri',
