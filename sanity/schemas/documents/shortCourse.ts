@@ -11,7 +11,17 @@ export default defineType({
     defineField({
       name: 'name',
       title: 'Lühiklassi nimetus',
-      type: 'string',
+      type: 'string'
+    }),
+    defineField({
+      name: 'shortDescription',
+      title: 'Lühiklassi lühikirjeldus',
+      type: 'string'
+    }),
+    defineField({
+      name: 'body',
+      title: 'Lühiklassi kirjeldus',
+      type: 'blockContent'
     }),
     defineField({
       name: 'slug',
@@ -24,6 +34,11 @@ export default defineType({
       },
     }),
 
+    defineField({
+      name: 'registrationLink',
+      title: 'Registreerimise link (Google Forms)',
+      type: 'url'
+    }),
     defineField({
       name: 'minParticipants',
       title: 'Minimaalne osalejate arv',
@@ -44,7 +59,21 @@ export default defineType({
       initialValue: 20,
       description: 'Maht tundides'
     }),
-
+    defineField({
+      name: 'price',
+      title: 'Hind (€)',
+      type: 'number'
+    }),
+    defineField({
+      name: 'city',
+      title: 'Toimumiskoht (linn)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Toimumiskoha aadress',
+      type: 'string',
+    }),
     defineField({
       name: 'courseModule',
       title: 'Eriklass, kuhu kuulub',

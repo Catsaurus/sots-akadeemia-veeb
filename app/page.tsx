@@ -26,7 +26,6 @@ export default async function Home() {
       settings={settings}
       masterClasses={masterClasses}
       courseModules={courseModules}
-      headerOnDarkBackground
     >
       <Hero events={calendar}></Hero>
 

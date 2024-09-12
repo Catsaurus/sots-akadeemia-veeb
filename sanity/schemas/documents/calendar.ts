@@ -1,3 +1,4 @@
+import { formatDate } from 'date-fns'
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
@@ -18,8 +19,22 @@ export default defineType({
     }),
 
     defineField({
+      name: 'parent',
+      title: 'Sündmus toimub meistri-/eriklassi sündmuse raames',
+      description: 'Vali seotud sündmus',
+      type: 'reference',
+      to: [{ type: 'calendar' }],
+    }),
+
+    defineField({
       name: 'timeConfirmed',
-      title: 'Aeg kinnitatud?',
+      title: 'Toimumise aeg kinnitatud?',
+      type: 'boolean'
+    }),
+
+    defineField({
+      name: 'active',
+      title: 'Sündmusele saab registreerida',
       type: 'boolean'
     }),
 
@@ -35,12 +50,20 @@ export default defineType({
       type: 'date'
     }),
 
-    // klassi valik
-    // kas klass on kinnitatud
-    // kui on kinnitatud, siis kuupäev
-    // kui ei ole kinnitatud, siis aastaaeg + aasta
-    // 
-
-
   ], // list end
+  preview: {
+    select: {
+      title: 'classes.name', 
+      className: 'classes.name',
+      classType: 'classes._type',
+      startDate: 'startDate',
+      endDate: 'endDate',
+    },
+    prepare: ({ className, classType, startDate}) => {
+      return {
+        title: className + ' - ' + formatDate(startDate, 'dd.MM.yyyy'),
+        subtitle: classType === 'shortCourse' ? 'Lühiklass' : classType === 'masterClass' ? 'Meistriklass' : 'Eriklass'
+      }
+    },
+  },
 })

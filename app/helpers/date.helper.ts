@@ -5,7 +5,9 @@ export const DATE_FORMAT_LONG = 'd. MMMM yyyy';
 export const DATE_FORMAT = 'dd.MM.yyyy';
 export const DAY_MONTH_FORMAT = 'dd.MM';
 
-export const format = (date: string, dateFormat: string) => {
+export const EVENT_REGISTRATION_DAYS = 4;
+
+export const format = (date: string | Date, dateFormat: string) => {
     return formatDate(date, dateFormat, { locale: et });
 };
 

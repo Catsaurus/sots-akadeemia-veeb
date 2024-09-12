@@ -4,11 +4,24 @@ export default defineType({
   name: 'courseModule',
   title: 'Eriklass',
   type: 'document',
+  fieldsets: [
+    { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
+  ],
   fields: [
     defineField({
       name: 'name',
-      title: 'Mooduli nimetus',
+      title: 'Eriklassi nimetus',
       type: 'string',
+    }),
+    defineField({
+      name: 'shortDescription',
+      title: 'Eriklassi lühikirjeldus',
+      type: 'string',
+    }),
+    defineField({
+      name: 'body',
+      title: 'Eriklassi kirjeldus',
+      type: 'blockContent',
     }),
     defineField({
       name: 'slug',
@@ -23,19 +36,83 @@ export default defineType({
     }),
     defineField({
       name: 'color',
-      title: 'Mooduli värv',
-      description: 'Seda kuvatakse ainult siin keskkonnas',
+      title: 'Eriklassi värv',
+      type: 'color',
+      options: {
+        disableAlpha: true,
+        colorList: [
+          '#7DD5D0',
+          '#C299A1',
+          '#CE6E52',
+          '#B6C98C',
+          '#E3D4AF'
+        ]
+      }
+    }),
+    defineField({
+      name: 'registrationLink',
+      title: 'Registreerimise link (Google Forms)',
+      type: 'url',
+    }),
+    defineField({
+      name: 'minParticipants',
+      title: 'Minimaalne osalejate arv',
+      type: 'number',
+      initialValue: 10,
+      fieldset: 'participants',
+    }),
+
+    defineField({
+      name: 'maxParticipants',
+      title: 'Maksimaalne osalejate arv',
+      type: 'number',
+      initialValue: 18,
+      fieldset: 'participants',
+    }),
+    defineField({
+      name: 'courseSize',
+      title: 'Eriklassi ainemaht',
+      type: 'number',
+      initialValue: 168,
+      description: 'Maht tundides'
+    }),
+    defineField({
+      name: 'price',
+      title: 'Hind (€)',
+      type: 'number'
+    }),
+    defineField({
+      name: 'city',
+      title: 'Toimumiskoht (linn)',
       type: 'string',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Toimumiskoha aadress',
+      type: 'string',
+    }),
+    defineField({
+      name: 'teachers',
+      title: 'Kes õpetavad',
+      type: 'array',
+      of: [
+        {
+          title: 'Vali akadeemik',
+          type: 'reference',
+          to: [{ type: 'teacher' }],
+        },
+      ],
+      validation: Rule => Rule.unique(),
     }),
   ], // list end
   preview: {
     select: {
       title: 'name', 
       color: 'color',
-      media: '#ccc'
+      media: '#ccc',
+      subtitle: 'shortDescription'
     },
-    prepare: ({title, color}) => {
-      const subtitle = 'Viimati muudetud: '
+    prepare: ({ title, subtitle }) => {
       return {
         title,
         subtitle,

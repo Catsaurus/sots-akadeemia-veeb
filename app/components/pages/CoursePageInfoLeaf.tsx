@@ -3,7 +3,7 @@ import React from 'react'
 interface CoursePageInfoLeafProps {
     bgColorClass: string;
     title: string;
-    info: string;
+    info: string | number;
   }
 
 

@@ -1,32 +1,30 @@
 "use client"
 
 import React from 'react'
-import { Header } from '../layout/Header';
-import { CourseModule, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
-import BackLink from '../links/BackLink';
-import PageLayout from '../layout/PageLayout';
-import Card from '../Card';
+import {
+  CalendarEventByCourseQueryResult,
+  CourseModule,
+  CourseModuleListQueryResult,
+  MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
+import CourseLayout from '../layout/CourseLayout';
 
 interface CourseModulePageProps {
   settings: SettingsQueryResult;
   courseModule: CourseModule;
   masterClasses: MasterClassListQueryResult;
   courseModules: CourseModuleListQueryResult;
+  events: CalendarEventByCourseQueryResult;
 }
 
-export default function CourseModulePage({ settings, masterClasses, courseModules, courseModule }: Readonly<CourseModulePageProps>) {
+export default function CourseModulePage({ settings, masterClasses, courseModules, events, courseModule }: Readonly<CourseModulePageProps>) {
 
   return (
-    <PageLayout
-      title={courseModule?.name}
-      headingContainerBackground={courseModule?.color}
+    <CourseLayout
       settings={settings}
       masterClasses={masterClasses}
       courseModules={courseModules}
-    >
-      <Card title="Lühiklassi kaart">
-        Content
-      </Card>
-    </PageLayout>
+      course={courseModule}
+      events={events}
+    />
   )
 }

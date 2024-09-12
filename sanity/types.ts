@@ -75,6 +75,8 @@ export type Contact = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  locationCardTitle?: string;
+  contactCardTitle?: string;
   teachers?: Array<{
     _ref: string;
     _type: "reference";
@@ -104,7 +106,14 @@ export type Calendar = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "masterClass";
       };
+  parent?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "calendar";
+  };
   timeConfirmed?: boolean;
+  active?: boolean;
   startDate?: string;
   endDate?: string;
 };
@@ -169,6 +178,11 @@ export type Settings = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  address?: string;
+  mainContactEmail?: string;
+  mainContactPhone?: string;
+  companyCode?: string;
+  bankIban?: string;
   title?: string;
   description?: string;
   menu?: Array<
@@ -304,10 +318,33 @@ export type ShortCourse = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  shortDescription?: string;
+  body?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   slug?: Slug;
+  registrationLink?: string;
   minParticipants?: string;
   maxParticipants?: number;
   courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
   courseModule?: {
     _ref: string;
     _type: "reference";
@@ -323,8 +360,41 @@ export type CourseModule = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  shortDescription?: string;
+  body?: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: "span";
+      _key: string;
+    }>;
+    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
+    listItem?: "bullet";
+    markDefs?: Array<{
+      href?: string;
+      _type: "link";
+      _key: string;
+    }>;
+    level?: number;
+    _type: "block";
+    _key: string;
+  }>;
   slug?: Slug;
-  color?: string;
+  color?: Color;
+  registrationLink?: string;
+  minParticipants?: number;
+  maxParticipants?: number;
+  courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
 };
 
 export type MasterClass = {
@@ -366,6 +436,9 @@ export type MasterClass = {
   minParticipants?: number;
   maxParticipants?: number;
   courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
   teachers?: Array<{
     _ref: string;
     _type: "reference";
@@ -493,7 +566,7 @@ export type CourseModuleListQueryResult = Array<{
   _id: string;
   name: string | null;
   slug: Slug | null;
-  color: string | null;
+  color: Color | null;
 }>;
 // Variable: ShortCourseListQuery
 // Query: *[_type == "shortCourse"]{  _id,  name,  "courseModule": @.courseModule->name,  slug}
@@ -526,7 +599,14 @@ export type SingleClassModuleCourseQueryResult =
             _weak?: boolean;
             [internalGroqTypeReferenceTo]?: "shortCourse";
           };
+      parent?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "calendar";
+      };
       timeConfirmed?: boolean;
+      active?: boolean;
       startDate?: string;
       endDate?: string;
     }
@@ -537,6 +617,8 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       title?: string;
+      locationCardTitle?: string;
+      contactCardTitle?: string;
       teachers?: Array<{
         _ref: string;
         _type: "reference";
@@ -552,8 +634,41 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       name?: string;
+      shortDescription?: string;
+      body?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
       slug?: Slug;
-      color?: string;
+      color?: Color;
+      registrationLink?: string;
+      minParticipants?: number;
+      maxParticipants?: number;
+      courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
     }
   | {
       _id: string;
@@ -611,6 +726,9 @@ export type SingleClassModuleCourseQueryResult =
       minParticipants?: number;
       maxParticipants?: number;
       courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
       teachers?: Array<{
         _ref: string;
         _type: "reference";
@@ -678,6 +796,11 @@ export type SingleClassModuleCourseQueryResult =
       _createdAt: string;
       _updatedAt: string;
       _rev: string;
+      address?: string;
+      mainContactEmail?: string;
+      mainContactPhone?: string;
+      companyCode?: string;
+      bankIban?: string;
       title?: string;
       description?: string;
       menu?: Array<
@@ -711,10 +834,33 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       name?: string;
+      shortDescription?: string;
+      body?: Array<{
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }>;
       slug?: Slug;
+      registrationLink?: string;
       minParticipants?: string;
       maxParticipants?: number;
       courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
       courseModule?: {
         _ref: string;
         _type: "reference";
@@ -758,6 +904,11 @@ export type SettingsQueryResult = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
+  address?: string;
+  mainContactEmail?: string;
+  mainContactPhone?: string;
+  companyCode?: string;
+  bankIban?: string;
   title?: string;
   description?: string;
   menu: Array<{
@@ -821,6 +972,8 @@ export type ContactQueryResult = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  locationCardTitle?: string;
+  contactCardTitle?: string;
   teachers: Array<{
     _ref: string;
     _type: "reference";
@@ -885,7 +1038,14 @@ export type CalendarQueryResult = Array<{
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
+  parent?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "calendar";
+  };
   timeConfirmed?: boolean;
+  active?: boolean;
   startDate?: string;
   endDate?: string;
   course: {
@@ -899,7 +1059,7 @@ export type CalendarQueryResult = Array<{
   };
 }>;
 // Variable: CalendarEventByCourseQuery
-// Query: *[_type == "calendar" && classes->slug.current == $slug][]
+// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.classes->_type,      "slug": @.classes->slug.current,      "name": @.classes->name,      "moduleName": @.classes->courseModule->name,      "color": @.classes->color,      "maxParticipants": @.classes->maxParticipants,      "minParticipants": @.classes->minParticipants    }  }}
 export type CalendarEventByCourseQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -920,7 +1080,23 @@ export type CalendarEventByCourseQueryResult = Array<{
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
+  parent: {
+    _type: "calendar" | null;
+    name: string | null;
+    startDate: string | null;
+    endDate: string | null;
+    course: {
+      _type: "masterClass" | "shortCourse" | null;
+      slug: string | null;
+      name: string | null;
+      moduleName: null | string;
+      color: Color | null;
+      maxParticipants: number | null;
+      minParticipants: number | null | string;
+    };
+  };
   timeConfirmed?: boolean;
+  active?: boolean;
   startDate?: string;
   endDate?: string;
 }>;
@@ -938,6 +1114,6 @@ declare module "@sanity/client" {
     '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description\n  }\n}': ContactQueryResult;
     '*[_type == "teacher"]': TeachersQueryResult;
     '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  }\n}': CalendarQueryResult;
-    '*[_type == "calendar" && classes->slug.current == $slug][]': CalendarEventByCourseQueryResult;
+    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.classes->_type,\n      "slug": @.classes->slug.current,\n      "name": @.classes->name,\n      "moduleName": @.classes->courseModule->name,\n      "color": @.classes->color,\n      "maxParticipants": @.classes->maxParticipants,\n      "minParticipants": @.classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
   }
 }

@@ -109,6 +109,21 @@ export default defineType({
       description: 'Maht tundides'
     }),
     defineField({
+      name: 'price',
+      title: 'Hind (€)',
+      type: 'number'
+    }),
+    defineField({
+      name: 'city',
+      title: 'Toimumiskoht (linn)',
+      type: 'string',
+    }),
+    defineField({
+      name: 'address',
+      title: 'Toimumiskoha aadress',
+      type: 'string',
+    }),
+    defineField({
       name: 'teachers',
       title: 'Kes õpetavad',
       type: 'array',

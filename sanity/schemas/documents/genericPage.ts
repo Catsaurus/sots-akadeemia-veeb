@@ -34,15 +34,13 @@ export default defineType({
   preview: {
     select: {
       title: 'name', 
-      color: 'color',
-      media: '#ccc'
+      media: '#ccc',
+      subtitle: 'slug'
     },
-    prepare: ({title, color}) => {
-      const subtitle = 'Viimati muudetud: '
+    prepare: ({title, subtitle}) => {
       return {
         title,
-        subtitle,
-
+        subtitle
       }
     },
   },

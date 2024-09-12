@@ -11,12 +11,13 @@ import Accordion from '../Accordion';
 
 interface HeaderProps {
     onDarkBackground?: boolean;
+    contentOverlap?: boolean;
     settings: SettingsQueryResult;
     masterClasses: MasterClassListQueryResult;
     courseModules: CourseModuleListQueryResult;
 }
 
-export const Header = ({ onDarkBackground, settings, masterClasses, courseModules }: Readonly<HeaderProps>) => {
+export const Header = ({ onDarkBackground, contentOverlap, settings, masterClasses, courseModules }: Readonly<HeaderProps>) => {
 
     const [open, setOpen] = useState(false);
     const [{ y }] = useWindowScroll();
@@ -25,8 +26,8 @@ export const Header = ({ onDarkBackground, settings, masterClasses, courseModule
 
     return (
         <>
-        <nav className={`flex px-4 py-4 h-20 items-center sticky top-0 ${onDarkBackground ? '' : '-mb-[80px]'} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
-            { isHeaderSticky && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div> }
+        <nav className={`flex px-4 py-4 h-20 items-center sticky top-0 ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
+            { (isHeaderSticky || onDarkBackground) && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div> }
 
             <div className="flex items-center">
                 <Link href="/" className="dark:invert">

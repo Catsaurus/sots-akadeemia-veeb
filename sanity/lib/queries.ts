@@ -69,4 +69,21 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
   }
 }`;
 
-export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes->slug.current == $slug][]`;
+export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes->slug.current == $slug][]{
+  ...,
+  "parent": {
+    "_type": @.parent->_type,
+    "name": @.parent->name,
+    "startDate": @.parent->startDate,
+    "endDate": @.parent->endDate,
+    "course": {
+      "_type": @.classes->_type,
+      "slug": @.classes->slug.current,
+      "name": @.classes->name,
+      "moduleName": @.classes->courseModule->name,
+      "color": @.classes->color,
+      "maxParticipants": @.classes->maxParticipants,
+      "minParticipants": @.classes->minParticipants
+    }
+  }
+}`;

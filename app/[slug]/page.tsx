@@ -61,6 +61,7 @@ const Page = async ({ params }: { params: any }) => {
                 masterClasses={masterClasses}
                 courseModules={courseModules}
                 courseModule={pageInfo as unknown as CourseModule}
+                events={events}
             />
         )
     } else if (pageInfo?._type === 'shortCourse') {
