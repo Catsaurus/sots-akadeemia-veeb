@@ -35,7 +35,6 @@ interface CourseLayoutProps {
 export default function CourseLayout({
     headingContainerBackground, settings, masterClasses, courseModules, shortCourses, course, events, calendar
 }: Readonly<CourseLayoutProps>) {
-    console.log(course);
 
     if (!course) {
         return null;
@@ -59,7 +58,7 @@ export default function CourseLayout({
     
           <Container className="pb-10 pt-28 xxl:pt-40">
             <div className={`mb-4 xxl:mb-10 inline-block text-${!headingContainerBackground ? 'white' : 'black'}`}>
-              <BackLink />
+              <BackLink linkToHomePage={course._type !== 'shortCourse'} />
             </div>
             <h1 className={`font-display font-normal text-${!headingContainerBackground ? 'white' : 'black'} mb-8`}>{ course.name }</h1>
     
