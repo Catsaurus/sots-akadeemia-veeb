@@ -1,14 +1,11 @@
 import { ReactNode } from "react";
-import { Header } from "./Header";
+import Header from "./Header";
 import { SettingsQueryResult, MasterClassListQueryResult, CourseModuleListQueryResult } from "@/sanity/types";
-import BackLink from "../links/BackLink";
 import Container from "./Container";
 import Footer from "./Footer";
 
 interface PageLayoutProps {
     title?: string;
-    headingContainerBackground?: string;
-    headerOnDarkBackground?: boolean;
     settings: SettingsQueryResult;
     masterClasses: MasterClassListQueryResult;
     courseModules: CourseModuleListQueryResult;
@@ -17,7 +14,7 @@ interface PageLayoutProps {
 }
 
 export default function PageLayout({
-    title, headingContainerBackground, headerOnDarkBackground, settings, masterClasses, courseModules, isHomepage, children
+    title, settings, masterClasses, courseModules, isHomepage, children
 }: Readonly<PageLayoutProps>) {
 
     return (
@@ -26,16 +23,10 @@ export default function PageLayout({
                 settings={settings}
                 masterClasses={masterClasses}
                 courseModules={courseModules}
-                onDarkBackground={headerOnDarkBackground}
+                onDarkBackground={false}
+                hideHeaderOnTop
             />
-            {!!title && !!isHomepage && <Container background={headingContainerBackground} className="pb-10 pt-20" hasLogoOnPage>
-                {/*<div className="mt-4 inline-block">
-                    <BackLink />
-                </div>*/}
-
-            </Container>}
-
-            <Container className={`flex-grow ${isHomepage ? '' : 'bg-white p-8 rounded-lg'} `} >
+            <Container className={`flex-grow ${isHomepage ? '' : 'bg-white p-8 rounded-lg'} `} hasLogoOnPage={!isHomepage}>
                 <h1 className="font-display font-normal">{title}</h1>
                 {children}
             </Container>

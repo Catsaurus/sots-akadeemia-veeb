@@ -2,7 +2,6 @@ import {
     CalendarEventByCourseQueryResult,
     CalendarQueryResult,
     CourseModuleListQueryResult,
-    MasterClass,
     MasterClassListQueryResult,
     SettingsQueryResult,
     ShortCourseListQueryResult,
@@ -10,7 +9,7 @@ import {
     Teacher
 } from "@/sanity/types";
 import Container from "./Container";
-import { Header } from "./Header";
+import Header from "./Header";
 import BackLink from "../links/BackLink";
 import Footer from "./Footer";
 import { PortableText } from "next-sanity";

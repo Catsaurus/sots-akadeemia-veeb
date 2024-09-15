@@ -13,8 +13,7 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
 
     return (
         <Menu as="div" className="relative inline-block text-left">
-            <div>
-            <MenuButton className="mx-4 cursor-pointer flex gap-2 items-center hover:ring-1 hover:ring-gray-400 rounded-sm px-4 pt-3 pb-2 dark:text-white" as="button">
+            <MenuButton className="mx-1 lg:mx-4 cursor-pointer flex gap-2 items-center hover:ring-1 hover:ring-gray-400 rounded-sm px-2 lg:px-4 pt-3 pb-2 dark:text-white" as="button">
                 {({ active }) => (
                     <>
                     { name }
@@ -22,7 +21,6 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
                     </>
                 )}
             </MenuButton>
-            </div>
             <MenuItems
                 modal={false}
                 anchor="bottom"

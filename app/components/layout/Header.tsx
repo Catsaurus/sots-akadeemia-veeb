@@ -8,17 +8,17 @@ import Dropdown from '../Dropdown';
 import NavLink from '../links/NavLink';
 import { useWindowScroll } from "@uidotdev/usehooks";
 import Accordion from '../Accordion';
-import Container from './Container';
 
 interface HeaderProps {
     onDarkBackground?: boolean;
     contentOverlap?: boolean;
+    hideHeaderOnTop?: boolean;
     settings: SettingsQueryResult;
     masterClasses: MasterClassListQueryResult;
     courseModules: CourseModuleListQueryResult;
 }
 
-export const Header = ({ onDarkBackground, contentOverlap, settings, masterClasses, courseModules }: Readonly<HeaderProps>) => {
+export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnTop, settings, masterClasses, courseModules }: Readonly<HeaderProps>) {
 
     const [open, setOpen] = useState(false);
     const [{ y }] = useWindowScroll();
@@ -27,30 +27,30 @@ export const Header = ({ onDarkBackground, contentOverlap, settings, masterClass
 
     return (
         <>
-            <nav className={`flex h-20 items-center sticky top-0 ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
+            <nav className={`flex h-20 items-center z-10 sticky top-0 ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
                 {(isHeaderSticky || onDarkBackground) && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div>}
-                <div className='container max-w-screen-xl mx-auto flex'>
+                <div className='container max-w-screen-xl mx-auto flex items-center'>
 
-                    <div className="flex items-center">
-                        <div className='hidden lg:flex items-center '>
+                    <div className={`flex items-center ${!isHeaderSticky && hideHeaderOnTop ? 'invisible' : ''}`}>
+                        <div className='hidden lg:flex items-center'>
                             <Link href="/" className="dark:invert px-12">
                                 <Logo />
                             </Link>
                         </div>
 
-                        <Link href="/" className="dark:invert px-12 lg:hidden">
+                        <Link href="/" className="dark:invert px-5 lg:hidden">
                             <Logo />
                         </Link>
 
                     </div>
                     <div className="flex w-full items-center justify-end lg:justify-between">
-                        <button className="z-50 flex relative w-18 h-8 flex-col justify-between items-center lg:hidden" onClick={() => {
+                        <button className="z-50 flex relative w-18 h-8 flex-col justify-between items-center lg:hidden px-5" onClick={() => {
                             setOpen(!open)
                         }}>
                             {!open && <span className="font-display text-md dark:text-white">Menüü</span>}
                         </button>
 
-                        <div className="hidden lg:flex w-full justify-center">
+                        <div className="hidden lg:flex w-full justify-center items-center">
                             {
                                 settings?.menu?.map(item => {
                                     if (item.type === 'reference') {
