@@ -31,8 +31,8 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
                 {(isHeaderSticky || onDarkBackground) && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div>}
                 <div className='container max-w-screen-xl mx-auto flex items-center'>
 
-                    <div className={`flex items-center ${!isHeaderSticky && hideHeaderOnTop ? 'invisible' : ''}`}>
-                        <div className='hidden lg:flex items-center'>
+                    <div className="flex items-center">
+                        <div className={`hidden lg:flex items-center ${!isHeaderSticky && hideHeaderOnTop ? 'invisible' : ''}`}>
                             <Link href="/" className="dark:invert px-12">
                                 <Logo />
                             </Link>
