@@ -27,7 +27,21 @@ export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
 }`;
 
 // Get a single post by its slug
-export const SingleClassModuleCourseQuery = groq`*[slug.current == $slug][0]`;
+export const SingleClassModuleCourseQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{
+  ...,
+  teachers[]{
+    ...,
+    "name": @->name,
+    "image": @->image,
+    "description": @->description
+  },
+  courses[]{
+    ...,
+    "slug": @->slug
+  }
+}`;
+
+export const SingleGenericPageQuery = groq`*[_type == "genericPage" && slug.current == $slug][0]`;
 
 // Get all post slugs
 export const MasterClassPathsQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{
@@ -66,6 +80,21 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
     "color": @.classes->color,
     "maxParticipants": @.classes->maxParticipants,
     "minParticipants": @.classes->minParticipants
+  },
+  "parent": {
+    "_type": @.parent->_type,
+    "name": @.parent->name,
+    "startDate": @.parent->startDate,
+    "endDate": @.parent->endDate,
+    "course": {
+      "_type": @.parent->classes->_type,
+      "slug": @.parent->classes->slug.current,
+      "name": @.parent->classes->name,
+      "moduleName": @.parent->classes->courseModule->name,
+      "color": @.parent->classes->color,
+      "maxParticipants": @.parent->classes->maxParticipants,
+      "minParticipants": @.parent->classes->minParticipants
+    }
   }
 }`;
 
@@ -77,13 +106,13 @@ export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes-
     "startDate": @.parent->startDate,
     "endDate": @.parent->endDate,
     "course": {
-      "_type": @.classes->_type,
-      "slug": @.classes->slug.current,
-      "name": @.classes->name,
-      "moduleName": @.classes->courseModule->name,
-      "color": @.classes->color,
-      "maxParticipants": @.classes->maxParticipants,
-      "minParticipants": @.classes->minParticipants
+      "_type": @.parent->classes->_type,
+      "slug": @.parent->classes->slug.current,
+      "name": @.parent->classes->name,
+      "moduleName": @.parent->classes->courseModule->name,
+      "color": @.parent->classes->color,
+      "maxParticipants": @.parent->classes->maxParticipants,
+      "minParticipants": @.parent->classes->minParticipants
     }
   }
 }`;

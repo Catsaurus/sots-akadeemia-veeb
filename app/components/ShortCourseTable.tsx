@@ -1,17 +1,26 @@
-import { ShortCourseListQueryResult, CalendarQueryResult } from "@/sanity/types";
+import { ShortCourseListQueryResult, CalendarQueryResult, CalendarEventByCourseQueryResult } from "@/sanity/types";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import Button from "./Button";
 import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { useState } from "react";
+import { compareAsc, format } from "date-fns";
+import clsx from "clsx";
+import { sortByStartDate } from "../helpers/event.helper";
 
 
 interface ShortCourseTableProps {
   shortCourses: ShortCourseListQueryResult;
   calendar: CalendarQueryResult;
+  events?: CalendarEventByCourseQueryResult;
+  enableRegister?: boolean;
+  enableDateFilter?: boolean;
 }
 
-export default function ShortCourseTable({ shortCourses, calendar }: Readonly<ShortCourseTableProps>) {
+export default function ShortCourseTable({ shortCourses, calendar, events, enableDateFilter = false, enableRegister = true }: Readonly<ShortCourseTableProps>) {
+  const [selectedEvent, setSelectedEvent] = useState<CalendarEventByCourseQueryResult[0] | undefined>(events ? events[0] : undefined);
+
   const sortedCourses = shortCourses.toSorted((a, b) => a.courseModule!.localeCompare(b.courseModule!));
 
   const courseModules: { courseModule: string; courses: ShortCourseListQueryResult; }[] = [];
@@ -32,7 +41,7 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
     if (!courseSlug) {
       return '';
     }
-    const event = calendar.find(e => e.course.slug === courseSlug);
+    const event = calendar.find(e => e.course.slug === courseSlug && (!enableDateFilter || e.parent.startDate === selectedEvent?.startDate));
     if (!event) {
       return '';
     }
@@ -43,6 +52,19 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
   return (
 
     <div className="mt-10">
+      { enableDateFilter && !!events && 
+      <div className="flex flex-col md:flex-row gap-2 md:gap-3">
+      { events.toSorted(sortByStartDate).map(event => (
+          <button className={clsx(
+              'border border-gray-300 rounded-lg pt-2 pb-1 px-4 hover:border-dark',
+              {
+                  'bg-gray-900 text-white border-gray-900 shadow-lg': event.startDate == selectedEvent?.startDate,
+              },
+          )}
+              key={event._id} onClick={() => setSelectedEvent(event)}
+          >{format(event.startDate!, DATE_FORMAT)}</button>
+      ))}
+  </div> }
       <div className=" md:hidden">
 
         {
@@ -55,7 +77,7 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
                   <div className="flex flex-col w-full">
                     <Link href={`/${c.slug?.current}`} className="">{c.name}
                       <p className="text-xs mt-1">Toimub: {getNextEvent(c.slug?.current)}</p>
-                      <p className=" text-xs">Registreerimine avatud kuni 03.10.2024</p>
+                      { !!enableRegister && <p className="text-xs">Registreerimine avatud kuni 03.10.2024</p> }
                     </Link>
                   </div>
                   <ArrowRightIcon className="size-4 md:size-6 md:hidden text-gray-400 md:text-dark group-hover:block " />
@@ -83,18 +105,18 @@ export default function ShortCourseTable({ shortCourses, calendar }: Readonly<Sh
             <tbody key={m.courseModule} className="border-b border-gray-300">
               {m.courses.map((c, i) => (
                 <tr key={c._id} className="bg-white">
-                  {i === 0 && <td className="py-3" rowSpan={m.courses.length}>{m.courseModule}</td>}
+                  {i === 0 && <td className="px-6 py-3" rowSpan={m.courses.length}>{m.courseModule}</td>}
                   <td className="px-6 py-3">
                     <Link href={`/${c.slug?.current}`} className="underline">{c.name}</Link>
                   </td>
                   <td className="px-6 py-3">{getNextEvent(c.slug?.current)}</td>
-                  <td className="py-2">
+                  { !!enableRegister && <td className="py-2">
                     <p className="text-xs ">Registreerimine avatud kuni 03.10.2024</p>
                     <Button>
                       Registreeri
                       <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
                     </Button>
-                  </td>
+                  </td> }
                 </tr>
               ))}
             </tbody>))

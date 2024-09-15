@@ -5,13 +5,15 @@ import {
   ContactQueryResult,
   CourseModuleListQueryResult,
   MasterClassListQueryResult,
-  SettingsQueryResult
+  SettingsQueryResult,
+  Teacher
 } from '@/sanity/types';
 import { PortableText } from 'next-sanity';
 import PageLayout from '../layout/PageLayout';
-import Card from '../Card';
+import Card from '../cards/Card';
 import { urlFor } from '@/sanity/lib/image';
-import ContactCard from '../ContactCard';
+import ContactCard from '../cards/ContactCard';
+import TeacherCard from '../cards/TeacherCard';
 
 interface ContactPageProps {
   settings: SettingsQueryResult;
@@ -50,9 +52,7 @@ export default function ContactPage({
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8'>
             {
               page?.teachers?.map(teacher => (
-                <Card key={teacher._key} title={teacher.name!}>
-                  {!!teacher.image && <img className="rounded-bl-lg rounded-tr-lg" src={urlFor(teacher.image).width(200).url()} />}
-                  </Card>
+                <TeacherCard key={teacher._key} teacher={teacher as unknown as Teacher} />
               ))
             }
           </div>

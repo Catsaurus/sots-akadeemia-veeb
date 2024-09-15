@@ -577,56 +577,8 @@ export type ShortCourseListQueryResult = Array<{
   slug: Slug | null;
 }>;
 // Variable: SingleClassModuleCourseQuery
-// Query: *[slug.current == $slug][0]
+// Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description  },  courses[]{    ...,    "slug": @->slug  }}
 export type SingleClassModuleCourseQueryResult =
-  | {
-      _id: string;
-      _type: "calendar";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      name?: string;
-      classes?:
-        | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "masterClass";
-          }
-        | {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "shortCourse";
-          };
-      parent?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "calendar";
-      };
-      timeConfirmed?: boolean;
-      active?: boolean;
-      startDate?: string;
-      endDate?: string;
-    }
-  | {
-      _id: string;
-      _type: "contact";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      title?: string;
-      locationCardTitle?: string;
-      contactCardTitle?: string;
-      teachers?: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
-    }
   | {
       _id: string;
       _type: "courseModule";
@@ -662,30 +614,26 @@ export type SingleClassModuleCourseQueryResult =
       price?: number;
       city?: string;
       address?: string;
-      teachers?: Array<{
+      teachers: Array<{
         _ref: string;
         _type: "reference";
         _weak?: boolean;
         _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
-    }
-  | {
-      _id: string;
-      _type: "genericPage";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      name?: string;
-      slug?: Slug;
-      blocks?: Array<
-        | ({
-            _key: string;
-          } & ShortCourseTable)
-        | ({
-            _key: string;
-          } & TextBlock)
-      >;
+        name: string | null;
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        description: string | null;
+      }> | null;
+      courses: null;
     }
   | {
       _id: string;
@@ -715,13 +663,13 @@ export type SingleClassModuleCourseQueryResult =
         _key: string;
       }>;
       color?: Color;
-      courses?: Array<{
+      courses: Array<{
         _ref: string;
         _type: "reference";
         _weak?: boolean;
         _key: string;
-        [internalGroqTypeReferenceTo]?: "shortCourse";
-      }>;
+        slug: Slug | null;
+      }> | null;
       registrationLink?: string;
       minParticipants?: number;
       maxParticipants?: number;
@@ -729,103 +677,27 @@ export type SingleClassModuleCourseQueryResult =
       price?: number;
       city?: string;
       address?: string;
-      teachers?: Array<{
+      teachers: Array<{
         _ref: string;
         _type: "reference";
         _weak?: boolean;
         _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
+        name: string | null;
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        description: string | null;
+      }> | null;
       contact?: string;
       payment?: string;
-    }
-  | {
-      _id: string;
-      _type: "media.tag";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      name?: Slug;
-    }
-  | {
-      _id: string;
-      _type: "sanity.fileAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      source?: SanityAssetSourceData;
-    }
-  | {
-      _id: string;
-      _type: "sanity.imageAsset";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      originalFilename?: string;
-      label?: string;
-      title?: string;
-      description?: string;
-      altText?: string;
-      sha1hash?: string;
-      extension?: string;
-      mimeType?: string;
-      size?: number;
-      assetId?: string;
-      uploadId?: string;
-      path?: string;
-      url?: string;
-      metadata?: SanityImageMetadata;
-      source?: SanityAssetSourceData;
-    }
-  | {
-      _id: string;
-      _type: "settings";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      address?: string;
-      mainContactEmail?: string;
-      mainContactPhone?: string;
-      companyCode?: string;
-      bankIban?: string;
-      title?: string;
-      description?: string;
-      menu?: Array<
-        {
-          _key: string;
-        } & MenuItem
-      >;
-      footerContent?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
     }
   | {
       _id: string;
@@ -867,28 +739,29 @@ export type SingleClassModuleCourseQueryResult =
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "courseModule";
       };
-    }
-  | {
-      _id: string;
-      _type: "teacher";
-      _createdAt: string;
-      _updatedAt: string;
-      _rev: string;
-      name?: string;
-      image?: {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-      };
-      description?: string;
+      teachers: null;
+      courses: null;
     }
   | null;
+// Variable: SingleGenericPageQuery
+// Query: *[_type == "genericPage" && slug.current == $slug][0]
+export type SingleGenericPageQueryResult = {
+  _id: string;
+  _type: "genericPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  blocks?: Array<
+    | ({
+        _key: string;
+      } & ShortCourseTable)
+    | ({
+        _key: string;
+      } & TextBlock)
+  >;
+} | null;
 // Variable: MasterClassPathsQuery
 // Query: *[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{    "params": { "slug": slug.current }  }
 export type MasterClassPathsQueryResult = Array<{
@@ -1017,7 +890,7 @@ export type TeachersQueryResult = Array<{
   description?: string;
 }>;
 // Variable: CalendarQuery
-// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  }}
+// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "moduleName": @.parent->classes->courseModule->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
 export type CalendarQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -1038,11 +911,20 @@ export type CalendarQueryResult = Array<{
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
-  parent?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
+  parent: {
+    _type: "calendar" | null;
+    name: string | null;
+    startDate: string | null;
+    endDate: string | null;
+    course: {
+      _type: "masterClass" | "shortCourse" | null;
+      slug: string | null;
+      name: string | null;
+      moduleName: null | string;
+      color: Color | null;
+      maxParticipants: number | null;
+      minParticipants: number | null | string;
+    };
   };
   timeConfirmed?: boolean;
   active?: boolean;
@@ -1059,7 +941,7 @@ export type CalendarQueryResult = Array<{
   };
 }>;
 // Variable: CalendarEventByCourseQuery
-// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.classes->_type,      "slug": @.classes->slug.current,      "name": @.classes->name,      "moduleName": @.classes->courseModule->name,      "color": @.classes->color,      "maxParticipants": @.classes->maxParticipants,      "minParticipants": @.classes->minParticipants    }  }}
+// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "moduleName": @.parent->classes->courseModule->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
 export type CalendarEventByCourseQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -1108,12 +990,13 @@ declare module "@sanity/client" {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize\n}': MasterClassListQueryResult;
     '*[_type == "courseModule"] {\n  _id,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
     '*[_type == "shortCourse"]{\n  _id,\n  name,\n  "courseModule": @.courseModule->name,\n  slug\n}': ShortCourseListQueryResult;
-    "*[slug.current == $slug][0]": SingleClassModuleCourseQueryResult;
+    '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description\n  },\n  courses[]{\n    ...,\n    "slug": @->slug\n  }\n}': SingleClassModuleCourseQueryResult;
+    '*[_type == "genericPage" && slug.current == $slug][0]': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
     '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description\n  }\n}': ContactQueryResult;
     '*[_type == "teacher"]': TeachersQueryResult;
-    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  }\n}': CalendarQueryResult;
-    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.classes->_type,\n      "slug": @.classes->slug.current,\n      "name": @.classes->name,\n      "moduleName": @.classes->courseModule->name,\n      "color": @.classes->color,\n      "maxParticipants": @.classes->maxParticipants,\n      "minParticipants": @.classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
+    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "moduleName": @.parent->classes->courseModule->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarQueryResult;
+    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "moduleName": @.parent->classes->courseModule->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
   }
 }

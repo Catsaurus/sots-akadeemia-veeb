@@ -5,13 +5,15 @@ import Link from "next/link";
 import { useState } from "react";
 import clsx from 'clsx';
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
-import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
+import { DATE_FORMAT, format, formatRange } from "../helpers/date.helper";
+import { compareAsc, compareDesc, isBefore } from "date-fns";
 
 interface CalendarProps {
+    showFullDate?: boolean;
     events: CalendarQueryResult;
 }
 
-export default function Calendar({ events }: Readonly<CalendarProps>) {
+export default function Calendar({ showFullDate, events }: Readonly<CalendarProps>) {
 
     const [selectedYear, setSelectedYear] = useState<string>(new Date().getFullYear().toString());
 
@@ -20,19 +22,24 @@ export default function Calendar({ events }: Readonly<CalendarProps>) {
         if (!event.startDate) {
             continue;
         }
-        const year = event.startDate.substring(0, 4);
-        const existing = eventsByYear[year];
+        let date;
+        if (!showFullDate) {
+            date = event.startDate.substring(0, 4);
+        } else {
+            date = event.startDate;
+        }
+        const existing = eventsByYear[date];
         if (existing) {
             existing.push(event);
         } else {
-            eventsByYear[year] = [event];
+            eventsByYear[date] = [event];
         }
     }
 
     return (
         <div className="flex flex-col ">
             <div className="flex gap-3">
-                {Object.keys(eventsByYear).map(year => (
+                {Object.keys(eventsByYear).toSorted((a, b) => compareAsc(a, b)).map(year => (
                     <button className={clsx(
                         'border border-gray-300 rounded-lg pt-2 pb-1 px-4 hover:border-dark',
                         {
@@ -40,7 +47,7 @@ export default function Calendar({ events }: Readonly<CalendarProps>) {
                         },
                     )}
                         key={year} onClick={() => setSelectedYear(year)}
-                    >{year}</button>
+                    >{format(year, DATE_FORMAT)}</button>
                 ))}
             </div>
             <div className="flex flex-col mt-4">

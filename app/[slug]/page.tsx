@@ -7,7 +7,8 @@ import {
     SettingsQuery,
     ShortCourseListQuery,
     CalendarEventByCourseQuery,
-    CalendarQuery
+    CalendarQuery,
+    SingleGenericPageQuery
 } from "@/sanity/lib/queries";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { client } from "@/sanity/lib/client";
@@ -23,7 +24,8 @@ import {
     GenericPage as GenericPageType,
     ShortCourseListQueryResult,
     CalendarEventByCourseQueryResult,
-    CalendarQueryResult
+    CalendarQueryResult,
+    SingleGenericPageQueryResult
 } from '@/sanity/types';
 import CourseModulePage from '../components/pages/CourseModulePage';
 import { ShortCoursePage } from '../components/pages/ShortCoursePage';
@@ -35,43 +37,51 @@ export async function generateStaticParams() {
 
 const Page = async ({ params }: { params: any }) => {
 
-    const [settings, masterClasses, courseModules, shortCourses, pageInfo, events, calendar] = await Promise.all([
+    const [settings, masterClasses, courseModules, shortCourses, course, genericPage, events, calendar] = await Promise.all([
         sanityFetch<SettingsQueryResult>({ query: SettingsQuery }),
         sanityFetch<MasterClassListQueryResult>({ query: MasterClassListQuery }),
         sanityFetch<CourseModuleListQueryResult>({ query: CourseModuleListQuery }),
         sanityFetch<ShortCourseListQueryResult>({ query: ShortCourseListQuery, params }),
         sanityFetch<SingleClassModuleCourseQueryResult>({ query: SingleClassModuleCourseQuery, params }),
+        sanityFetch<SingleGenericPageQueryResult>({ query: SingleGenericPageQuery, params }),
         sanityFetch<CalendarEventByCourseQueryResult>({ query: CalendarEventByCourseQuery, params }),
         sanityFetch<CalendarQueryResult>({ query: CalendarQuery, params })
     ]);
 
-    if (pageInfo?._type === 'masterClass') {
+    const type = genericPage?._type ?? course?._type;
+
+    if (type === 'masterClass') {
         return (
-        <MasterClassPage
-            settings={settings}
-            masterClasses={masterClasses}
-            courseModules={courseModules}
-            masterClass={pageInfo as unknown as MasterClass}
-            events={events}
-        />);
-    } else if (pageInfo?._type === 'courseModule') {
+            <MasterClassPage
+                settings={settings}
+                masterClasses={masterClasses}
+                courseModules={courseModules}
+                shortCourses={shortCourses}
+                masterClass={course}
+                events={events}
+                calendar={calendar}
+            />);
+    } else if (type === 'courseModule') {
         return (
             <CourseModulePage
                 settings={settings}
                 masterClasses={masterClasses}
                 courseModules={courseModules}
-                courseModule={pageInfo as unknown as CourseModule}
+                shortCourses={shortCourses}
+                courseModule={course}
                 events={events}
+                calendar={calendar}
             />
         )
-    } else if (pageInfo?._type === 'shortCourse') {
+    } else if (type === 'shortCourse') {
         return (
             <ShortCoursePage
                 settings={settings}
                 masterClasses={masterClasses}
                 courseModules={courseModules}
-                shortCourse={pageInfo as unknown as ShortCourse}
+                shortCourse={course}
                 events={events}
+                calendar={calendar}
             />
         )
     } else {
@@ -81,7 +91,7 @@ const Page = async ({ params }: { params: any }) => {
                 masterClasses={masterClasses}
                 courseModules={courseModules}
                 shortCourses={shortCourses}
-                page={pageInfo as unknown as GenericPageType}
+                page={genericPage as unknown as GenericPageType}
                 calendar={calendar}
             />
         )

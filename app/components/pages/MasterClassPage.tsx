@@ -3,31 +3,40 @@
 import React from 'react'
 import {
   CalendarEventByCourseQueryResult,
+  CalendarQueryResult,
   CourseModuleListQueryResult,
   MasterClass,
   MasterClassListQueryResult,
-  SettingsQueryResult
+  SettingsQueryResult,
+  ShortCourseListQueryResult,
+  SingleClassModuleCourseQueryResult
 } from '@/sanity/types';
 import CourseLayout from '../layout/CourseLayout';
 
 interface MasterClassPageProps {
   settings: SettingsQueryResult;
-  masterClass: MasterClass;
+  masterClass: SingleClassModuleCourseQueryResult;
   events: CalendarEventByCourseQueryResult;
   masterClasses: MasterClassListQueryResult;
   courseModules: CourseModuleListQueryResult;
+  shortCourses: ShortCourseListQueryResult;
+  calendar: CalendarQueryResult;
 }
 
-export default function MasterClassPage({ settings, masterClasses, courseModules, masterClass, events }: Readonly<MasterClassPageProps>) {
+export default function MasterClassPage({
+  settings, masterClasses, courseModules, shortCourses, masterClass, events, calendar
+}: Readonly<MasterClassPageProps>) {
 
   return (
     <CourseLayout 
       settings={settings}
       masterClasses={masterClasses}
       courseModules={courseModules}
+      shortCourses={shortCourses}
       course={masterClass}
       events={events}
-      headingContainerBackground={masterClass.color?.hex}
+      calendar={calendar}
+      headingContainerBackground={(masterClass as MasterClass).color?.hex}
     />
   )
 }
