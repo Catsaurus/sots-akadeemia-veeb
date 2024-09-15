@@ -92,7 +92,6 @@ export type Calendar = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
   classes?:
     | {
         _ref: string;
@@ -120,24 +119,38 @@ export type Calendar = {
 
 export type TextBlock = {
   _type: "textBlock";
-  content?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  content?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
 };
 
 export type MenuItem = {
@@ -190,24 +203,38 @@ export type Settings = {
       _key: string;
     } & MenuItem
   >;
-  footerContent?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  footerContent?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
 };
 
 export type Teacher = {
@@ -228,8 +255,283 @@ export type Teacher = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: string;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
 };
+
+export type GenericPage = {
+  _id: string;
+  _type: "genericPage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  blocks?: Array<
+    | ({
+        _key: string;
+      } & TextBlock)
+    | ({
+        _key: string;
+      } & ShortCourseTable)
+  >;
+};
+
+export type ShortCourseTable = {
+  _type: "shortCourseTable";
+  title?: string;
+};
+
+export type ShortCourse = {
+  _id: string;
+  _type: "shortCourse";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  shortDescription?: string;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  slug?: Slug;
+  registrationLink?: string;
+  minParticipants?: string;
+  maxParticipants?: number;
+  courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
+  courseModule?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "courseModule";
+  };
+};
+
+export type CourseModule = {
+  _id: string;
+  _type: "courseModule";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  shortDescription?: string;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  slug?: Slug;
+  color?: Color;
+  registrationLink?: string;
+  minParticipants?: number;
+  maxParticipants?: number;
+  courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
+};
+
+export type MasterClass = {
+  _id: string;
+  _type: "masterClass";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  slug?: Slug;
+  shortDescription?: string;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
+  color?: Color;
+  courses?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "shortCourse";
+  }>;
+  registrationLink?: string;
+  minParticipants?: number;
+  maxParticipants?: number;
+  courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
+  contact?: string;
+  payment?: string;
+};
+
+export type BlockContent = Array<
+  | {
+      children?: Array<{
+        marks?: Array<string>;
+        text?: string;
+        _type: "span";
+        _key: string;
+      }>;
+      style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+      listItem?: "bullet" | "number";
+      markDefs?: Array<{
+        href?: string;
+        _type: "link";
+        _key: string;
+      }>;
+      level?: number;
+      _type: "block";
+      _key: string;
+    }
+  | {
+      asset?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+      };
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+      _key: string;
+    }
+>;
 
 export type SanityImageCrop = {
   _type: "sanity.imageCrop";
@@ -287,187 +589,6 @@ export type SanityImageMetadata = {
   hasAlpha?: boolean;
   isOpaque?: boolean;
 };
-
-export type GenericPage = {
-  _id: string;
-  _type: "genericPage";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  blocks?: Array<
-    | ({
-        _key: string;
-      } & TextBlock)
-    | ({
-        _key: string;
-      } & ShortCourseTable)
-  >;
-};
-
-export type ShortCourseTable = {
-  _type: "shortCourseTable";
-  title?: string;
-};
-
-export type ShortCourse = {
-  _id: string;
-  _type: "shortCourse";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  shortDescription?: string;
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  slug?: Slug;
-  registrationLink?: string;
-  minParticipants?: string;
-  maxParticipants?: number;
-  courseSize?: number;
-  price?: number;
-  city?: string;
-  address?: string;
-  courseModule?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "courseModule";
-  };
-};
-
-export type CourseModule = {
-  _id: string;
-  _type: "courseModule";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  shortDescription?: string;
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  slug?: Slug;
-  color?: Color;
-  registrationLink?: string;
-  minParticipants?: number;
-  maxParticipants?: number;
-  courseSize?: number;
-  price?: number;
-  city?: string;
-  address?: string;
-  teachers?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }>;
-};
-
-export type MasterClass = {
-  _id: string;
-  _type: "masterClass";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  slug?: Slug;
-  shortDescription?: string;
-  body?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
-  color?: Color;
-  courses?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "shortCourse";
-  }>;
-  registrationLink?: string;
-  minParticipants?: number;
-  maxParticipants?: number;
-  courseSize?: number;
-  price?: number;
-  city?: string;
-  address?: string;
-  teachers?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }>;
-  contact?: string;
-  payment?: string;
-};
-
-export type BlockContent = Array<{
-  children?: Array<{
-    marks?: Array<string>;
-    text?: string;
-    _type: "span";
-    _key: string;
-  }>;
-  style?: "normal" | "h1" | "h2" | "h3" | "h4" | "blockquote";
-  listItem?: "bullet";
-  markDefs?: Array<{
-    href?: string;
-    _type: "link";
-    _key: string;
-  }>;
-  level?: number;
-  _type: "block";
-  _key: string;
-}>;
 
 export type Color = {
   _type: "color";
@@ -529,17 +650,17 @@ export type AllSanitySchemaTypes =
   | MenuItem
   | Settings
   | Teacher
-  | SanityImageCrop
-  | SanityImageHotspot
-  | SanityImageAsset
-  | SanityAssetSourceData
-  | SanityImageMetadata
   | GenericPage
   | ShortCourseTable
   | ShortCourse
   | CourseModule
   | MasterClass
   | BlockContent
+  | SanityImageCrop
+  | SanityImageHotspot
+  | SanityImageAsset
+  | SanityAssetSourceData
+  | SanityImageMetadata
   | Color
   | RgbaColor
   | HsvaColor
@@ -587,24 +708,38 @@ export type SingleClassModuleCourseQueryResult =
       _rev: string;
       name?: string;
       shortDescription?: string;
-      body?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
+      body?: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
       slug?: Slug;
       color?: Color;
       registrationLink?: string;
@@ -631,7 +766,38 @@ export type SingleClassModuleCourseQueryResult =
           crop?: SanityImageCrop;
           _type: "image";
         } | null;
-        description: string | null;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: "reference";
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+              };
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+              _key: string;
+            }
+        > | null;
       }> | null;
       courses: null;
     }
@@ -644,24 +810,38 @@ export type SingleClassModuleCourseQueryResult =
       name?: string;
       slug?: Slug;
       shortDescription?: string;
-      body?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
+      body?: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
       color?: Color;
       courses: Array<{
         _ref: string;
@@ -694,7 +874,38 @@ export type SingleClassModuleCourseQueryResult =
           crop?: SanityImageCrop;
           _type: "image";
         } | null;
-        description: string | null;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: "reference";
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+              };
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+              _key: string;
+            }
+        > | null;
       }> | null;
       contact?: string;
       payment?: string;
@@ -707,24 +918,38 @@ export type SingleClassModuleCourseQueryResult =
       _rev: string;
       name?: string;
       shortDescription?: string;
-      body?: Array<{
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-        listItem?: "bullet";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }>;
+      body?: Array<
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
       slug?: Slug;
       registrationLink?: string;
       minParticipants?: string;
@@ -733,13 +958,62 @@ export type SingleClassModuleCourseQueryResult =
       price?: number;
       city?: string;
       address?: string;
+      teachers: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        name: string | null;
+        image: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        } | null;
+        description: Array<
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: "reference";
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+              };
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+              _key: string;
+            }
+        > | null;
+      }> | null;
       courseModule?: {
         _ref: string;
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "courseModule";
       };
-      teachers: null;
       courses: null;
     }
   | null;
@@ -817,24 +1091,38 @@ export type SettingsQueryResult = {
     dropdownType?: "COURSE_MODULE" | "MASTERCLASS";
     slug: string | null;
   }> | null;
-  footerContent?: Array<{
-    children?: Array<{
-      marks?: Array<string>;
-      text?: string;
-      _type: "span";
-      _key: string;
-    }>;
-    style?: "blockquote" | "h1" | "h2" | "h3" | "h4" | "normal";
-    listItem?: "bullet";
-    markDefs?: Array<{
-      href?: string;
-      _type: "link";
-      _key: string;
-    }>;
-    level?: number;
-    _type: "block";
-    _key: string;
-  }>;
+  footerContent?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
 } | null;
 // Variable: ContactQuery
 // Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description  }}
@@ -864,7 +1152,38 @@ export type ContactQueryResult = {
       crop?: SanityImageCrop;
       _type: "image";
     } | null;
-    description: string | null;
+    description: Array<
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    > | null;
   }> | null;
 } | null;
 // Variable: TeachersQuery
@@ -887,7 +1206,38 @@ export type TeachersQueryResult = Array<{
     crop?: SanityImageCrop;
     _type: "image";
   };
-  description?: string;
+  description?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  >;
 }>;
 // Variable: CalendarQuery
 // Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "moduleName": @.parent->classes->courseModule->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
@@ -897,7 +1247,6 @@ export type CalendarQueryResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
   classes?:
     | {
         _ref: string;
@@ -913,7 +1262,7 @@ export type CalendarQueryResult = Array<{
       };
   parent: {
     _type: "calendar" | null;
-    name: string | null;
+    name: null;
     startDate: string | null;
     endDate: string | null;
     course: {
@@ -948,7 +1297,6 @@ export type CalendarEventByCourseQueryResult = Array<{
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  name?: string;
   classes?:
     | {
         _ref: string;
@@ -964,7 +1312,7 @@ export type CalendarEventByCourseQueryResult = Array<{
       };
   parent: {
     _type: "calendar" | null;
-    name: string | null;
+    name: null;
     startDate: string | null;
     endDate: string | null;
     course: {

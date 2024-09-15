@@ -1,6 +1,7 @@
 import { Teacher } from "@/sanity/types";
 import Card from "./Card";
 import { urlFor } from "@/sanity/lib/image";
+import { PortableText } from "next-sanity";
 
 interface TeacherCardProps {
     teacher: Teacher;
@@ -14,7 +15,7 @@ export default function TeacherCard({ teacher }: Readonly<TeacherCardProps>) {
                 {!!teacher.image && <img className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg" src={urlFor(teacher.image).width(200).url()} />}
                 <div>
                     <h3 className="font-display">{ teacher.name }</h3>
-                    <p>{ teacher.description }</p>
+                    { !!teacher.description && <div><PortableText value={teacher.description} /></div> }
                 </div>
             </div>
 
