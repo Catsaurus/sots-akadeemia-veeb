@@ -12,11 +12,12 @@ interface PageLayoutProps {
     settings: SettingsQueryResult;
     masterClasses: MasterClassListQueryResult;
     courseModules: CourseModuleListQueryResult;
+    isHomepage?: boolean;
     children?: ReactNode | string;
 }
 
 export default function PageLayout({
-    title, headingContainerBackground, headerOnDarkBackground, settings, masterClasses, courseModules, children
+    title, headingContainerBackground, headerOnDarkBackground, settings, masterClasses, courseModules, isHomepage, children
 }: Readonly<PageLayoutProps>) {
 
     return (
@@ -27,18 +28,18 @@ export default function PageLayout({
                 courseModules={courseModules}
                 onDarkBackground={headerOnDarkBackground}
             />
-            {!!title && <Container background={headingContainerBackground} className="pb-10 pt-20">
+            {!!title && !!isHomepage && <Container background={headingContainerBackground} className="pb-10 pt-20" hasLogoOnPage>
                 {/*<div className="mt-4 inline-block">
                     <BackLink />
                 </div>*/}
 
             </Container>}
 
-            {/*Layout 2*/}
-            <Container className="flex-grow bg-white p-8 rounded-lg">
+            <Container className={`flex-grow ${isHomepage ? '' : 'bg-white p-8 rounded-lg'} `} >
                 <h1 className="font-display font-normal">{title}</h1>
                 {children}
             </Container>
+
 
             <Footer />
         </main>

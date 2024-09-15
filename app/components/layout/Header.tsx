@@ -8,6 +8,7 @@ import Dropdown from '../Dropdown';
 import NavLink from '../links/NavLink';
 import { useWindowScroll } from "@uidotdev/usehooks";
 import Accordion from '../Accordion';
+import Container from './Container';
 
 interface HeaderProps {
     onDarkBackground?: boolean;
@@ -26,60 +27,70 @@ export const Header = ({ onDarkBackground, contentOverlap, settings, masterClass
 
     return (
         <>
-        <nav className={`flex px-4 py-4 h-20 items-center sticky top-0 ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
-            { (isHeaderSticky || onDarkBackground) && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div> }
+            <nav className={`flex h-20 items-center sticky top-0 ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'dark backdrop-blur' : 'relative'}`}>
+                {(isHeaderSticky || onDarkBackground) && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 transition-opacity z-[-1]"></div>}
+                <div className='container max-w-screen-xl mx-auto flex'>
 
-            <div className="flex items-center">
-                <Link href="/" className="dark:invert">
-                    <Logo />
-                </Link>
-            </div>
-            <div className="flex w-full items-center justify-end md:justify-between">
-                <button className="z-50 flex relative w-18 h-8 flex-col justify-between items-center md:hidden" onClick={() => {
-                    setOpen(!open)
-                }}>
-                    { !open && <span className="font-display text-md dark:text-white">Menüü</span>}
-                </button>
+                    <div className="flex items-center">
+                        <div className='hidden lg:flex items-center '>
+                            <Link href="/" className="dark:invert px-12">
+                                <Logo />
+                            </Link>
+                        </div>
 
-                <div className="hidden md:flex">
-                    {
-                        settings?.menu?.map(item => {
-                            if (item.type === 'reference') {
-                                return (
-                                    <NavLink key={item._key} to={`/${item.slug}`}>
-                                        { item.name }
-                                    </NavLink>
-                                )
-                            } else {
-                                const options = item.dropdownType === 'MASTERCLASS' ? masterClasses : courseModules;
-                                return (
-                                    <Dropdown key={item._key} name={item.name ?? ''} options={
-                                        options.map(o => ({
-                                            name: o.name!,
-                                            slug: o.slug?.current ?? ''
-                                        })) ?? []
-                                    } />
-                                )
+                        <Link href="/" className="dark:invert px-12 lg:hidden">
+                            <Logo />
+                        </Link>
+
+                    </div>
+                    <div className="flex w-full items-center justify-end lg:justify-between">
+                        <button className="z-50 flex relative w-18 h-8 flex-col justify-between items-center lg:hidden" onClick={() => {
+                            setOpen(!open)
+                        }}>
+                            {!open && <span className="font-display text-md dark:text-white">Menüü</span>}
+                        </button>
+
+                        <div className="hidden lg:flex w-full justify-center">
+                            {
+                                settings?.menu?.map(item => {
+                                    if (item.type === 'reference') {
+                                        return (
+                                            <NavLink key={item._key} to={`/${item.slug}`}>
+                                                {item.name}
+                                            </NavLink>
+                                        )
+                                    } else {
+                                        const options = item.dropdownType === 'MASTERCLASS' ? masterClasses : courseModules;
+                                        return (
+                                            <Dropdown key={item._key} name={item.name ?? ''} options={
+                                                options.map(o => ({
+                                                    name: o.name!,
+                                                    slug: o.slug?.current ?? ''
+                                                })) ?? []
+                                            } />
+                                        )
+                                    }
+                                })
                             }
-                        })
-                    }
-                </div>
+                        </div>
 
-                <div className="hidden md:flex">
-                    <NavLink to="/kontakt">
-                        Kontakt
-                    </NavLink>
+                        <div className="hidden lg:flex">
+                            <NavLink to="/kontakt">
+                                Kontakt
+                            </NavLink>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
-        <MobileNav
-            settings={settings}
-            courseModules={courseModules}
-            masterClasses={masterClasses}
-            open={open}
-            setOpen={setOpen}
-        />
-    </>
+            </nav>
+
+            <MobileNav
+                settings={settings}
+                courseModules={courseModules}
+                masterClasses={masterClasses}
+                open={open}
+                setOpen={setOpen}
+            />
+        </>
     )
 }
 
@@ -98,7 +109,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                 <Link className="text-2xl font-semibold" href="/">
                     <Logo />
                 </Link>
-                <button className="z-50 flex absolute right-5 w-18 h-8 flex-col justify-between items-center md:hidden" onClick={() => {
+                <button className="z-50 flex absolute right-5 w-18 h-8 flex-col justify-between items-center lg:hidden" onClick={() => {
                     setOpen(!open)
                 }}>
                     <span className="font-display text-md">Sulge</span>
@@ -110,7 +121,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                         if (item.type === 'reference') {
                             return (
                                 <NavLink key={item._key} to={`/${item.slug}`} className="text-lg">
-                                    { item.name }
+                                    {item.name}
                                 </NavLink>
                             )
                         } else {
@@ -118,20 +129,20 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                             return (
                                 <Accordion key={item._key} title={item.name ?? ''} className="text-lg">
                                     <div className="flex flex-col ms-2 mb-4">
-                                        { options.map(o => (
+                                        {options.map(o => (
                                             <NavLink key={o.name} to={`/${o.slug?.current}`} className="text-lg">
-                                                { o.name }
+                                                {o.name}
                                             </NavLink>
-                                        )) }
+                                        ))}
                                     </div>
                                 </Accordion>
                             )
                         }
                     })
                 }
-                    <NavLink to="/kontakt" className="text-lg">
-                        Kontakt
-                    </NavLink>
+                <NavLink to="/kontakt" className="text-lg">
+                    Kontakt
+                </NavLink>
             </div>
         </div>
     )

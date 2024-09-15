@@ -38,10 +38,10 @@ export default function Calendar({ showFullDate, events }: Readonly<CalendarProp
 
     return (
         <div className="flex flex-col ">
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-1 md:gap-3">
                 {Object.keys(eventsByYear).toSorted((a, b) => compareAsc(a, b)).map(year => (
                     <button className={clsx(
-                        'border border-gray-300 rounded-lg pt-2 pb-1 px-4 hover:border-dark',
+                        'border border-gray-300 rounded-lg pt-2 pb-1 px-2 md:px-4 hover:border-dark text-xs md:text-base',
                         {
                             'bg-gray-900 text-white border-gray-900 shadow-lg': year == selectedYear,
                         },

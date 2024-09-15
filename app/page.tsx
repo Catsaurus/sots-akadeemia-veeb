@@ -26,6 +26,7 @@ export default async function Home() {
       settings={settings}
       masterClasses={masterClasses}
       courseModules={courseModules}
+      isHomepage={true}
     >
       <Hero events={calendar}></Hero>
 
