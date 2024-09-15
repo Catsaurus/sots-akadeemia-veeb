@@ -37,7 +37,13 @@ export default function GenericPageComponent({
         if (block._type === 'textBlock') {
           return (
             <div key={block._key} className="portable-text">
-              <PortableText value={block.content!} />
+              <PortableText value={block.content!} components={{
+                list: {
+                  'number': (props) => (
+                    <ol className="list-counter">{ props.children }</ol>
+                  )
+                }
+              }} />
             </div>
           );
         }

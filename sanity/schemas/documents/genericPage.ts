@@ -34,8 +34,7 @@ export default defineType({
   preview: {
     select: {
       title: 'name', 
-      media: '#ccc',
-      subtitle: 'slug'
+      subtitle: 'slug.current'
     },
     prepare: ({title, subtitle}) => {
       return {

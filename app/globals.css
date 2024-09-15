@@ -19,6 +19,25 @@ body {
   @apply underline hover:no-underline;
 }
 
+.list-counter {
+  @apply my-2 ps-6;
+  counter-reset: numbered-list-counter;
+}
+
+.list-counter > li {
+  @apply mb-2 ps-2;
+  counter-increment: numbered-list-counter;
+
+  &::before {
+    @apply -ms-8;
+    content: counters(numbered-list-counter, ".") ". ";
+  }
+}
+
+.list-counter > li > .list-counter {
+  @apply ps-2;
+}
+
 
 @layer utilities {
   .text-balance {
