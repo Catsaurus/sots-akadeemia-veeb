@@ -1,10 +1,7 @@
-import Image from "next/image";
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { CalendarQuery, CourseModuleListQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
 import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
-import { Header } from "./components/layout/Header"
 import Hero from "./components/homepage/Hero"
-import Footer from "./components/layout/Footer";
 import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
 import Calendar from "./components/Calendar";
 import PageLayout from "./components/layout/PageLayout";
