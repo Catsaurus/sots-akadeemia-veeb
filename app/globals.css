@@ -15,6 +15,10 @@ body {
   font-weight: 500;
 }
 
+.portable-text a {
+  @apply underline hover:no-underline;
+}
+
 
 @layer utilities {
   .text-balance {

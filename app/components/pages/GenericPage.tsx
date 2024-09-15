@@ -36,7 +36,7 @@ export default function GenericPageComponent({
       { page.blocks?.filter(block => block._type !== 'textBlock' || block.content).map(block => {
         if (block._type === 'textBlock') {
           return (
-            <div key={block._key}>
+            <div key={block._key} className="portable-text">
               <PortableText value={block.content!} />
             </div>
           );

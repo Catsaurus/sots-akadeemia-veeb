@@ -7,11 +7,11 @@ const MasterClassCardLarge = ({ masterClasses = [] }: { masterClasses: MasterCla
         <div className="lg:mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
 
             {masterClasses.map((masterClass) =>
-                <div key={masterClass._id} className="rounded-tr-lg rounded-bl-lg group transition"
+                <div key={masterClass._id} className="rounded-tr-md lg:rounded-tr-lg rounded-bl-md lg:rounded-bl-lg group transition"
                     style={{ backgroundColor: masterClass.color?.hex }}>
 
-                    <div className="bg-[url('/static/bg-image.png')] p-6 lg:p-8 w-full rounded-tr-lg relative">
-                        <span style={{ backgroundColor: masterClass.color?.hex }} className="opacity-40 w-full h-full absolute top-0 left-0 rounded-tr-lg" ></span>
+                    <div className="bg-[url('/static/bg-image.png')] p-6 lg:p-8 w-full rounded-tr-md lg:rounded-tr-lg relative">
+                        <span style={{ backgroundColor: masterClass.color?.hex }} className="opacity-40 w-full h-full absolute top-0 left-0 rounded-tr-md lg:rounded-tr-lg" ></span>
                     </div>
 
 

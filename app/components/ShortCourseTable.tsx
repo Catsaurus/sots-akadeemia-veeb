@@ -56,7 +56,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, enabl
       <div className="flex flex-col md:flex-row gap-2 md:gap-3">
       { events.toSorted(sortByStartDate).map(event => (
           <button className={clsx(
-              'border border-gray-300 rounded-lg pt-2 pb-1 px-4 hover:border-dark',
+              'border border-gray-300 rounded-md lg:rounded-lg pt-2 pb-1 px-4 hover:border-dark',
               {
                   'bg-gray-900 text-white border-gray-900 shadow-lg': event.startDate == selectedEvent?.startDate,
               },

@@ -50,7 +50,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
                             {!open && <span className="font-display text-md dark:text-white">Menüü</span>}
                         </button>
 
-                        <div className="hidden lg:flex w-full justify-center items-center">
+                        <div className="hidden lg:flex w-full justify-center items-center gap-x-1 lg:gap-x-4">
                             {
                                 settings?.menu?.map(item => {
                                     if (item.type === 'reference') {
@@ -115,7 +115,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                     <span className="font-display text-md">Sulge</span>
                 </button>
             </div>
-            <div className="flex flex-col gap-2 ml-4 mt-10">
+            <div className="flex flex-col gap-2 px-4 pt-10">
                 {
                     settings?.menu?.map(item => {
                         if (item.type === 'reference') {

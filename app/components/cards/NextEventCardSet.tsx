@@ -18,12 +18,12 @@ export default function NextEventCardSet({ event, course }: Readonly<NextEventCa
 
     return (
         <div className='flex flex-col gap-2 lg:gap-4 min-w-[40%]'>
-            <div className='bg-blue px-6 py-8 rounded-tr-lg rounded-bl-lg text-center gap-2 flex flex-col w-full'>
+            <div className='bg-blue px-6 py-8 rounded-tr-md lg:rounded-tr-lg rounded-bl-md lg:rounded-bl-lg text-center gap-2 flex flex-col w-full'>
                 <p>Järgmine grupp alustab</p>
                 <p className="font-display font-normal text-md md:text-xl">{ format(event.startDate!, DATE_FORMAT_LONG) }</p>
                 { !!eventRegisterUntilDate && isBefore(new Date(), eventRegisterUntilDate) &&
                 <>
-                <button className='bg-white hover:brightness-95 pt-2 pb-1 px-3 w-full rounded-lg transition'>Registreeri</button>
+                <button className='bg-white hover:brightness-95 pt-2 pb-1 px-3 w-full rounded-md lg:rounded-lg transition'>Registreeri</button>
                 <p>Registreerimine kuni { format(eventRegisterUntilDate, DATE_FORMAT) } (k.a)</p>
                 </> }
             </div>

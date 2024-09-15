@@ -11,7 +11,7 @@ interface AccordionProps {
 export default function Accordion({ title, children, className }: Readonly<AccordionProps>) {
     return (
         <Disclosure>
-            <DisclosureButton className={`px-4 flex items-center gap-2 text-start hover:underline ${className ?? ''}`}>
+            <DisclosureButton className={`px-2 lg:px-4 pt-3 pb-2 flex items-center gap-2 text-start rounded-sm hover:ring-1 hover:ring-gray-400 ${className ?? ''}`}>
                 {({ open }) => (
                     <>
                     { title }

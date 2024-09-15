@@ -35,10 +35,9 @@ export default function ContactPage({
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
-      <div className='bg-white p-8 rounded-lg mb-20'>
+      <div className='bg-white p-8 rounded-md lg:rounded-lg mb-20'>
 
         <div className='mb-40'>
-          <h3 className='font-display text-xl font-normal mb-10'>Kontakt</h3>
           <div className='flex flex-col md:flex-row gap-6'>
             <ContactCard title={"Viime oma koolitusi läbi:"} content={"Suur Kaar 53, Tartu Sissepääs hoovipoolsest uksest"}></ContactCard>
             <ContactCard title={"Küsimuste korral võta ühendust:"} content={"meistriklass@sotsiaalakadeemia.ee, Telefoni nr: 45678987654"}></ContactCard>

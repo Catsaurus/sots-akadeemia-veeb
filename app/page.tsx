@@ -27,7 +27,7 @@ export default async function Home() {
     >
       <Hero events={calendar}></Hero>
 
-      <div className="mt-40 bg-gray-100 rounded-lg p-8 md:p-12 lg:p-20">
+      <div className="mt-40 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
         <h2 className="font-display mb-8">Kalender</h2>
         <Calendar events={calendar} />
       </div>
@@ -48,7 +48,7 @@ export default async function Home() {
       </div>
 */}
 
-      <div className="mt-40 mb-40 bg-gray-100 rounded-lg p-8 md:p-12 lg:p-20">
+      <div className="mt-40 mb-40 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
         <h2 className="font-display mb-8">Kes me oleme?</h2>
         <AboutUs></AboutUs>
       </div>
