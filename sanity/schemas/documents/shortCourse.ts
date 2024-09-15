@@ -1,3 +1,4 @@
+import { isUniqueAcrossAllDocuments } from '@/sanity/lib/isUniqueAcrossAllDocuments'
 import { defineField, defineType } from 'sanity'
 
 export default defineType({
@@ -29,6 +30,7 @@ export default defineType({
       type: 'slug',
       validation: (Rule) => Rule.required(),
       options: {
+        isUnique: isUniqueAcrossAllDocuments,
         source: 'name',
         maxLength: 96,
       },
@@ -73,6 +75,19 @@ export default defineType({
       name: 'address',
       title: 'Toimumiskoha aadress',
       type: 'string',
+    }),
+    defineField({
+      name: 'teachers',
+      title: 'Kes õpetavad',
+      type: 'array',
+      of: [
+        {
+          title: 'Vali akadeemik',
+          type: 'reference',
+          to: [{ type: 'teacher' }],
+        },
+      ],
+      validation: Rule => Rule.unique(),
     }),
     defineField({
       name: 'courseModule',

@@ -11,4 +11,19 @@ export default defineType({
             type: 'blockContent'
         })
     ],
+    preview: {
+        select: {
+          blocks: 'content'
+        },
+        prepare(value) {
+          const block = (value.blocks || []).find((block: any) => block._type === 'block')
+          return {
+            title: block
+              ? block.children
+                .map((span: any) => span.text)
+                .join('')
+              : 'No title'
+          }
+        }
+      }
   })

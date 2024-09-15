@@ -1,3 +1,4 @@
+import { isUniqueAcrossAllDocuments } from '@/sanity/lib/isUniqueAcrossAllDocuments'
 import {defineField, defineType} from 'sanity'
 
 export default defineType({
@@ -17,6 +18,7 @@ export default defineType({
       description: 'See on osa antud lehekülje aadressist. Kui seda muuta, siis varem jagatud lingid võivad olla katki.',
       validation: (Rule) => Rule.required().error('Väli on kohustuslik!'),
       options: {
+        isUnique: isUniqueAcrossAllDocuments,
         source: 'name',
         maxLength: 96,
       },
