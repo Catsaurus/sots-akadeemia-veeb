@@ -7,11 +7,6 @@ export default defineType({
   title: 'Sündmus',
   fields: [
     defineField({
-      name: 'name',
-      title: 'Sündmuse nimetus',
-      type: 'string',
-    }),
-    defineField({
       name: 'classes',
       title: 'Vali klass',
       type: 'reference',
