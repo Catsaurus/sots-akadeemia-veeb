@@ -17,12 +17,27 @@ export default defineType({
     defineField({
       name: 'shortDescription',
       title: 'Eriklassi lühikirjeldus',
-      type: 'string',
+      type: 'text',
     }),
     defineField({
       name: 'body',
       title: 'Eriklassi kirjeldus',
       type: 'blockContent',
+    }),
+    defineField({
+      name: 'expectedParticipants',
+      title: 'Keda ootame osalema',
+      type: 'text'
+    }),
+    defineField({
+      name: 'registrationAndPaymentInfo',
+      title: 'Registreerumine ja tasumine',
+      type: 'blockContent'
+    }),
+    defineField({
+      name: 'organizationalInformation',
+      title: 'Korralduslik info (päevakava jm)',
+      type: 'blockContent'
     }),
     defineField({
       name: 'slug',
@@ -105,6 +120,13 @@ export default defineType({
         },
       ],
       validation: Rule => Rule.unique(),
+    }),
+    defineField({
+      name: 'contactPerson',
+      title: 'Kontaktisik',
+      description: 'Vali akadeemik, kelle andmed kuvatakse kontakti plokis',
+      type: 'reference',
+      to: [{ type: 'teacher' }],
     }),
   ], // list end
   preview: {

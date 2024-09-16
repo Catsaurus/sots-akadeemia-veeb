@@ -1,23 +1,43 @@
+import { PortableText } from "next-sanity";
 import ContentBlock from "./ContentBlock"
+import { ShortCourse } from "@/sanity/types";
 
-export default function ShortCourseSchedule() {
+interface ShortCourseScheduleProps {
+  shortCourse: ShortCourse;
+}
+
+export default function ShortCourseSchedule({ shortCourse }: Readonly<ShortCourseScheduleProps>) {
+  console.log(shortCourse);
     return (
         <ContentBlock title="Korraldus ja päevakava">
-            <div className='flex flex-row gap-8'>
-                <div >
-                  <p className='font-bold'>Päev 1</p>
-                  <p className='text-sm md:text-base'>13:00-14:00 koolitus</p>
-                </div>
-                <div>
-                  <p className='font-bold'>Päev 2</p>
-                  <p className='text-sm md:text-base'>13:00-14:00 koolitus</p>
-                </div>
-                <div>
-                  <p className='font-bold'>Päev 3</p>
-                  <p className='text-sm md:text-base'>13:00-14:00 koolitus</p>
-                </div>
-              </div>
-              <p className='text-sm md:text-base'>Konfliktide lahendamise lühiklassi eesmärgiks on saada ülevaade konflikte käsitlevatest teooriatest sh tutvustamisele tulevad teooriad saavad seostatud praktiliset juhtumite ja olukordadega, kas koolitajate endi praktikast või soovil ja vajadusel osalejate praktikas ette tulnud juhtumite kaudu.</p>        
+          { !!shortCourse.organizationalInformation && <PortableText value={shortCourse.organizationalInformation} components={{ types: {
+            'table': (props) => {
+              console.log(props);
+              const columnCount = props.value.rows[0]?.cells?.length ?? 0;
+              return (
+                <>
+                  <table className="hidden md:table max-w-screen-md">
+                    <tbody>{ props.value.rows.map((row: any, i: number) => (
+                      <tr key={row._key}>
+                        { row.cells.map((cell: string) => i === 0 ? <th className="text-start">{ cell }</th> : <td>{ cell }</td>)}
+                      </tr>
+                      )) }
+                    </tbody>
+                  </table>
+                  <div className="block md:hidden w-full">
+                    { Array.from(Array(columnCount)).map((_, colIndex) => (
+                      <div key={colIndex} className="mb-6">
+                        { props.value.rows.map((row: any, rowIndex: number) => <p key={row._key} className={!rowIndex ? 'font-semibold' : undefined}>
+                          { row.cells[colIndex] }
+                        </p>)}
+                      </div>
+                    )) }
+                  </div>
+                </>
+
+              )
+            }
+          } }} /> }
         </ContentBlock>
     );
 }

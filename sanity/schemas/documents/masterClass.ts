@@ -36,7 +36,7 @@ export default defineType({
     defineField({
       name: 'shortDescription',
       title: 'Meistriklassi lühikirjeldus',
-      type: 'string',
+      type: 'text',
       group: 'general',
     }),
     defineField({
@@ -44,6 +44,21 @@ export default defineType({
       title: 'Meistriklassi kirjeldus',
       type: 'blockContent',
       group: 'general',
+    }),
+    defineField({
+      name: 'expectedParticipants',
+      title: 'Keda ootame osalema',
+      type: 'text'
+    }),
+    defineField({
+      name: 'registrationAndPaymentInfo',
+      title: 'Registreerumine ja tasumine',
+      type: 'blockContent'
+    }),
+    defineField({
+      name: 'organizationalInformation',
+      title: 'Korralduslik info (päevakava jm)',
+      type: 'blockContent'
     }),
     defineField({
       name: 'color',
@@ -140,16 +155,11 @@ export default defineType({
       group: 'general',
     }),
     defineField({
-      name: 'contact',
-      title: 'Meistriklassi kontaktisik',
-      type: 'string',
-      group: 'general',
-    }),
-    defineField({
-      name: 'payment',
-      title: 'Meistriklassi eest tasumine',
-      type: 'string',
-      group: 'general',
+      name: 'contactPerson',
+      title: 'Kontaktisik',
+      description: 'Vali akadeemik, kelle andmed kuvatakse kontakti plokis',
+      type: 'reference',
+      to: [{ type: 'teacher' }],
     }),
 
   ], // fields list end

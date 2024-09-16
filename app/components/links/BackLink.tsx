@@ -8,7 +8,6 @@ interface BackLinkProps {
 export default function BackLink({ linkToHomePage }: Readonly<BackLinkProps>) {
 
     const onBackClick = () => {
-        console.log(document.referrer);
         window.history.back();
     }
 

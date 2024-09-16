@@ -4,6 +4,7 @@ import {
     CourseModuleListQueryResult,
     MasterClassListQueryResult,
     SettingsQueryResult,
+    ShortCourse,
     ShortCourseListQueryResult,
     SingleClassModuleCourseQueryResult,
     Teacher
@@ -72,7 +73,7 @@ export default function CourseLayout({
     
             </div>
     
-            { course._type === 'shortCourse' && <ShortCourseSchedule /> }
+            { course._type === 'shortCourse' && <ShortCourseSchedule shortCourse={course as ShortCourse} /> }
             { course._type === 'masterClass' &&
             <MasterClassSchedule 
                 masterClass={course}
@@ -83,12 +84,14 @@ export default function CourseLayout({
 
 
             <div className='flex flex-col md:flex-row md:gap-10'>
-                <ContentBlock title="Keda ootame osalema">
-                    <p className='text-sm md:text-base'>Konfliktide lahendamise lühiklassi eesmärgiks on saada ülevaade konfliktejate endi praktikast või soovil ja vajadusel osalejate praktikas ette tulnud juhtumite kaudu.</p>
-                </ContentBlock>
-                <ContentBlock title="Registreerumine ja tasumine">
-                    <p className='text-sm md:text-base'> Konfliktide lahendamise lühiklassi eesmärgiks on saada ülevaade konfliktejate endi praktikast või soovil ja vajadusel osalejate praktikas ette tulnud juhtumite kaudu.</p>
-                </ContentBlock>
+                { !!course.expectedParticipants && <ContentBlock title="Keda ootame osalema">
+                    <p className='text-sm md:text-base'>{ course.expectedParticipants }</p>
+                </ContentBlock>}
+                { !!course.registrationAndPaymentInfo && <ContentBlock title="Registreerumine ja tasumine">
+                    <div className='text-sm md:text-base'>
+                        <PortableText value={course.registrationAndPaymentInfo} />
+                    </div>
+                </ContentBlock> }
             </div>
     
             <ContentBlock title="Akadeemikud">
@@ -99,7 +102,14 @@ export default function CourseLayout({
                 </div>
             </ContentBlock>
             <ContentBlock title="Kontakt">
-                <p className='text-sm md:text-base'>..</p>
+                <div className="grid grid-cols-1 md:grid-cols-2">
+                    <p className='text-sm md:text-base'>Aadress: { course.address }</p>
+                    <div>
+                        <p>Küsimuste korral aitab sind { course.contactPerson?.name }</p>
+                        <p className='text-sm md:text-base'>E-post: { course.contactPerson?.email }</p>
+                        <p className='text-sm md:text-base'>Telefon: { course.contactPerson?.phone }</p>
+                    </div>
+                </div>
             </ContentBlock>
           </Container>
           <Footer />

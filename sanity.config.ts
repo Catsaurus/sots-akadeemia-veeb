@@ -11,6 +11,7 @@ import {structureTool} from 'sanity/structure'
 import { structure } from './sanity/structure'
 import { defaultDocumentNode } from './sanity/structure/defaultDocumentNode'
 import { media } from 'sanity-plugin-media'
+import { table } from '@sanity/table';
 
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
@@ -48,7 +49,8 @@ export default defineConfig({
         },
       },
     }),
-    colorInput()
+    colorInput(),
+    table()
   ],
   tools: (prev, {currentUser}) => {
     const isAdmin = currentUser?.roles.some((role) => role.name === 'administrator')

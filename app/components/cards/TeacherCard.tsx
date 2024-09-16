@@ -17,7 +17,7 @@ export default function TeacherCard({ teacher, showContacts }: Readonly<TeacherC
     return (
         <>
         <Card title={teacher.name!}>
-            <div className="flex items-start gap-6 lg:gap-10">
+            <div className="flex flex-col md:flex-row items-start gap-6 lg:gap-10">
                 {!!teacher.image && <img className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg" src={urlFor(teacher.image).width(200).url()} />}
                 <div>
                     <h3 className="font-display font-normal text-xl mb-2">{teacher.name}</h3>

@@ -33,11 +33,21 @@ export const SingleClassModuleCourseQuery = groq`*[_type in ["masterClass", "cou
     ...,
     "name": @->name,
     "image": @->image,
-    "description": @->description
+    "description": @->description,
+    "email": @->email,
+    "phone": @->phone
   },
   courses[]{
     ...,
     "slug": @->slug
+  },
+  contactPerson{
+    ...,
+    "name": @->name,
+    "image": @->image,
+    "description": @->description,
+    "email": @->email,
+    "phone": @->phone
   }
 }`;
 
