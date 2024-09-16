@@ -26,11 +26,13 @@ export default function ContactPage({
   settings, masterClasses, courseModules, page
 }: Readonly<ContactPageProps>) {
 
-  console.log(page);
+  if (!page) {
+    return null;
+  }
 
   return (
     <PageLayout
-      title={page?.title}
+      title={page.title}
       settings={settings}
       masterClasses={masterClasses}
       courseModules={courseModules}
@@ -39,9 +41,17 @@ export default function ContactPage({
 
 
         <div className='flex flex-col md:flex-row gap-6 mb-20'>
-          <ContactCard title={"Viime oma koolitusi läbi:"} content={"Suur Kaar 53, Tartu Sissepääs hoovipoolsest uksest"}></ContactCard>
-          <ContactCard title={"Küsimuste korral võta ühendust:"} content={"meistriklass@sotsiaalakadeemia.ee, Telefoni nr: 45678987654"}></ContactCard>
-          <ContactCard title={"Sotsiaaltöö akadeemia"} content={"Registrikood: 1234567, Panga IBAN: 12456789098765456789"}></ContactCard>
+          <ContactCard title="Viime oma koolitusi läbi:">
+            { settings?.address }
+          </ContactCard>
+          <ContactCard title="Küsimuste korral võta ühendust:">
+            E-post: { settings?.mainContactEmail }<br />
+            Telefon: { settings?.mainContactPhone }
+          </ContactCard>
+          <ContactCard title="Sotsiaaltöö akadeemia">
+            Registrikood: { settings?.companyCode }<br />
+            Pangakonto IBAN: { settings?.bankIban }
+          </ContactCard>
         </div>
 
         <h2 className='font-display text-2xl font-normal mb-10'>Akadeemikud</h2>
@@ -50,7 +60,7 @@ export default function ContactPage({
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16'>
             {
               page?.teachers?.map(teacher => (
-                <TeacherCard key={teacher._key} teacher={teacher as unknown as Teacher} />
+                <TeacherCard key={teacher._key} teacher={teacher as unknown as Teacher} showContacts={true} />
               ))
             }
           </div>

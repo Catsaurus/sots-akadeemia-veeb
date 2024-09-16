@@ -287,6 +287,8 @@ export type Teacher = {
         _key: string;
       }
   >;
+  phone?: string;
+  email?: string;
 };
 
 export type GenericPage = {
@@ -1125,7 +1127,7 @@ export type SettingsQueryResult = {
   >;
 } | null;
 // Variable: ContactQuery
-// Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description  }}
+// Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  }}
 export type ContactQueryResult = {
   _id: string;
   _type: "contact";
@@ -1184,6 +1186,8 @@ export type ContactQueryResult = {
           _key: string;
         }
     > | null;
+    email: string | null;
+    phone: string | null;
   }> | null;
 } | null;
 // Variable: TeachersQuery
@@ -1238,6 +1242,8 @@ export type TeachersQueryResult = Array<{
         _key: string;
       }
   >;
+  phone?: string;
+  email?: string;
 }>;
 // Variable: CalendarQuery
 // Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "moduleName": @.parent->classes->courseModule->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
@@ -1342,7 +1348,7 @@ declare module "@sanity/client" {
     '*[_type == "genericPage" && slug.current == $slug][0]': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
-    '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description\n  }\n}': ContactQueryResult;
+    '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  }\n}': ContactQueryResult;
     '*[_type == "teacher"]': TeachersQueryResult;
     '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "moduleName": @.parent->classes->courseModule->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarQueryResult;
     '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "moduleName": @.parent->classes->courseModule->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;

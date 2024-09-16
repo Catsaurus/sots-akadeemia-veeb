@@ -63,7 +63,9 @@ export const ContactQuery = groq`*[_type == "contact"][0]{
     ...,
     "name": @->name,
     "image": @->image,
-    "description": @->description
+    "description": @->description,
+    "email": @->email,
+    "phone": @->phone
   }
 }`;
 

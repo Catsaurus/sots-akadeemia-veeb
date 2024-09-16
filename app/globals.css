@@ -44,8 +44,8 @@ body {
     text-wrap: balance;
   }
 }
-.custom-truncate > p {
-  -webkit-line-clamp: 3;
+.custom-truncate {
+  -webkit-line-clamp: 10;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;

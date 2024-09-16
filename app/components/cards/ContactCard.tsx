@@ -3,10 +3,10 @@ import { ReactNode } from "react"
 
 interface ContactCardProps {
     title?: ReactNode | string;
-    content?: ReactNode | string;
+    children?: ReactNode | string;
 }
 
-const ContactCard = ({ title, content}: Readonly<ContactCardProps>) => {
+const ContactCard = ({ title, children}: Readonly<ContactCardProps>) => {
     return (
         <div className="rounded-tr-md rounded-bl-md transition border-gray-200 border flex-1">
 
@@ -14,7 +14,9 @@ const ContactCard = ({ title, content}: Readonly<ContactCardProps>) => {
             </div>
             <div className="p-4 flex flex-col">
                 <h6 className="text-md md:text-lg font-display font-normal mb-3 text-gray-900">{title}</h6>
-                <p className="text-sm md:text-base text-gray-800">{content}</p>
+                <p className="text-sm md:text-base text-gray-800">
+                    { children }
+                </p>
             </div>
         </div>
     )
