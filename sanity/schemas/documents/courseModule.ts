@@ -15,11 +15,6 @@ export default defineType({
       type: 'string',
     }),
     defineField({
-      name: 'shortDescription',
-      title: 'Eriklassi lühikirjeldus',
-      type: 'text',
-    }),
-    defineField({
       name: 'body',
       title: 'Eriklassi kirjeldus',
       type: 'blockContent',
