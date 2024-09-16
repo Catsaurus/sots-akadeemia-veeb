@@ -28,7 +28,7 @@ export default function NextEventCardSet({ event, course }: Readonly<NextEventCa
                 </> }
             </div>
 
-            <div className='grid grid-cols-2 lg:grid-cols-4 gap-1 lg:gap-3 w-full'>
+            <div className='grid grid-cols-4 gap-1 lg:gap-3 w-full'>
                 <CoursePageInfoLeaf bgColorClass={'bg-green'} title={"Maht"} info={course.courseSize ?? ''}></CoursePageInfoLeaf>
                 <CoursePageInfoLeaf bgColorClass={'bg-pink'} title={"Toimumiskoht"} info={course.city ?? ''}></CoursePageInfoLeaf>
                 <CoursePageInfoLeaf bgColorClass={'bg-yellow'} title={"Osalejad"} info={`${course.minParticipants} - ${course.maxParticipants}`}></CoursePageInfoLeaf>

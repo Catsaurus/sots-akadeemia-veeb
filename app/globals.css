@@ -45,7 +45,7 @@ body {
   }
 }
 .custom-truncate {
-  -webkit-line-clamp: 10;
+  -webkit-line-clamp: 6;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
