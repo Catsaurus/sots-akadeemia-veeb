@@ -1,5 +1,5 @@
 import { CalendarEventByCourseQueryResult, SettingsQueryResult } from "@/sanity/types"
-import { compareAsc, isBefore, startOfDay, subDays } from "date-fns"
+import { compareAsc, isBefore, endOfDay, subDays } from "date-fns"
 import { DATE_FORMAT, format } from "./date.helper";
 
 export const EVENT_REGISTRATION_DAYS = 7;
@@ -9,7 +9,7 @@ export const sortByStartDate = (event1: CalendarEventByCourseQueryResult[0], eve
 };
 
 export const isEventRegisterable = (event: CalendarEventByCourseQueryResult[0]) => {
-    return event.active && isBefore(new Date(), startOfDay(getEventRegisterableUntilDate(event)))
+    return event.active && isBefore(new Date(), endOfDay(getEventRegisterableUntilDate(event)))
 }
 
 export const getEventRegisterableUntilDate = (event: CalendarEventByCourseQueryResult[0]) => {

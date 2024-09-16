@@ -20,13 +20,6 @@ export default defineType({
       type: 'reference',
       to: [{ type: 'calendar' }],
     }),
-
-    defineField({
-      name: 'timeConfirmed',
-      title: 'Toimumise aeg kinnitatud?',
-      type: 'boolean'
-    }),
-
     defineField({
       name: 'active',
       title: 'Sündmusele saab registreerida',
