@@ -75,7 +75,8 @@ export default defineType({
       group: 'registerInterestLinks',
       validation: Rule => Rule.required().uri({
         scheme: ['https']
-      })
+      }),
+      description: 'NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama klassi nime välja query parameetrit'
     }),
     defineField({
       name: 'registerInterestCourseModule',
@@ -84,7 +85,9 @@ export default defineType({
       group: 'registerInterestLinks',
       validation: Rule => Rule.required().uri({
         scheme: ['https']
-      })
+      }),
+      description: 'NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama klassi nime välja query parameetrit'
+
     }),
     defineField({
       name: 'registerInterestMasterClass',
@@ -93,7 +96,8 @@ export default defineType({
       group: 'registerInterestLinks',
       validation: Rule => Rule.required().uri({
         scheme: ['https']
-      })
+      }),
+      description: 'NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama klassi nime välja query parameetrit'
     }),
     defineField({
       name: 'menu',

@@ -100,6 +100,7 @@ export default defineType({
       title: 'Registreerimise link (Google Forms)',
       type: 'url',
       group: 'general',
+      description: 'NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit'
     }),
     defineField({
       name: 'minParticipants',
