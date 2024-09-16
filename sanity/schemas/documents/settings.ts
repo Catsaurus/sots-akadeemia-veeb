@@ -19,6 +19,10 @@ export default defineType({
     {
       name: 'company',
       title: 'Ettevõte andmed'
+    },
+    {
+      name: 'registerInterestLinks',
+      title: 'Registreeri huvi lingid'
     }
   ],
   fields: [
@@ -63,6 +67,33 @@ export default defineType({
       title: 'Lehe kirjeldus',
       type: 'string',
       group: 'seo'
+    }),
+    defineField({
+      name: 'registerInterestShortCourse',
+      title: 'Registreeri huvi lühiklassile',
+      type: 'url',
+      group: 'registerInterestLinks',
+      validation: Rule => Rule.required().uri({
+        scheme: ['https']
+      })
+    }),
+    defineField({
+      name: 'registerInterestCourseModule',
+      title: 'Registreeri huvi eriklassile',
+      type: 'url',
+      group: 'registerInterestLinks',
+      validation: Rule => Rule.required().uri({
+        scheme: ['https']
+      })
+    }),
+    defineField({
+      name: 'registerInterestMasterClass',
+      title: 'Registreeri huvi meistriklassile',
+      type: 'url',
+      group: 'registerInterestLinks',
+      validation: Rule => Rule.required().uri({
+        scheme: ['https']
+      })
     }),
     defineField({
       name: 'menu',

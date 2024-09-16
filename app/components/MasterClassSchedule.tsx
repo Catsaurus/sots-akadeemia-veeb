@@ -1,6 +1,7 @@
 import {
     CalendarEventByCourseQueryResult,
     CalendarQueryResult,
+    SettingsQueryResult,
     ShortCourseListQueryResult,
     SingleClassModuleCourseQueryResult
 } from "@/sanity/types";
@@ -12,9 +13,10 @@ interface MasterClassSchedule {
     events: CalendarEventByCourseQueryResult;
     calendar: CalendarQueryResult;
     shortCourses: ShortCourseListQueryResult;
+    settings: SettingsQueryResult;
 }
 
-export default function MasterClassSchedule({ shortCourses, masterClass, events, calendar }: Readonly<MasterClassSchedule>) {
+export default function MasterClassSchedule({ shortCourses, masterClass, events, calendar, settings }: Readonly<MasterClassSchedule>) {
 
 
     console.log(masterClass, events, calendar);
@@ -29,6 +31,7 @@ export default function MasterClassSchedule({ shortCourses, masterClass, events,
                 events={events}
                 enableDateFilter
                 enableRegister={false}
+                settings={settings}
             />
         </ContentBlock>
     )

@@ -14,6 +14,7 @@ export const MasterClassListQuery = groq`*[_type == "masterClass"] {
 
 export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
   _id,
+  _type,
   name,
   slug,
   color
@@ -21,9 +22,11 @@ export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
 
 export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
   _id,
+  _type,
   name,
   "courseModule": @.courseModule->name,
-  slug
+  slug,
+  registrationLink
 }`;
 
 // Get a single post by its slug

@@ -201,6 +201,9 @@ export type Settings = {
   bankIban?: string;
   title?: string;
   description?: string;
+  registerInterestShortCourse?: string;
+  registerInterestCourseModule?: string;
+  registerInterestMasterClass?: string;
   menu?: Array<
     {
       _key: string;
@@ -273,7 +276,6 @@ export type ShortCourse = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  shortDescription?: string;
   body?: Array<
     | {
         children?: Array<{
@@ -416,7 +418,6 @@ export type CourseModule = {
   _updatedAt: string;
   _rev: string;
   name?: string;
-  shortDescription?: string;
   body?: Array<
     | {
         children?: Array<{
@@ -950,20 +951,23 @@ export type MasterClassListQueryResult = Array<{
   courseSize: number | null;
 }>;
 // Variable: CourseModuleListQuery
-// Query: *[_type == "courseModule"] {  _id,  name,  slug,  color}
+// Query: *[_type == "courseModule"] {  _id,  _type,  name,  slug,  color}
 export type CourseModuleListQueryResult = Array<{
   _id: string;
+  _type: "courseModule";
   name: string | null;
   slug: Slug | null;
   color: Color | null;
 }>;
 // Variable: ShortCourseListQuery
-// Query: *[_type == "shortCourse"]{  _id,  name,  "courseModule": @.courseModule->name,  slug}
+// Query: *[_type == "shortCourse"]{  _id,  _type,  name,  "courseModule": @.courseModule->name,  slug,  registrationLink}
 export type ShortCourseListQueryResult = Array<{
   _id: string;
+  _type: "shortCourse";
   name: string | null;
   courseModule: string | null;
   slug: Slug | null;
+  registrationLink: string | null;
 }>;
 // Variable: SingleClassModuleCourseQuery
 // Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  courses[]{    ...,    "slug": @->slug  },  contactPerson{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  }}
@@ -975,7 +979,6 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       name?: string;
-      shortDescription?: string;
       body?: Array<
         | ({
             _key: string;
@@ -1449,7 +1452,6 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       name?: string;
-      shortDescription?: string;
       body?: Array<
         | ({
             _key: string;
@@ -1723,6 +1725,9 @@ export type SettingsQueryResult = {
   bankIban?: string;
   title?: string;
   description?: string;
+  registerInterestShortCourse?: string;
+  registerInterestCourseModule?: string;
+  registerInterestMasterClass?: string;
   menu: Array<{
     _key: string;
     _type: "menuItem";
@@ -2014,8 +2019,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize\n}': MasterClassListQueryResult;
-    '*[_type == "courseModule"] {\n  _id,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
-    '*[_type == "shortCourse"]{\n  _id,\n  name,\n  "courseModule": @.courseModule->name,\n  slug\n}': ShortCourseListQueryResult;
+    '*[_type == "courseModule"] {\n  _id,\n  _type,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
+    '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": @.courseModule->name,\n  slug,\n  registrationLink\n}': ShortCourseListQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  courses[]{\n    ...,\n    "slug": @->slug\n  },\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  }\n}': SingleClassModuleCourseQueryResult;
     '*[_type == "genericPage" && slug.current == $slug][0]': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;

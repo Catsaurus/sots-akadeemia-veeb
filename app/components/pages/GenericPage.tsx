@@ -50,7 +50,7 @@ export default function GenericPageComponent({
         }
         if (block._type === 'shortCourseTable') {
           return (
-            <ShortCourseTable key={block._key} shortCourses={shortCourses} calendar={calendar} />
+            <ShortCourseTable key={block._key} shortCourses={shortCourses} calendar={calendar} settings={settings} />
           )
         }
         return null;

@@ -19,7 +19,7 @@ import ShortCourseSchedule from "../ShortCourseSchedule";
 import ContentBlock from "../ContentBlock";
 import MasterClassSchedule from "../MasterClassSchedule";
 import NextEventCardSet from "../cards/NextEventCardSet";
-import { sortByStartDate } from "@/app/helpers/event.helper";
+import { isEventRegisterable, sortByStartDate } from "@/app/helpers/event.helper";
 
 interface CourseLayoutProps {
     headingContainerBackground?: string;
@@ -41,7 +41,7 @@ export default function CourseLayout({
         return null;
     }
 
-    const nextEvent = events.toSorted(sortByStartDate)[0];
+    const nextEvent = events.toSorted(sortByStartDate).filter(isEventRegisterable)[0];
     
     return (
         <main className="min-h-screen flex flex-col">
@@ -66,10 +66,10 @@ export default function CourseLayout({
             <div className='flex flex-col-reverse md:flex-row gap-4 mb-10'>
 
                 <ContentBlock title="Õppe sisu">
-                    <div className='text-sm md:text-base'>{ course.body ? <PortableText value={course.body} /> : course.shortDescription }</div>
+                    <div className='text-sm md:text-base'>{ course.body ? <PortableText value={course.body} /> : undefined }</div>
                 </ContentBlock>
     
-              { nextEvent ? <NextEventCardSet event={nextEvent} course={course} /> : null }
+                <NextEventCardSet event={nextEvent} course={course} settings={settings} />
     
             </div>
     
@@ -80,6 +80,7 @@ export default function CourseLayout({
                 shortCourses={shortCourses!}
                 events={events}
                 calendar={calendar}
+                settings={settings}
             /> }
 
 

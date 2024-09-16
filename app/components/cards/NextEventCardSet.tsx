@@ -1,30 +1,43 @@
-import { CalendarEventByCourseQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
+import { CalendarEventByCourseQueryResult, SettingsQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
 import CoursePageInfoLeaf from "../pages/CoursePageInfoLeaf";
-import { isBefore, subDays } from "date-fns";
-import { DATE_FORMAT, DATE_FORMAT_LONG, EVENT_REGISTRATION_DAYS, format } from "@/app/helpers/date.helper";
+import { DATE_FORMAT, DATE_FORMAT_LONG, format } from "@/app/helpers/date.helper";
+import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent } from "@/app/helpers/event.helper";
+import Button from "../Button";
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 
 interface NextEventCardSetProps {
     event: CalendarEventByCourseQueryResult[0];
     course: SingleClassModuleCourseQueryResult;
+    settings: SettingsQueryResult;
 }
 
-export default function NextEventCardSet({ event, course }: Readonly<NextEventCardSetProps>) {
+export default function NextEventCardSet({ event, course, settings }: Readonly<NextEventCardSetProps>) {
 
     if (!course) {
         return null;
     }
 
-    const eventRegisterUntilDate = subDays(event.startDate!, EVENT_REGISTRATION_DAYS);
+    const eventRegisterUntilDate = event ? getEventRegisterableUntilDate(event) : undefined;
 
     return (
-        <div className='flex flex-col gap-2 lg:gap-4 min-w-[40%]'>
+        <div className='flex flex-col gap-2 lg:gap-4 min-w-[45%]'>
             <div className='bg-blue px-6 py-8 rounded-tr-md lg:rounded-tr-lg rounded-bl-md lg:rounded-bl-lg text-center gap-2 flex flex-col w-full'>
-                <p>Järgmine grupp alustab</p>
+                { !!eventRegisterUntilDate && <>
+                <p>Registreerimine avatud</p>
                 <p className="font-display font-normal text-md md:text-xl">{ format(event.startDate!, DATE_FORMAT_LONG) }</p>
-                { !!eventRegisterUntilDate && isBefore(new Date(), eventRegisterUntilDate) &&
-                <>
-                <button className='bg-white hover:brightness-95 pt-2 pb-1 px-3 w-full rounded-md lg:rounded-lg transition'>Registreeri</button>
+                <Button size="lg" onClick={() => handleRegisterToEvent(event, course)}>
+                    Registreeri
+                    <ArrowTopRightOnSquareIcon className="-mt-1 h-5 w-5" />
+                </Button>
                 <p>Registreerimine kuni { format(eventRegisterUntilDate, DATE_FORMAT) } (k.a)</p>
+                </> }
+                { !eventRegisterUntilDate && <>
+                    <p className="font-display font-normal text-md md:text-xl">Klass ei ole registreerimiseks avatud</p>
+                    <Button size="lg"  onClick={() => handleRegisterInterest(settings, course)}>
+                        Registreeri huvi
+                        <ArrowTopRightOnSquareIcon className="-mt-1 h-5 w-5" />
+                    </Button>
+                    <p>Kui on piisavalt huvilisi, planeerime klassi avamist.</p>
                 </> }
             </div>
 
