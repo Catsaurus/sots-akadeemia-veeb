@@ -119,7 +119,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
                 const nextRegisterableEvent = getCourseEvents(c.slug!.current).filter(isEventRegisterable)[0];
                 return (
                 <tr key={c._id} className="bg-white">
-                  {i === 0 && <td className="pr-6 py-3" rowSpan={m.courses.length}>{m.courseModule}</td>}
+                  {i === 0 && <td className="pr-6 py-3 align-top" rowSpan={m.courses.length}>{m.courseModule}</td>}
                   <td className="px-6 py-3">
                     <Link href={`/${c.slug?.current}`} className="underline">{c.name}</Link>
                   </td>

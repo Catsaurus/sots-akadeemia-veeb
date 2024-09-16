@@ -1,8 +1,8 @@
-import { CalendarEventByCourseQueryResult, CourseModuleListQueryResult, SettingsQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types"
+import { CalendarEventByCourseQueryResult, SettingsQueryResult } from "@/sanity/types"
 import { compareAsc, isBefore, startOfDay, subDays } from "date-fns"
 import { DATE_FORMAT, format } from "./date.helper";
 
-export const EVENT_REGISTRATION_DAYS = 4;
+export const EVENT_REGISTRATION_DAYS = 7;
 
 export const sortByStartDate = (event1: CalendarEventByCourseQueryResult[0], event2: CalendarEventByCourseQueryResult[0]) => {
     return compareAsc(event1.startDate!, event2.startDate!);
