@@ -26,8 +26,8 @@ export default function PageLayout({
                 onDarkBackground={false}
                 hideHeaderOnTop
             />
-            <Container className={`flex-grow ${isHomepage ? '' : 'bg-white p-8 rounded-md lg:rounded-lg'} `} hasLogoOnPage={!isHomepage}>
-                <h1 className="font-display font-normal">{title}</h1>
+            <Container className={`flex-grow mb-6 md:mb-16 ${isHomepage ? '' : 'bg-white p-8 rounded-md lg:rounded-lg'} `} hasLogoOnPage={!isHomepage}>
+               {title && <h1 className="font-display text-2xl md:text-4xl font-normal mt-6 lg:mt-10 mb-6 lg:mb-10">{title}</h1> }
                 {children}
             </Container>
 

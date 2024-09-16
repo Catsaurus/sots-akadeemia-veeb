@@ -51,7 +51,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, enabl
 
   return (
 
-    <div className="mt-10">
+    <div className="">
       { enableDateFilter && !!events && 
       <div className="flex flex-col md:flex-row gap-2 md:gap-3">
       { events.toSorted(sortByStartDate).map(event => (
@@ -65,11 +65,11 @@ export default function ShortCourseTable({ shortCourses, calendar, events, enabl
           >{format(event.startDate!, DATE_FORMAT)}</button>
       ))}
   </div> }
-      <div className=" md:hidden">
+      <div className="flex flex-col gap-10 md:hidden">
 
         {
           courseModules.map(m => (
-            <div key={m.courseModule} className="mb-10">
+            <div key={m.courseModule} className="">
               <h3 className="font-display text-gray-900 mb-3">{m.courseModule}</h3>
 
               {m.courses.map((c, i) => (
@@ -94,7 +94,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, enabl
       <table className="hidden md:table w-full text-sm text-left text-gray-500">
         <thead className="text-xs text-gray-700 bg-gray-50">
           <tr>
-            <th className="px-6 py-3">Eriklass</th>
+            <th className="pr-6 py-3 w-[200px]">Eriklass</th>
             <th className="px-6 py-3">Lühiklass</th>
             <th className="px-6 py-3">Toimumise aeg</th>
             <th className="px-6 py-3"></th>
@@ -105,7 +105,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, enabl
             <tbody key={m.courseModule} className="border-b border-gray-300">
               {m.courses.map((c, i) => (
                 <tr key={c._id} className="bg-white">
-                  {i === 0 && <td className="px-6 py-3" rowSpan={m.courses.length}>{m.courseModule}</td>}
+                  {i === 0 && <td className="pr-6 py-3" rowSpan={m.courses.length}>{m.courseModule}</td>}
                   <td className="px-6 py-3">
                     <Link href={`/${c.slug?.current}`} className="underline">{c.name}</Link>
                   </td>

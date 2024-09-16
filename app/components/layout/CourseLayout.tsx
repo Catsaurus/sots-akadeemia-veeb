@@ -60,7 +60,7 @@ export default function CourseLayout({
             <div className={`mb-4 xxl:mb-10 inline-block text-${!headingContainerBackground ? 'white' : 'black'}`}>
               <BackLink linkToHomePage={course._type !== 'shortCourse'} />
             </div>
-            <h1 className={`font-display font-normal text-${!headingContainerBackground ? 'white' : 'black'} mb-8`}>{ course.name }</h1>
+            <h1 className={`font-display font-normal text-2xl md:text-4xl text-${!headingContainerBackground ? 'white' : 'black'} mb-8`}>{ course.name }</h1>
     
             <div className='flex flex-col-reverse md:flex-row gap-4 mb-10'>
 
@@ -92,7 +92,6 @@ export default function CourseLayout({
             </div>
     
             <ContentBlock title="Akadeemikud">
-                <p className='text-sm md:text-base'>Mingi akadeemikute kirjeldav tekst?</p>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 mt-5">
                     { course.teachers?.map(teacher => (
                         <TeacherCard key={teacher._key} teacher={teacher as unknown as Teacher} />

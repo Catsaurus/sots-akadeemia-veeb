@@ -33,6 +33,7 @@ export default function GenericPageComponent({
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
+      <div className='flex flex-col gap-10'>
       { page.blocks?.filter(block => block._type !== 'textBlock' || block.content).map(block => {
         if (block._type === 'textBlock') {
           return (
@@ -55,6 +56,7 @@ export default function GenericPageComponent({
         return null;
       })
       }
+      </div>
     </PageLayout>
   );
 }

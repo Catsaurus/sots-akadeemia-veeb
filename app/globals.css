@@ -44,10 +44,21 @@ body {
     text-wrap: balance;
   }
 }
+.custom-truncate > p {
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
 /*h2 {
   font-size: 24px; /*text 2xl
-}*/
+}
+  h1 {
+  font-size: 32px;
+}
+  
+*/
 
 .header__pseudo-element--bottom {
   --r: 10px; /* the radius */
@@ -92,10 +103,6 @@ body {
      #0000 25%,#000 0);
 }
 
-
-h1 {
-  font-size: 32px;
-}
 
 .hero-text-1 {
   font-size: 40px;

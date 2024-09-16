@@ -28,7 +28,7 @@ export default async function Home() {
       <Hero events={calendar}></Hero>
 
       <div className="mt-40 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
-        <h2 className="font-display mb-8">Kalender</h2>
+        <h2 className="font-display mb-10 text-2xl font-normal">Kalender</h2>
         <Calendar events={calendar} />
       </div>
 
@@ -38,18 +38,18 @@ export default async function Home() {
       </div>
 
 
-      <h2 className="font-display lg:mt-60">Meistriklassid</h2>
+      <h2 className="font-display mb-10 text-2xl font-normal lg:mt-60">Meistriklassid</h2>
       <MasterClassCardLarge masterClasses={masterClasses} />
 
 
 
       {/* <div className="pt-40 h-60">
-        <h2 className="font-display mb-8">Mida meie lõpetajad arvavad?</h2>
+        <h2 className="font-display mb-10 text-2xl font-normal mb-8">Mida meie lõpetajad arvavad?</h2>
       </div>
 */}
 
       <div className="mt-40 mb-40 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
-        <h2 className="font-display mb-8">Kes me oleme?</h2>
+        <h2 className="font-display mb-10 text-2xl font-normal">Kes me oleme?</h2>
         <AboutUs></AboutUs>
       </div>
     </PageLayout>

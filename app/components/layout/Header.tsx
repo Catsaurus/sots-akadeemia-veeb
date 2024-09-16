@@ -33,7 +33,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
 
                     <div className="flex items-center">
                         <div className={`hidden lg:flex items-center ${!isHeaderSticky && hideHeaderOnTop ? 'invisible' : ''}`}>
-                            <Link href="/" className="dark:invert px-12">
+                            <Link href="/" className="dark:invert px-8 xl:px-12">
                                 <Logo />
                             </Link>
                         </div>
@@ -50,7 +50,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
                             {!open && <span className="font-display text-md dark:text-white">Menüü</span>}
                         </button>
 
-                        <div className="hidden lg:flex w-full justify-center items-center gap-x-1 lg:gap-x-4">
+                        <div className="hidden lg:flex w-full justify-center items-center  lg:gap-x-4">
                             {
                                 settings?.menu?.map(item => {
                                     if (item.type === 'reference') {
@@ -74,7 +74,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
                             }
                         </div>
 
-                        <div className="hidden lg:flex">
+                        <div className="hidden lg:flex lg:w-[200px] xl:w-[300px] justify-end">
                             <NavLink to="/kontakt">
                                 Kontakt
                             </NavLink>
