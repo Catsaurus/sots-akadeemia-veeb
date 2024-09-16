@@ -78,7 +78,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
                   <div className="flex flex-col w-full">
                     <Link href={`/${c.slug?.current}`} className="">{c.name}
                       {
-                        !enableRegister && <p className="text-xs mt-1">Toimub: { format(nextEvent.startDate!, DATE_FORMAT) }</p>
+                        !enableRegister && !!nextEvent && <p className="text-xs mt-1">Toimub: { format(nextEvent.startDate!, DATE_FORMAT) }</p>
                       }
                       {
                         !!enableRegister && (

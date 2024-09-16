@@ -110,7 +110,8 @@ export default defineType({
       name: 'courseModule',
       title: 'Eriklass, kuhu kuulub',
       type: 'reference',
-      to: [{ type: 'courseModule' }]
+      to: [{ type: 'courseModule' }],
+      validation: Rule => Rule.required(),
     }),
   ], // list end
   preview: {

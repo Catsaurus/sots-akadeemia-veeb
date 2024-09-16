@@ -19,7 +19,7 @@ export default function ShortCourseSchedule({ shortCourse }: Readonly<ShortCours
                   <table className="hidden md:table max-w-screen-md">
                     <tbody>{ props.value.rows.map((row: any, i: number) => (
                       <tr key={row._key}>
-                        { row.cells.map((cell: string) => i === 0 ? <th className="text-start">{ cell }</th> : <td>{ cell }</td>)}
+                        { row.cells.map((cell: string) => i === 0 ? <th className="text-start" key={cell}>{ cell }</th> : <td key={cell}>{ cell }</td>)}
                       </tr>
                       )) }
                     </tbody>
