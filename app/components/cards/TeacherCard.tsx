@@ -43,7 +43,7 @@ export default function TeacherCard({ teacher, showContacts }: Readonly<TeacherC
                     { !!teacher.description && <PortableText value={teacher.description} /> }
                 </div>
                 <div className="flex flex-col gap-4">
-                    {!!teacher.image && <img className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg hidden md:block" src={urlFor(teacher.image).width(200).url()} />}
+                    {!!teacher.image && <img className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg hidden md:block min-w-52" src={urlFor(teacher.image).width(200).url()} />}
                     { !!showContacts && <div className="mb-2">
                         <p>{ teacher.email }</p>
                         <p>{ teacher.phone }</p>
