@@ -10,24 +10,25 @@ import ContentBlock from "./ContentBlock";
 import ShortCourseTable from "./ShortCourseTable";
 
 interface MasterClassSchedule {
-    masterClass: SingleClassModuleCourseQueryResult;
+    classCourse: SingleClassModuleCourseQueryResult;
     events: CalendarEventByCourseQueryResult;
     calendar: CalendarQueryResult;
     shortCourses: ShortCourseListQueryResult;
     settings: SettingsQueryResult;
 }
 
-export default function MasterClassSchedule({ shortCourses, masterClass, events, calendar, settings }: Readonly<MasterClassSchedule>) {
-    const filteredShortCourses = shortCourses.filter(course => masterClass!.courses?.some(c => c.slug?.current === course.slug?.current))
+export default function ClassCourseSchedule({ shortCourses, classCourse, events, calendar, settings }: Readonly<MasterClassSchedule>) {
+    const filteredShortCourses = shortCourses.filter(course => classCourse!.courses?.some(c => c.slug?.current === course.slug?.current))
 
     return (
-        <ContentBlock title="Meistriklassi graafik">
+        <ContentBlock title={`${ classCourse?._type === 'courseModule' ? 'Eriklassi' : 'Meistriklassi'} graafik`}>
             <ShortCourseTable
                 shortCourses={filteredShortCourses}
                 calendar={calendar}
                 events={events}
                 enableDateFilter
                 enableRegister={false}
+                hideCourseModuleColumn={classCourse?._type === 'courseModule'}
                 settings={settings}
             />
         </ContentBlock>

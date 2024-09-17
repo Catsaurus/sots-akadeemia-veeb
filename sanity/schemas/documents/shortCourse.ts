@@ -15,9 +15,9 @@ export default defineType({
       type: 'string'
     }),
     defineField({
-      name: 'notSeparatelyBookable',
-      title: 'Ei ole eraldiseisvalt registreeritav',
-      description: 'Selle sisselülitamisel ei kuvata lühiklassi välja lühiklasside nimekirjas ja sellele ei saa eraldi registreeruda. Lühiklass peab toimuma alati eri- või meistriklassi raames',
+      name: 'documentNotReady',
+      title: 'Leht on tegemisel',
+      description: 'Selle sisselülitamisel ei saa lühiklassi linkidele klikkida ja lehte avada',
       type: 'boolean',
       initialValue: false
     }),
@@ -117,13 +117,14 @@ export default defineType({
   ], // list end
   preview: {
     select: {
-      title: 'name'
+      title: 'name',
+      documentNotReady: 'documentNotReady'
     },
-    prepare: ({ title }) => {
+    prepare: ({ title, documentNotReady }) => {
 
       return {
         title,
-        subtitle: 'Lühiklass'
+        subtitle: 'Lühiklass' + (documentNotReady ? ' - TEGEMISEL' : '')
       }
     },
   },

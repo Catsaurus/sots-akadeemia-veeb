@@ -9,7 +9,8 @@ export const MasterClassListQuery = groq`*[_type == "masterClass"] {
     color,
     minParticipants,
     maxParticipants,
-    courseSize
+    courseSize,
+    documentNotReady
 }`;
 
 export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
@@ -17,7 +18,9 @@ export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
   _type,
   name,
   slug,
-  color
+  color,
+  documentNotReady,
+  notSeparatelyTakeable
 }`;
 
 export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
@@ -28,7 +31,8 @@ export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
     ...
   },
   slug,
-  registrationLink
+  registrationLink,
+  documentNotReady
 }`;
 
 // Get a single post by its slug
@@ -59,7 +63,7 @@ export const SingleClassModuleCourseQuery = groq`*[_type in ["masterClass", "cou
 export const SingleGenericPageQuery = groq`*[_type == "genericPage" && slug.current == $slug][0]`;
 
 // Get all post slugs
-export const MasterClassPathsQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{
+export const MasterClassPathsQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{
     "params": { "slug": slug.current }
   }`;
 
@@ -97,7 +101,8 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
     "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],
     "color": @.classes->color,
     "maxParticipants": @.classes->maxParticipants,
-    "minParticipants": @.classes->minParticipants
+    "minParticipants": @.classes->minParticipants,
+    "courseSize": @.classes->courseSize 
   },
   "parent": {
     "_type": @.parent->_type,

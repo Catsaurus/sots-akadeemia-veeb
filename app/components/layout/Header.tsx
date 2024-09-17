@@ -65,7 +65,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
                                         const options = item.dropdownType === 'MASTERCLASS' ? masterClasses : courseModules;
                                         return (
                                             <Dropdown key={item._key} name={item.name ?? ''} options={
-                                                options.map(o => ({
+                                                options.filter(o => !o.documentNotReady && !(o as any).notSeparatelyTakeable).map(o => ({
                                                     name: o.name!,
                                                     slug: o.slug?.current ?? ''
                                                 })) ?? []
@@ -131,7 +131,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
                             return (
                                 <Accordion key={item._key} title={item.name ?? ''} className="text-lg">
                                     <div className="flex flex-col ms-2 mb-4">
-                                        {options.map(o => (
+                                        {options.filter(o => !o.documentNotReady && !(o as any).notSeparatelyTakeable).map(o => (
                                             <NavLink key={o.name} to={`/${o.slug?.current}`} className="text-lg">
                                                 {o.name}
                                             </NavLink>

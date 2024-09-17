@@ -53,22 +53,28 @@ export default function Calendar({ showFullDate, events }: Readonly<CalendarProp
                 ))}
             </div>
             <div className="flex flex-col mt-4">
-                {eventsByYear[selectedYear]?.map(event => (
+                {eventsByYear[selectedYear]?.map(event => {
+                    let type = '';
+                    if (event.course._type === 'courseModule') {
+                        type = 'Eriklass';
+                    } else if (event.course._type === 'masterClass') {
+                        type = 'Meistriklass';
+                    } else {
+                        type = 'Lühiklass';
+                    }
+                    return (
                     <div key={event._id} className="border-b border-gray-300 py-5 flex flex-col md:flex-row">
-                         
-                        <span className="pr-10 text-sm md:text-md pt-1">{formatRange(event.startDate!, event.endDate, DATE_FORMAT)}</span>
-                         {/* <span className="pr-10 text-md">10.veeb-13.veeb</span>*/}
-                        
+                        <span className="pr-10 text-sm md:text-md pt-1 md:w-1/4 xl:w-1/5">{formatRange(event.startDate!, event.endDate, DATE_FORMAT)}</span>                        
                         <Link key={event._id} href={`/${event.course.slug}`} className="flex flex-auto items-center flex-row md:hover:text-gray-800 md:hover:pl-1 group transition-all justify-between active:text-gray-400">
                             <div className="flex flex-col">
                                 <h6 className="text-md md:text-xl font-medium group-hover:underline">{event.course.name}</h6>
-                                <small className="text-xs md:text-sm">lühiklass (20 ak), {event.course.courseModule?.name}</small>
+                                <small className="text-xs md:text-sm">{ type } ({ event.course.courseSize } ak){!!event.course.courseModule && `, ${event.course.courseModule.name ?? ''}`}</small>
                             </div>
                             <ArrowRightIcon className="size-4 md:size-6 md:hidden text-gray-400 md:text-dark group-hover:block " />
                         </Link>
                       
                     </div>
-                ))}
+                )})}
             </div>
         </div>
     )

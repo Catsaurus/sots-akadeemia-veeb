@@ -21,6 +21,13 @@ export default defineType({
       validation: (Rule) => Rule.required(), // kohustulik väli
     }),
     defineField({
+      name: 'documentNotReady',
+      title: 'Leht on tegemisel',
+      description: 'Selle sisselülitamisel ei saa meistriklassi linkidele klikkida ja lehte avada',
+      type: 'boolean',
+      initialValue: false
+    }),
+    defineField({
       name: 'slug',
       title: 'URL',
       type: 'slug',
@@ -167,15 +174,15 @@ export default defineType({
   preview: {
     select: {
       title: 'name',
-      subtitle: 'shortDescription'
+      documentNotReady: 'documentNotReady'
     },
-    prepare: ({ title, subtitle }) => {
+    prepare: ({ title, documentNotReady }) => {
 
       return {
         title,
-        subtitle
+        subtitle: 'Meistriklass' + (documentNotReady ? ' - TEGEMISEL' : '')
       }
     },
-  },
+  }
 
-})
+});

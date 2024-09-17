@@ -19,6 +19,13 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'documentNotReady',
+      title: 'Leht on tegemisel',
+      description: 'Selle sisselülitamisel ei saa eriklassi linkidele klikkida ja lehte avada',
+      type: 'boolean',
+      initialValue: false
+    }),
+    defineField({
       name: 'body',
       title: 'Eriklassi kirjeldus',
       type: 'blockContent',
@@ -179,13 +186,15 @@ export default defineType({
   ], // list end
   preview: {
     select: {
-      title: 'name', 
+      title: 'name',
+      documentNotReady: 'documentNotReady'
     },
-    prepare: ({ title }) => {
+    prepare: ({ title, documentNotReady }) => {
+
       return {
         title,
-        subtitle: 'Eriklass'
+        subtitle: 'Eriklass' + (documentNotReady ? ' - TEGEMISEL' : '')
       }
     },
-  },
+  }
 })

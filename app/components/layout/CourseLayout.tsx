@@ -19,7 +19,7 @@ import NextEventCardSet from "../cards/NextEventCardSet";
 import TeacherCard from "../cards/TeacherCard";
 import ContentBlock from "../ContentBlock";
 import BackLink from "../links/BackLink";
-import MasterClassSchedule from "../MasterClassSchedule";
+import ClassCourseSchedule from "../ClassCourseSchedule";
 import ShortCourseSchedule from "../ShortCourseSchedule";
 import Container from "./Container";
 import Footer from "./Footer";
@@ -78,9 +78,9 @@ export default function CourseLayout({
             </div>
     
             { course._type === 'shortCourse' && <ShortCourseSchedule shortCourse={course as ShortCourse} /> }
-            { course._type === 'masterClass' &&
-            <MasterClassSchedule 
-                masterClass={course}
+            { course._type !== 'shortCourse' &&
+            <ClassCourseSchedule 
+                classCourse={course}
                 shortCourses={shortCourses!}
                 events={events}
                 calendar={calendar}

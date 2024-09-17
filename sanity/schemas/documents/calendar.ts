@@ -11,6 +11,9 @@ export default defineType({
       title: 'Vali klass',
       type: 'reference',
       to: [{ type: 'shortCourse' }, { type: 'masterClass' }, { type: 'courseModule' }],
+      options: {
+        filter:  'documentNotReady != true'
+      }
     }),
 
     defineField({
@@ -35,6 +38,13 @@ export default defineType({
     defineField({
       title: 'Kursuse lõpp',
       name: 'endDate',
+      type: 'date'
+    }),
+
+    defineField({
+      title: 'Kokkuvõtva ürituse kuupäev',
+      description: 'Kasutatakse meistriklassi viimase ürituse kuvamiseks',
+      name: 'summaryEventDate',
       type: 'date'
     }),
 
