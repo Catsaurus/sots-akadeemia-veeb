@@ -24,7 +24,9 @@ export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
   _id,
   _type,
   name,
-  "courseModule": @.courseModule->name,
+  "courseModule": *[_type == "courseModule" && references(^._id)][0]{
+    ...
+  },
   slug,
   registrationLink
 }`;
@@ -91,7 +93,8 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
     "_type": @.classes->_type,
     "slug": @.classes->slug.current,
     "name": @.classes->name,
-    "moduleName": @.classes->courseModule->name,
+    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],
+    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],
     "color": @.classes->color,
     "maxParticipants": @.classes->maxParticipants,
     "minParticipants": @.classes->minParticipants
@@ -105,7 +108,6 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
       "_type": @.parent->classes->_type,
       "slug": @.parent->classes->slug.current,
       "name": @.parent->classes->name,
-      "moduleName": @.parent->classes->courseModule->name,
       "color": @.parent->classes->color,
       "maxParticipants": @.parent->classes->maxParticipants,
       "minParticipants": @.parent->classes->minParticipants
@@ -115,6 +117,16 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
 
 export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes->slug.current == $slug][]{
   ...,
+  "course": {
+    "_type": @.classes->_type,
+    "slug": @.classes->slug.current,
+    "name": @.classes->name,
+    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],
+    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],
+    "color": @.classes->color,
+    "maxParticipants": @.classes->maxParticipants,
+    "minParticipants": @.classes->minParticipants
+  },
   "parent": {
     "_type": @.parent->_type,
     "name": @.parent->name,
@@ -124,7 +136,6 @@ export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes-
       "_type": @.parent->classes->_type,
       "slug": @.parent->classes->slug.current,
       "name": @.parent->classes->name,
-      "moduleName": @.parent->classes->courseModule->name,
       "color": @.parent->classes->color,
       "maxParticipants": @.parent->classes->maxParticipants,
       "minParticipants": @.parent->classes->minParticipants

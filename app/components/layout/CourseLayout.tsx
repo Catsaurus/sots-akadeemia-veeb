@@ -88,7 +88,7 @@ export default function CourseLayout({
 
             <div className='flex flex-col md:flex-row md:gap-10'>
                 { !!course.expectedParticipants && <ContentBlock title="Keda ootame osalema">
-                    <p className='text-sm md:text-base'>{ course.expectedParticipants }</p>
+                    <p className='text-sm md:text-base'><PortableText value={course.expectedParticipants} /></p>
                 </ContentBlock>}
                 { !!course.registrationAndPaymentInfo && <ContentBlock title="Registreerumine ja tasumine">
                     <div className='text-sm md:text-base'>

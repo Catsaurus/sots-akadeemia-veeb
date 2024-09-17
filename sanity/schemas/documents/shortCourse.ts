@@ -15,6 +15,13 @@ export default defineType({
       type: 'string'
     }),
     defineField({
+      name: 'notSeparatelyBookable',
+      title: 'Ei ole eraldiseisvalt registreeritav',
+      description: 'Selle sisselülitamisel ei kuvata lühiklassi välja lühiklasside nimekirjas ja sellele ei saa eraldi registreeruda. Lühiklass peab toimuma alati eri- või meistriklassi raames',
+      type: 'boolean',
+      initialValue: false
+    }),
+    defineField({
       name: 'body',
       title: 'Lühiklassi kirjeldus',
       type: 'blockContent'
@@ -22,7 +29,7 @@ export default defineType({
     defineField({
       name: 'expectedParticipants',
       title: 'Keda ootame osalema',
-      type: 'text'
+      type: 'blockContent'
     }),
     defineField({
       name: 'registrationAndPaymentInfo',
@@ -106,19 +113,18 @@ export default defineType({
       description: 'Vali akadeemik, kelle andmed kuvatakse kontakti plokis',
       type: 'reference',
       to: [{ type: 'teacher' }],
-    }),
-    defineField({
-      name: 'courseModule',
-      title: 'Eriklass, kuhu kuulub',
-      type: 'reference',
-      to: [{ type: 'courseModule' }],
-      validation: Rule => Rule.required(),
-    }),
+    })
   ], // list end
   preview: {
     select: {
-      title: 'name',
-      subtitle: 'courseModule.name',
+      title: 'name'
+    },
+    prepare: ({ title }) => {
+
+      return {
+        title,
+        subtitle: 'Lühiklass'
+      }
     },
   },
 })

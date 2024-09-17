@@ -1,3 +1,4 @@
+import { client } from '@/sanity/lib/client'
 import { isUniqueAcrossAllDocuments } from '@/sanity/lib/isUniqueAcrossAllDocuments'
 import {defineField, defineType} from 'sanity'
 
@@ -5,6 +6,9 @@ export default defineType({
   name: 'courseModule',
   title: 'Eriklass',
   type: 'document',
+  groups: [
+    { name: 'shortCourses', title: 'Lühiklassid' }
+  ],
   fieldsets: [
     { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
   ],
@@ -20,9 +24,16 @@ export default defineType({
       type: 'blockContent',
     }),
     defineField({
+      name: 'notSeparatelyTakeable',
+      title: 'Ei ole eraldiseisvalt võetav',
+      description: 'Selle sisselülitamisel ei kuvata eriklassi välja eriklasside nimekirjas ja seda ei saa eraldi võtta.',
+      type: 'boolean',
+      initialValue: false
+    }),
+    defineField({
       name: 'expectedParticipants',
       title: 'Keda ootame osalema',
-      type: 'text'
+      type: 'blockContent'
     }),
     defineField({
       name: 'registrationAndPaymentInfo',
@@ -105,6 +116,47 @@ export default defineType({
       type: 'string',
     }),
     defineField({
+      name: 'courses',
+      title: 'Lühiklassid selles eriklassis:',
+      type: 'array',
+      of: [
+        {
+          title: 'Vali lühiklass',
+          type: 'reference',
+          to: [{ type: 'shortCourse' }],
+        },
+      ],
+      validation: (Rule) => Rule.custom(async (arrayItems, context) => {
+        if (!arrayItems || arrayItems.length === 0) return true;
+        const currentDocumentId = context.document!._id.replace('drafts.', '');
+
+        const params = {
+          draft: `drafts.${currentDocumentId}`,
+          published: currentDocumentId
+        }
+        const existingDocuments = await client.fetch(`
+          *[_type == 'courseModule' && !(_id in [$draft, $published])] {
+            _id,
+            courses[]{
+              ...,
+              "name": @->name
+            }
+          }
+        `, params);
+
+        const allOtherArrayItems = existingDocuments.flatMap((doc: any) => doc.courses || []);
+        const duplicateItem = allOtherArrayItems.find((otherItem: any) => arrayItems.some((item: any) => item._ref === otherItem._ref))
+
+        if (duplicateItem) {
+          return  `Lühiklass "${duplicateItem.name}" juba on lisatud teises eriklassis!`
+        }
+
+        return true;
+      }),
+      description: 'Eriklassi kuuluvad lühiklassid kuvatakse välja selles järjekorras, milles nad siia nimekirja on lisatud.',
+      group: 'shortCourses',
+    }),
+    defineField({
       name: 'teachers',
       title: 'Kes õpetavad',
       type: 'array',
@@ -128,15 +180,11 @@ export default defineType({
   preview: {
     select: {
       title: 'name', 
-      color: 'color',
-      media: '#ccc',
-      subtitle: 'shortDescription'
     },
-    prepare: ({ title, subtitle }) => {
+    prepare: ({ title }) => {
       return {
         title,
-        subtitle,
-
+        subtitle: 'Eriklass'
       }
     },
   },

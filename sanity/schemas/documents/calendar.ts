@@ -10,7 +10,7 @@ export default defineType({
       name: 'classes',
       title: 'Vali klass',
       type: 'reference',
-      to: [{ type: 'shortCourse' }, { type: 'masterClass' }],
+      to: [{ type: 'shortCourse' }, { type: 'masterClass' }, { type: 'courseModule' }],
     }),
 
     defineField({

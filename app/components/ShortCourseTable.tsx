@@ -1,4 +1,4 @@
-import { ShortCourseListQueryResult, CalendarQueryResult, CalendarEventByCourseQueryResult, SettingsQueryResult } from "@/sanity/types";
+import { ShortCourseListQueryResult, CalendarQueryResult, CalendarEventByCourseQueryResult, SettingsQueryResult, CourseModule } from "@/sanity/types";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import Link from "next/link";
 import Button from "./Button";
@@ -22,14 +22,13 @@ interface ShortCourseTableProps {
 export default function ShortCourseTable({ shortCourses, calendar, events, settings, enableDateFilter = false, enableRegister = true }: Readonly<ShortCourseTableProps>) {
   const [selectedEvent, setSelectedEvent] = useState<CalendarEventByCourseQueryResult[0] | undefined>(events ? events[0] : undefined);
 
-  const sortedCourses = shortCourses.toSorted((a, b) => a.courseModule!.localeCompare(b.courseModule!));
+  const courseModules: { courseModule: CourseModule | null; courses: ShortCourseListQueryResult; }[] = [];
 
-  const courseModules: { courseModule: string; courses: ShortCourseListQueryResult; }[] = [];
-  for (const course of sortedCourses) {
-    const existing = courseModules.find(m => m.courseModule === course.courseModule);
+  for (const course of shortCourses) {
+    const existing = courseModules.find(m => m.courseModule?.name === course.courseModule?.name);
     if (!existing) {
       courseModules.push({
-        courseModule: course.courseModule!,
+        courseModule: course.courseModule,
         courses: [course]
       });
     } else {
@@ -37,6 +36,14 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
     }
   }
 
+  courseModules.sort((a, b) => !a.courseModule ? 1 : !b.courseModule ? -1 : 0);
+
+  for (const courseModule of courseModules) {
+    const order = courseModule.courseModule?.courses?.map(c => c._ref);
+    if (order) {
+      courseModule.courses.sort((a, b) => order.indexOf(a._id) - order.indexOf(b._id));
+    }
+  }
 
   const getCourseEvents = (courseSlug?: string) => {
     if (!courseSlug) {
@@ -57,7 +64,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
                   'bg-gray-900 text-white border-gray-900 shadow-lg': event.startDate == selectedEvent?.startDate,
               },
           )}
-              key={event._id} onClick={() => setSelectedEvent(event)}
+            key={event._id} onClick={() => setSelectedEvent(event)}
           >{format(event.startDate!, DATE_FORMAT)}</button>
       ))}
   </div> }
@@ -65,8 +72,8 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
 
         {
           courseModules.map(m => (
-            <div key={m.courseModule} className="">
-              <h3 className="font-display text-gray-900 mb-3">{m.courseModule}</h3>
+            <div key={m.courseModule?.name ?? 'undefined'} className="">
+              <h3 className="font-display text-gray-900 mb-3">{m.courseModule?.name}</h3>
 
               {m.courses.map((c, i) => {
                 const courseEvents = getCourseEvents(c.slug!.current);
@@ -114,12 +121,12 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
         </thead>
         {
           courseModules.map(m => (
-            <tbody key={m.courseModule} className="border-b border-gray-300">
+            <tbody key={m.courseModule?.name ?? 'undefined'} className="border-b border-gray-300">
               {m.courses.map((c, i) => {
                 const nextRegisterableEvent = getCourseEvents(c.slug!.current).filter(isEventRegisterable)[0];
                 return (
                 <tr key={c._id} className="bg-white">
-                  {i === 0 && <td className="pr-6 py-3 align-top" rowSpan={m.courses.length}>{m.courseModule}</td>}
+                  {i === 0 && <td className="pr-6 py-3 align-top" rowSpan={m.courses.length}>{m.courseModule?.name}</td>}
                   <td className="px-6 py-3">
                     <Link href={`/${c.slug?.current}`} className="underline">{c.name}</Link>
                   </td>

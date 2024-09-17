@@ -104,6 +104,12 @@ export type Calendar = {
         _type: "reference";
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "masterClass";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "courseModule";
       };
   parent?: {
     _ref: string;
@@ -111,7 +117,6 @@ export type Calendar = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "calendar";
   };
-  timeConfirmed?: boolean;
   active?: boolean;
   startDate?: string;
   endDate?: string;
@@ -264,14 +269,9 @@ export type GenericPage = {
   >;
 };
 
-export type ShortCourseTable = {
-  _type: "shortCourseTable";
-  title?: string;
-};
-
-export type ShortCourse = {
+export type CourseModule = {
   _id: string;
-  _type: "shortCourse";
+  _type: "courseModule";
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
@@ -311,7 +311,226 @@ export type ShortCourse = {
         _key: string;
       } & Table)
   >;
-  expectedParticipants?: string;
+  notSeparatelyTakeable?: boolean;
+  expectedParticipants?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Table)
+  >;
+  registrationAndPaymentInfo?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Table)
+  >;
+  organizationalInformation?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Table)
+  >;
+  slug?: Slug;
+  color?: Color;
+  registrationLink?: string;
+  minParticipants?: number;
+  maxParticipants?: number;
+  courseSize?: number;
+  price?: number;
+  city?: string;
+  address?: string;
+  courses?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "shortCourse";
+  }>;
+  teachers?: Array<{
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    _key: string;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  }>;
+  contactPerson?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "teacher";
+  };
+};
+
+export type ShortCourseTable = {
+  _type: "shortCourseTable";
+  title?: string;
+};
+
+export type ShortCourse = {
+  _id: string;
+  _type: "shortCourse";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  name?: string;
+  notSeparatelyBookable?: boolean;
+  body?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Table)
+  >;
+  expectedParticipants?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Table)
+  >;
   registrationAndPaymentInfo?: Array<
     | {
         children?: Array<{
@@ -403,149 +622,6 @@ export type ShortCourse = {
     _weak?: boolean;
     [internalGroqTypeReferenceTo]?: "teacher";
   };
-  courseModule?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "courseModule";
-  };
-};
-
-export type CourseModule = {
-  _id: string;
-  _type: "courseModule";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  name?: string;
-  body?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-    | ({
-        _key: string;
-      } & Table)
-  >;
-  expectedParticipants?: string;
-  registrationAndPaymentInfo?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-    | ({
-        _key: string;
-      } & Table)
-  >;
-  organizationalInformation?: Array<
-    | {
-        children?: Array<{
-          marks?: Array<string>;
-          text?: string;
-          _type: "span";
-          _key: string;
-        }>;
-        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
-        listItem?: "bullet" | "number";
-        markDefs?: Array<{
-          href?: string;
-          _type: "link";
-          _key: string;
-        }>;
-        level?: number;
-        _type: "block";
-        _key: string;
-      }
-    | {
-        asset?: {
-          _ref: string;
-          _type: "reference";
-          _weak?: boolean;
-          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-        };
-        hotspot?: SanityImageHotspot;
-        crop?: SanityImageCrop;
-        _type: "image";
-        _key: string;
-      }
-    | ({
-        _key: string;
-      } & Table)
-  >;
-  slug?: Slug;
-  color?: Color;
-  registrationLink?: string;
-  minParticipants?: number;
-  maxParticipants?: number;
-  courseSize?: number;
-  price?: number;
-  city?: string;
-  address?: string;
-  teachers?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }>;
-  contactPerson?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  };
 };
 
 export type MasterClass = {
@@ -592,7 +668,41 @@ export type MasterClass = {
         _key: string;
       } & Table)
   >;
-  expectedParticipants?: string;
+  expectedParticipants?: Array<
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "normal" | "h2" | "h3" | "h4" | "blockquote";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+    | ({
+        _key: string;
+      } & Table)
+  >;
   registrationAndPaymentInfo?: Array<
     | {
         children?: Array<{
@@ -917,9 +1027,9 @@ export type AllSanitySchemaTypes =
   | MenuItem
   | Settings
   | GenericPage
+  | CourseModule
   | ShortCourseTable
   | ShortCourse
-  | CourseModule
   | MasterClass
   | Teacher
   | BlockContent
@@ -960,12 +1070,189 @@ export type CourseModuleListQueryResult = Array<{
   color: Color | null;
 }>;
 // Variable: ShortCourseListQuery
-// Query: *[_type == "shortCourse"]{  _id,  _type,  name,  "courseModule": @.courseModule->name,  slug,  registrationLink}
+// Query: *[_type == "shortCourse"]{  _id,  _type,  name,  "courseModule": *[_type == "courseModule" && references(^._id)][0]{    ...  },  slug,  registrationLink}
 export type ShortCourseListQueryResult = Array<{
   _id: string;
   _type: "shortCourse";
   name: string | null;
-  courseModule: string | null;
+  courseModule: {
+    _id: string;
+    _type: "courseModule";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    body?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    notSeparatelyTakeable?: boolean;
+    expectedParticipants?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    registrationAndPaymentInfo?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    organizationalInformation?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    slug?: Slug;
+    color?: Color;
+    registrationLink?: string;
+    minParticipants?: number;
+    maxParticipants?: number;
+    courseSize?: number;
+    price?: number;
+    city?: string;
+    address?: string;
+    courses?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "shortCourse";
+    }>;
+    teachers?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "teacher";
+    }>;
+    contactPerson?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "teacher";
+    };
+  } | null;
   slug: Slug | null;
   registrationLink: string | null;
 }>;
@@ -1014,7 +1301,42 @@ export type SingleClassModuleCourseQueryResult =
             _key: string;
           }
       >;
-      expectedParticipants?: string;
+      notSeparatelyTakeable?: boolean;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
       registrationAndPaymentInfo?: Array<
         | ({
             _key: string;
@@ -1094,6 +1416,13 @@ export type SingleClassModuleCourseQueryResult =
       price?: number;
       city?: string;
       address?: string;
+      courses: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        slug: Slug | null;
+      }> | null;
       teachers: Array<{
         _ref: string;
         _type: "reference";
@@ -1203,7 +1532,6 @@ export type SingleClassModuleCourseQueryResult =
         email: string | null;
         phone: string | null;
       } | null;
-      courses: null;
     }
   | {
       _id: string;
@@ -1249,7 +1577,41 @@ export type SingleClassModuleCourseQueryResult =
             _key: string;
           }
       >;
-      expectedParticipants?: string;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
       registrationAndPaymentInfo?: Array<
         | ({
             _key: string;
@@ -1452,6 +1814,7 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       name?: string;
+      notSeparatelyBookable?: boolean;
       body?: Array<
         | ({
             _key: string;
@@ -1487,7 +1850,41 @@ export type SingleClassModuleCourseQueryResult =
             _key: string;
           }
       >;
-      expectedParticipants?: string;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
       registrationAndPaymentInfo?: Array<
         | ({
             _key: string;
@@ -1675,12 +2072,6 @@ export type SingleClassModuleCourseQueryResult =
         email: string | null;
         phone: string | null;
       } | null;
-      courseModule?: {
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        [internalGroqTypeReferenceTo]?: "courseModule";
-      };
       courses: null;
     }
   | null;
@@ -1923,7 +2314,7 @@ export type TeachersQueryResult = Array<{
   email?: string;
 }>;
 // Variable: CalendarQuery
-// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "moduleName": @.classes->courseModule->name,    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "moduleName": @.parent->classes->courseModule->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
+// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
 export type CalendarQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -1935,6 +2326,12 @@ export type CalendarQueryResult = Array<{
         _ref: string;
         _type: "reference";
         _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "courseModule";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "masterClass";
       }
     | {
@@ -1949,31 +2346,384 @@ export type CalendarQueryResult = Array<{
     startDate: string | null;
     endDate: string | null;
     course: {
-      _type: "masterClass" | "shortCourse" | null;
+      _type: "courseModule" | "masterClass" | "shortCourse" | null;
       slug: string | null;
       name: string | null;
-      moduleName: null | string;
       color: Color | null;
       maxParticipants: number | null;
       minParticipants: number | null | string;
     };
   };
-  timeConfirmed?: boolean;
   active?: boolean;
   startDate?: string;
   endDate?: string;
   course: {
-    _type: "masterClass" | "shortCourse" | null;
+    _type: "courseModule" | "masterClass" | "shortCourse" | null;
     slug: string | null;
     name: string | null;
-    moduleName: null | string;
+    courseModule: {
+      _id: string;
+      _type: "courseModule";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      body?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      notSeparatelyTakeable?: boolean;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      registrationAndPaymentInfo?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      organizationalInformation?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      slug?: Slug;
+      color?: Color;
+      registrationLink?: string;
+      minParticipants?: number;
+      maxParticipants?: number;
+      courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
+      courses?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "shortCourse";
+      }>;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
+      contactPerson?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      };
+    } | null;
+    masterClass: {
+      _id: string;
+      _type: "masterClass";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      shortDescription?: string;
+      body?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      registrationAndPaymentInfo?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      organizationalInformation?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      color?: Color;
+      courses?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "shortCourse";
+      }>;
+      registrationLink?: string;
+      minParticipants?: number;
+      maxParticipants?: number;
+      courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
+      contactPerson?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      };
+    } | null;
     color: Color | null;
     maxParticipants: number | null;
     minParticipants: number | null | string;
   };
 }>;
 // Variable: CalendarEventByCourseQuery
-// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "moduleName": @.parent->classes->courseModule->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
+// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parent": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
 export type CalendarEventByCourseQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -1985,6 +2735,12 @@ export type CalendarEventByCourseQueryResult = Array<{
         _ref: string;
         _type: "reference";
         _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "courseModule";
+      }
+    | {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "masterClass";
       }
     | {
@@ -1999,19 +2755,381 @@ export type CalendarEventByCourseQueryResult = Array<{
     startDate: string | null;
     endDate: string | null;
     course: {
-      _type: "masterClass" | "shortCourse" | null;
+      _type: "courseModule" | "masterClass" | "shortCourse" | null;
       slug: string | null;
       name: string | null;
-      moduleName: null | string;
       color: Color | null;
       maxParticipants: number | null;
       minParticipants: number | null | string;
     };
   };
-  timeConfirmed?: boolean;
   active?: boolean;
   startDate?: string;
   endDate?: string;
+  course: {
+    _type: "courseModule" | "masterClass" | "shortCourse" | null;
+    slug: string | null;
+    name: string | null;
+    courseModule: {
+      _id: string;
+      _type: "courseModule";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      body?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      notSeparatelyTakeable?: boolean;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      registrationAndPaymentInfo?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      organizationalInformation?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      slug?: Slug;
+      color?: Color;
+      registrationLink?: string;
+      minParticipants?: number;
+      maxParticipants?: number;
+      courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
+      courses?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "shortCourse";
+      }>;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
+      contactPerson?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      };
+    } | null;
+    masterClass: {
+      _id: string;
+      _type: "masterClass";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      name?: string;
+      slug?: Slug;
+      shortDescription?: string;
+      body?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      expectedParticipants?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      registrationAndPaymentInfo?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      organizationalInformation?: Array<
+        | ({
+            _key: string;
+          } & Table)
+        | {
+            children?: Array<{
+              marks?: Array<string>;
+              text?: string;
+              _type: "span";
+              _key: string;
+            }>;
+            style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+            listItem?: "bullet" | "number";
+            markDefs?: Array<{
+              href?: string;
+              _type: "link";
+              _key: string;
+            }>;
+            level?: number;
+            _type: "block";
+            _key: string;
+          }
+        | {
+            asset?: {
+              _ref: string;
+              _type: "reference";
+              _weak?: boolean;
+              [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+            };
+            hotspot?: SanityImageHotspot;
+            crop?: SanityImageCrop;
+            _type: "image";
+            _key: string;
+          }
+      >;
+      color?: Color;
+      courses?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "shortCourse";
+      }>;
+      registrationLink?: string;
+      minParticipants?: number;
+      maxParticipants?: number;
+      courseSize?: number;
+      price?: number;
+      city?: string;
+      address?: string;
+      teachers?: Array<{
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        _key: string;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      }>;
+      contactPerson?: {
+        _ref: string;
+        _type: "reference";
+        _weak?: boolean;
+        [internalGroqTypeReferenceTo]?: "teacher";
+      };
+    } | null;
+    color: Color | null;
+    maxParticipants: number | null;
+    minParticipants: number | null | string;
+  };
 }>;
 
 // Query TypeMap
@@ -2020,14 +3138,14 @@ declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize\n}': MasterClassListQueryResult;
     '*[_type == "courseModule"] {\n  _id,\n  _type,\n  name,\n  slug,\n  color\n}': CourseModuleListQueryResult;
-    '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": @.courseModule->name,\n  slug,\n  registrationLink\n}': ShortCourseListQueryResult;
+    '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": *[_type == "courseModule" && references(^._id)][0]{\n    ...\n  },\n  slug,\n  registrationLink\n}': ShortCourseListQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  courses[]{\n    ...,\n    "slug": @->slug\n  },\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  }\n}': SingleClassModuleCourseQueryResult;
     '*[_type == "genericPage" && slug.current == $slug][0]': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current)][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
     '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  }\n}': ContactQueryResult;
     '*[_type == "teacher"]': TeachersQueryResult;
-    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "moduleName": @.classes->courseModule->name,\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "moduleName": @.parent->classes->courseModule->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarQueryResult;
-    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "moduleName": @.parent->classes->courseModule->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
+    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarQueryResult;
+    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parent": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
   }
 }

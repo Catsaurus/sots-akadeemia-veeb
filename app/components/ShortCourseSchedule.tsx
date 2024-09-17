@@ -12,7 +12,7 @@ export default function ShortCourseSchedule({ shortCourse }: Readonly<ShortCours
         <ContentBlock title="Korraldus ja päevakava">
           { !!shortCourse.organizationalInformation && <PortableText value={shortCourse.organizationalInformation} components={{ types: {
             'table': (props) => {
-              console.log(props);
+
               const columnCount = props.value.rows[0]?.cells?.length ?? 0;
               return (
                 <>

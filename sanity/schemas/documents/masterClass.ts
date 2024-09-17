@@ -48,7 +48,7 @@ export default defineType({
     defineField({
       name: 'expectedParticipants',
       title: 'Keda ootame osalema',
-      type: 'text'
+      type: 'blockContent'
     }),
     defineField({
       name: 'registrationAndPaymentInfo',
