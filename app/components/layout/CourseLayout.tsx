@@ -1,5 +1,8 @@
 "use client"
 
+import { PortableText } from "next-sanity";
+
+import { isEventRegisterable, sortByStartDate } from "@/app/helpers/event.helper";
 import {
     CalendarEventByCourseQueryResult,
     CalendarQueryResult,
@@ -11,17 +14,16 @@ import {
     SingleClassModuleCourseQueryResult,
     Teacher
 } from "@/sanity/types";
-import Container from "./Container";
-import Header from "./Header";
-import BackLink from "../links/BackLink";
-import Footer from "./Footer";
-import { PortableText } from "next-sanity";
-import TeacherCard from "../cards/TeacherCard";
-import ShortCourseSchedule from "../ShortCourseSchedule";
-import ContentBlock from "../ContentBlock";
-import MasterClassSchedule from "../MasterClassSchedule";
+
 import NextEventCardSet from "../cards/NextEventCardSet";
-import { isEventRegisterable, sortByStartDate } from "@/app/helpers/event.helper";
+import TeacherCard from "../cards/TeacherCard";
+import ContentBlock from "../ContentBlock";
+import BackLink from "../links/BackLink";
+import MasterClassSchedule from "../MasterClassSchedule";
+import ShortCourseSchedule from "../ShortCourseSchedule";
+import Container from "./Container";
+import Footer from "./Footer";
+import Header from "./Header";
 
 interface CourseLayoutProps {
     headingContainerBackground?: string;

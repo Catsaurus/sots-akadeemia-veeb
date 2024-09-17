@@ -1,6 +1,7 @@
 "use client"
 
 import React from 'react'
+
 import {
   CalendarEventByCourseQueryResult,
   CalendarQueryResult,
@@ -11,6 +12,7 @@ import {
   ShortCourseListQueryResult,
   SingleClassModuleCourseQueryResult
 } from '@/sanity/types';
+
 import CourseLayout from '../layout/CourseLayout';
 
 interface MasterClassPageProps {

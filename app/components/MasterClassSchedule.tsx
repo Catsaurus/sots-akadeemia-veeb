@@ -5,6 +5,7 @@ import {
     ShortCourseListQueryResult,
     SingleClassModuleCourseQueryResult
 } from "@/sanity/types";
+
 import ContentBlock from "./ContentBlock";
 import ShortCourseTable from "./ShortCourseTable";
 

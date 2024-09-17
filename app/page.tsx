@@ -1,12 +1,13 @@
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { CalendarQuery, CourseModuleListQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
-import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
-import Hero from "./components/homepage/Hero"
 import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
+
 import Calendar from "./components/Calendar";
-import PageLayout from "./components/layout/PageLayout";
-import CourseExplonation from "./components/homepage/CourseExplonation";
 import { AboutUs }  from "./components/homepage/AboutUs";
+import CourseExplonation from "./components/homepage/CourseExplonation";
+import Hero from "./components/homepage/Hero"
+import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
+import PageLayout from "./components/layout/PageLayout";
 
 
 export default async function Home() {

@@ -1,6 +1,8 @@
 import { PortableText } from "next-sanity";
-import ContentBlock from "./ContentBlock"
+
 import { ShortCourse } from "@/sanity/types";
+
+import ContentBlock from "./ContentBlock"
 
 interface ShortCourseScheduleProps {
   shortCourse: ShortCourse;

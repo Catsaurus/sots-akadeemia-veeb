@@ -1,4 +1,4 @@
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
+import { Menu, MenuButton, MenuItem,MenuItems } from "@headlessui/react";
 import { ArrowDownIcon } from '@heroicons/react/20/solid';
 
 interface DropdownProps {

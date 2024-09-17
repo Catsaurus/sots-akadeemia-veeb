@@ -1,13 +1,15 @@
-import { ShortCourseListQueryResult, CalendarQueryResult, CalendarEventByCourseQueryResult, SettingsQueryResult, CourseModule } from "@/sanity/types";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
-import Link from "next/link";
-import Button from "./Button";
-import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
-import { useState } from "react";
-import { format } from "date-fns";
 import clsx from "clsx";
+import { format } from "date-fns";
+import Link from "next/link";
+import { useState } from "react";
+
+import { CalendarEventByCourseQueryResult, CalendarQueryResult, CourseModule,SettingsQueryResult, ShortCourseListQueryResult } from "@/sanity/types";
+
+import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
 import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent, isEventRegisterable, sortByStartDate } from "../helpers/event.helper";
+import Button from "./Button";
 
 
 interface ShortCourseTableProps {

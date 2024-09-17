@@ -1,32 +1,34 @@
 import React from 'react';
+
+import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/fetch";
 import { 
+    CalendarEventByCourseQuery,
+    CalendarQuery,
     CourseModuleListQuery,
     MasterClassListQuery,
     MasterClassPathsQuery,
-    SingleClassModuleCourseQuery,
     SettingsQuery,
     ShortCourseListQuery,
-    CalendarEventByCourseQuery,
-    CalendarQuery,
+    SingleClassModuleCourseQuery,
     SingleGenericPageQuery
 } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { client } from "@/sanity/lib/client";
-import MasterClassPage from '../components/pages/MasterClassPage';
 import {
-    CourseModuleListQueryResult,
-    MasterClassListQueryResult,
-    SingleClassModuleCourseQueryResult,
-    SettingsQueryResult,
-    GenericPage as GenericPageType,
-    ShortCourseListQueryResult,
     CalendarEventByCourseQueryResult,
     CalendarQueryResult,
+    CourseModuleListQueryResult,
+    GenericPage as GenericPageType,
+    MasterClassListQueryResult,
+    SettingsQueryResult,
+    ShortCourseListQueryResult,
+    SingleClassModuleCourseQueryResult,
     SingleGenericPageQueryResult
 } from '@/sanity/types';
+
 import CourseModulePage from '../components/pages/CourseModulePage';
-import { ShortCoursePage } from '../components/pages/ShortCoursePage';
 import GenericPage from '../components/pages/GenericPage';
+import MasterClassPage from '../components/pages/MasterClassPage';
+import { ShortCoursePage } from '../components/pages/ShortCoursePage';
 
 export async function generateStaticParams() {
     return await client.fetch(MasterClassPathsQuery);

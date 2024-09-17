@@ -1,21 +1,23 @@
 import React from 'react';
+
+import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/fetch";
 import { 
+    ContactQuery,
     CourseModuleListQuery,
     MasterClassListQuery,
     MasterClassPathsQuery,
     SettingsQuery,
-    ContactQuery,
     TeachersQuery
 } from "@/sanity/lib/queries";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import { client } from "@/sanity/lib/client";
 import {
+    ContactQueryResult,
     CourseModuleListQueryResult,
     MasterClassListQueryResult,
     SettingsQueryResult,
-    ContactQueryResult,
     TeachersQueryResult
 } from '@/sanity/types';
+
 import ContactPage from '../components/pages/ContactPage';
 
 export async function generateStaticParams() {

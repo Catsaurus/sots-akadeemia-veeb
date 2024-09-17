@@ -1,12 +1,14 @@
 "use client"
 
-import { CalendarQueryResult } from "@/sanity/types"
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import clsx from 'clsx';
+import { compareAsc } from "date-fns";
 import Link from "next/link";
 import { useState } from "react";
-import clsx from 'clsx';
-import { ArrowRightIcon } from '@heroicons/react/24/solid'
+
+import { CalendarQueryResult } from "@/sanity/types"
+
 import { DATE_FORMAT, format, formatRange } from "../helpers/date.helper";
-import { compareAsc, compareDesc, isBefore } from "date-fns";
 
 interface CalendarProps {
     showFullDate?: boolean;
@@ -60,7 +62,7 @@ export default function Calendar({ showFullDate, events }: Readonly<CalendarProp
                         <Link key={event._id} href={`/${event.course.slug}`} className="flex flex-auto items-center flex-row md:hover:text-gray-800 md:hover:pl-1 group transition-all justify-between active:text-gray-400">
                             <div className="flex flex-col">
                                 <h6 className="text-md md:text-xl font-medium group-hover:underline">{event.course.name}</h6>
-                                <small className="text-xs md:text-sm">lühiklass (20 ak), {event.course.moduleName}</small>
+                                <small className="text-xs md:text-sm">lühiklass (20 ak), {event.course.courseModule?.name}</small>
                             </div>
                             <ArrowRightIcon className="size-4 md:size-6 md:hidden text-gray-400 md:text-dark group-hover:block " />
                         </Link>

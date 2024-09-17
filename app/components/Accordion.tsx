@@ -1,6 +1,6 @@
 import { Disclosure, DisclosureButton, DisclosurePanel } from '@headlessui/react';
-import { ReactNode } from 'react';
 import { ArrowDownIcon } from '@heroicons/react/20/solid';
+import { ReactNode } from 'react';
 
 interface AccordionProps {
     title: string;

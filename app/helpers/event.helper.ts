@@ -1,5 +1,7 @@
+import { compareAsc, endOfDay, isBefore, subDays } from "date-fns"
+
 import { CalendarEventByCourseQueryResult, SettingsQueryResult } from "@/sanity/types"
-import { compareAsc, isBefore, endOfDay, subDays } from "date-fns"
+
 import { DATE_FORMAT, format } from "./date.helper";
 
 export const EVENT_REGISTRATION_DAYS = 7;

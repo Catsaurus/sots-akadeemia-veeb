@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from 'react'
+
 import { MasterClassListQueryResult } from "@/sanity/types";
 
 const MasterClassCardLarge = ({ masterClasses = [] }: { masterClasses: MasterClassListQueryResult }) => {

@@ -1,6 +1,7 @@
-import { CalendarQueryResult, Color } from '@/sanity/types';
 import Link from 'next/link'
 import React from 'react'
+
+import { CalendarQueryResult, Color } from '@/sanity/types';
 
 interface HeroCardProps {
   event: {

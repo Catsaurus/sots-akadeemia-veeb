@@ -1,8 +1,10 @@
 import { ReactNode } from "react";
-import Header from "./Header";
-import { SettingsQueryResult, MasterClassListQueryResult, CourseModuleListQueryResult } from "@/sanity/types";
+
+import { CourseModuleListQueryResult,MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
+
 import Container from "./Container";
 import Footer from "./Footer";
+import Header from "./Header";
 
 interface PageLayoutProps {
     title?: string;

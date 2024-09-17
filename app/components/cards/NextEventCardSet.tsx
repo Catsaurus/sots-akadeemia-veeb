@@ -1,10 +1,12 @@
-import { CalendarEventByCourseQueryResult, SettingsQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
-import CoursePageInfoLeaf from "../pages/CoursePageInfoLeaf";
-import { DATE_FORMAT, DATE_FORMAT_LONG, format } from "@/app/helpers/date.helper";
-import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent } from "@/app/helpers/event.helper";
-import Button from "../Button";
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
+
+import { DATE_FORMAT, DATE_FORMAT_LONG, format } from "@/app/helpers/date.helper";
+import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent } from "@/app/helpers/event.helper";
+import { CalendarEventByCourseQueryResult, SettingsQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
+
+import Button from "../Button";
+import CoursePageInfoLeaf from "../pages/CoursePageInfoLeaf";
 
 interface NextEventCardSetProps {
     event: CalendarEventByCourseQueryResult[0];

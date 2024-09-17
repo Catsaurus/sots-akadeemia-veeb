@@ -1,13 +1,15 @@
 "use client"
 
-import React, { useState } from 'react'
-import { Logo } from '../Logo';
+import { useWindowScroll } from "@uidotdev/usehooks";
 import Link from "next/link";
+import React, { useState } from 'react'
+
 import { CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from '@/sanity/types';
+
+import Accordion from '../Accordion';
 import Dropdown from '../Dropdown';
 import NavLink from '../links/NavLink';
-import { useWindowScroll } from "@uidotdev/usehooks";
-import Accordion from '../Accordion';
+import { Logo } from '../Logo';
 
 interface HeaderProps {
     onDarkBackground?: boolean;

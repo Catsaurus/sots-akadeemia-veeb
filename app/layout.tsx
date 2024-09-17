@@ -1,7 +1,8 @@
+import "./globals.css";
+
 import type { Metadata } from "next";
 import { Unbounded } from "next/font/google";
 import localFont from 'next/font/local'
-import "./globals.css";
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 

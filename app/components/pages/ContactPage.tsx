@@ -1,6 +1,9 @@
 "use client"
 
+import { PortableText } from 'next-sanity';
 import React from 'react'
+
+import { urlFor } from '@/sanity/lib/image';
 import {
   ContactQueryResult,
   CourseModuleListQueryResult,
@@ -8,12 +11,11 @@ import {
   SettingsQueryResult,
   Teacher
 } from '@/sanity/types';
-import { PortableText } from 'next-sanity';
-import PageLayout from '../layout/PageLayout';
+
 import Card from '../cards/Card';
-import { urlFor } from '@/sanity/lib/image';
 import ContactCard from '../cards/ContactCard';
 import TeacherCard from '../cards/TeacherCard';
+import PageLayout from '../layout/PageLayout';
 
 interface ContactPageProps {
   settings: SettingsQueryResult;

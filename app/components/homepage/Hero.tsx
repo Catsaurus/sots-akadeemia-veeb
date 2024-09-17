@@ -1,7 +1,9 @@
 import React from 'react'
-import HeroCard from './HeroCard'
+
 import { CalendarQueryResult } from '@/sanity/types';
+
 import LogoOnPage from "./../layout/LogoOnPage"
+import HeroCard from './HeroCard'
 
 interface CalendarProps {
     events: CalendarQueryResult;

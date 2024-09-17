@@ -1,6 +1,8 @@
 "use client"
 
+import { PortableText } from 'next-sanity';
 import React from 'react'
+
 import {
   CalendarQueryResult,
   CourseModuleListQueryResult,
@@ -9,7 +11,7 @@ import {
   SettingsQueryResult,
   ShortCourseListQueryResult
 } from '@/sanity/types';
-import { PortableText } from 'next-sanity';
+
 import PageLayout from '../layout/PageLayout';
 import ShortCourseTable from '../ShortCourseTable';
 
