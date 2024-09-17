@@ -3,16 +3,18 @@ import React from 'react'
 
 const CourseExplonation = () => {
     return (
-        <div className='flex flex-row h-[500px] gap-10'>
+        <div className='flex flex-row gap-20'>
             <div className="flex-1 relative hidden lg:flex">
                 <Image
                     src="/static/courseExplonation.png"
                     alt="explonation"
-                    fill
+                    objectFit="contain"
+                    width={400}
+                    height={400}
                     className="w-full h-full top-0 left-0 object-cover rounded-2xl"
                 />
             </div>
-            <div className='flex flex-1 flex-col'>
+            <div className='flex flex-1 flex-col justify-center'>
                 <div className='mb-10'>
                     
                     <h2 className='font-display'>Meistriklass (180 ak)</h2>
@@ -24,7 +26,7 @@ const CourseExplonation = () => {
                 </div>
                 <div className='mb-10'>
                     <h2 className='font-display'>Lühiklass (20 ak)</h2>
-                    <p className='text-md'>Konkreetsel teemal toimuv koolitus, kestvus 20 akadeemilist tundi</p>
+                    <p className='text-md'>Konkreetsel teemal toimuv koolitus, kestvus 20 akadeemilist tundi.</p>
                 </div>
 
 

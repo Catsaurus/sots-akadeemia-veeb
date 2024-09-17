@@ -19,14 +19,14 @@ export default function BackLink({ linkToHomePage }: Readonly<BackLinkProps>) {
 
     if (linkToHomePage || !isSamePage) {
         return (
-            <Link href="/" className="flex items-center gap-1 hover:underline">
+            <Link href="/" className="flex items-center gap-1 px-3 pb-1 pt-2  rounded-sm hover:bg-gray-200 hover:text-dark">
                 <ArrowLeftIcon className="w-4 h-4 -mt-1" /> Avalehele
             </Link>
         );
     }
 
     return (
-        <button onClick={onBackClick} className="flex items-center gap-1 hover:underline">
+        <button onClick={onBackClick} className="flex items-center gap-1 px-3 pb-1 pt-2  rounded-sm hover:bg-gray-200 hover:text-dark">
             <ArrowLeftIcon className="w-4 h-4 -mt-1" /> Tagasi
         </button>
     );

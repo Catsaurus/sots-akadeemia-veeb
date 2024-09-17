@@ -26,7 +26,7 @@ const Footer = () => {
           </div>
 
           <div className='flex flex-1 flex-col'>
-            <Link className="text-yellow p-2 flex items-center hover:underline" href="https://www.facebook.com/people/Sotsiaalt%C3%B6%C3%B6-Akadeemia/61565116932721/" >
+            <Link className="text-yellow p-2 flex items-center hover:underline" href="https://www.facebook.com/people/Sotsiaalt%C3%B6%C3%B6-Akadeemia/61565116932721/" target='_blank'>
             <span className="bg-[url('/static/icon-facebook.svg')] bg-yellow flex h-[24px] w-[24px] rounded-lg mr-2" ></span>Facebook</Link>
 
           </div>

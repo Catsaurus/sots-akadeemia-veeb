@@ -49,7 +49,7 @@ export default function CourseLayout({
         <main className="min-h-screen flex flex-col">
           <div
             style={headingContainerBackground ? { backgroundColor: headingContainerBackground } : undefined}
-            className={`${headingContainerBackground ? '' : 'bg-[url("/static/bg-image.png")] saturate-0 '}p-5 w-full rounded-br-md rounded-bl-md absolute h-[30vh] z-[-1]`}>
+            className={`${headingContainerBackground ? '' : 'bg-[url("/static/bg-image.png")] saturate-0 '}p-5 w-full rounded-br-md rounded-bl-md absolute h-[350px] z-[-1]`}>
           </div>
           <Header
             settings={settings}
@@ -71,7 +71,7 @@ export default function CourseLayout({
                     <div className='text-sm md:text-base'>{ course.body ? <PortableText value={course.body} /> : undefined }</div>
                 </ContentBlock>
     
-                <NextEventCardSet event={nextEvent} course={course} settings={settings} />
+                <NextEventCardSet event={nextEvent} course={course} settings={settings} headingContainerBackground={headingContainerBackground}/>
     
             </div>
     

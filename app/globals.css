@@ -24,7 +24,7 @@ body {
   counter-reset: numbered-list-counter;
 }
 
-.list-counter > li {
+.list-counter>li {
   @apply mb-2 ps-2;
   counter-increment: numbered-list-counter;
 
@@ -34,7 +34,7 @@ body {
   }
 }
 
-.list-counter > li > .list-counter {
+.list-counter>li>.list-counter {
   @apply ps-2;
 }
 
@@ -44,6 +44,7 @@ body {
     text-wrap: balance;
   }
 }
+
 .custom-truncate {
   -webkit-line-clamp: 6;
   display: -webkit-box;
@@ -57,12 +58,16 @@ body {
   h1 {
   font-size: 32px;
 }
-  
 */
+.custom-image-wrap > img {
+  border-radius: 5px;
+}
 
 .header__pseudo-element--bottom {
-  --r: 10px; /* the radius */
-  --s: 20px; /* the size of the corner*/
+  --r: 10px;
+  /* the radius */
+  --s: 20px;
+  /* the size of the corner*/
   position: absolute;
   width: 40px;
   bottom: 0;
@@ -71,19 +76,20 @@ body {
   aspect-ratio: 1;
   background: #e9e9e9;
   border-radius: var(--r);
-  --_m:/calc(2*var(--r)) calc(2*var(--r))
-    radial-gradient(#000 70%,#0000 72%) no-repeat;
+  --_m: /calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%, #0000 72%) no-repeat;
   mask:
     right 0 bottom calc(var(--s) + var(--r)) var(--_m),
     right calc(var(--s) + var(--r)) bottom 0 var(--_m),
-    radial-gradient(var(--s) at 100% 100%,#0000 99%,#000 101%) 
-     calc(-1*var(--r)) calc(-1*var(--r)) no-repeat,
+    radial-gradient(var(--s) at 100% 100%, #0000 99%, #000 101%) calc(-1*var(--r)) calc(-1*var(--r)) no-repeat,
     conic-gradient(from 90deg at calc(100% - var(--s) - 2*var(--r)) calc(100% - var(--s) - 2*var(--r)),
-     #0000 25%,#000 0);
+      #0000 25%, #000 0);
 }
+
 .header__pseudo-element--top {
-  --r: 10px; /* the radius */
-  --s: 20px; /* the size of the corner*/
+  --r: 10px;
+  /* the radius */
+  --s: 20px;
+  /* the size of the corner*/
   position: absolute;
   width: 40px;
   top: -10px;
@@ -92,15 +98,13 @@ body {
   aspect-ratio: 1;
   background: #e9e9e9;
   border-radius: var(--r);
-  --_m:/calc(2*var(--r)) calc(2*var(--r))
-    radial-gradient(#000 70%,#0000 72%) no-repeat;
+  --_m: /calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 70%, #0000 72%) no-repeat;
   mask:
     right 0 bottom calc(var(--s) + var(--r)) var(--_m),
     right calc(var(--s) + var(--r)) bottom 0 var(--_m),
-    radial-gradient(var(--s) at 100% 100%,#0000 99%,#000 101%) 
-     calc(-1*var(--r)) calc(-1*var(--r)) no-repeat,
+    radial-gradient(var(--s) at 100% 100%, #0000 99%, #000 101%) calc(-1*var(--r)) calc(-1*var(--r)) no-repeat,
     conic-gradient(from 90deg at calc(100% - var(--s) - 2*var(--r)) calc(100% - var(--s) - 2*var(--r)),
-     #0000 25%,#000 0);
+      #0000 25%, #000 0);
 }
 
 
