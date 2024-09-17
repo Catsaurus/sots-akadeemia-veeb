@@ -11,10 +11,9 @@ interface HeroCardProps {
     startDate?: string;
     endDate?: string;
     course: {
-      _type: "masterClass" | "shortCourse" | null;
+      _type: "masterClass" | "shortCourse" | 'courseModule' | null;
       slug: string | null;
       name: string | null;
-      moduleName: null | string;
       color: Color | null;
       maxParticipants: number | null;
       minParticipants: number | null | string;
@@ -23,8 +22,6 @@ interface HeroCardProps {
 }
 
 const HeroCard = ({ event }: Readonly<HeroCardProps>) => {
-
-  let colors = ['bg-red', 'bg-green', 'bg-pink', 'bg-yellow'];
 
   let type = '';
   switch (event.course._type) {
