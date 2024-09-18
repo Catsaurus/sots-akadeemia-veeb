@@ -62,8 +62,9 @@ export const SingleGenericPageQuery = groq`*[_type == "genericPage" && slug.curr
 
 // Get all post slugs
 export const MasterClassPathsQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{
-    "params": { "slug": slug.current }
-  }`;
+  "params": { "slug": slug.current },
+  "updatedAt": _updatedAt
+}`;
 
 export const SettingsQuery = groq`*[_type == "settings"][0]
 {

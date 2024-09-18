@@ -20,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const seo = settings!.seo;
 
-  return getSeoMetadata(seo as unknown as PageSeo);
+  return getSeoMetadata('', seo as unknown as PageSeo);
 }
 
 export default async function Home() {

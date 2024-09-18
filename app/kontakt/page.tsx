@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     const seo = contactPage!.seo;
 
-    return getSeoMetadata(seo as unknown as PageSeo);
+    return getSeoMetadata('kontakt', seo as unknown as PageSeo);
 
 }
 
