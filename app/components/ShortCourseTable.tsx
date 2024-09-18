@@ -73,7 +73,7 @@ export default function ShortCourseTable({
           >{format(event.startDate!, DATE_FORMAT)}</button>
         ))}
       </div> }
-      <div className="flex flex-col gap-10 md:hidden">
+      <div className="flex flex-col gap-10 md:hidden ">
 
         {
           courseModules.map(m => (
@@ -87,7 +87,7 @@ export default function ShortCourseTable({
                 const content = <>
                   {c.name}
                   {
-                    !enableRegister && !!nextEvent && <p className="text-xs mt-1">Toimub: { format(nextEvent.startDate!, DATE_FORMAT) }</p>
+                    !enableRegister && !!nextEvent && <p className="text-xs  mt-1">Toimub: { format(nextEvent.startDate!, DATE_FORMAT) }</p>
                   }
                   {
                     !!enableRegister && (
