@@ -5,6 +5,9 @@ export default defineType({
   name: 'genericPage',
   title: 'Üldine leht',
   type: 'document',
+  groups: [
+    { name: 'seo', title: 'SEO' }
+  ],
   fields: [
     defineField({
       name: 'name',
@@ -31,6 +34,12 @@ export default defineType({
         { type: 'textBlock' },
         { type: 'shortCourseTable' }
       ]
+    }),
+    defineField({
+      title: "SEO",
+      name: "seo",
+      type: "seoMetaFields",
+      group: 'seo'
     }),
   ], // list end
   preview: {

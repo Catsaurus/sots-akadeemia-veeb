@@ -10,7 +10,19 @@ import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
 import PageLayout from "./components/layout/PageLayout";
 import { isFuture, isToday } from "date-fns";
 import { sortByStartDate } from "./helpers/event.helper";
+import { Metadata } from "next";
 
+export async function generateMetadata(): Promise<Metadata> {
+
+  const settings = await sanityFetch<SettingsQueryResult>({ query: SettingsQuery });
+
+  const seo = settings!.seo;
+
+  return {
+    title: seo!.metaTitle,
+    description: seo!.metaDescription
+  }
+}
 
 export default async function Home() {
 

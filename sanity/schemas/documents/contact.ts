@@ -3,6 +3,9 @@ import {defineField, defineType} from 'sanity'
 export default defineType({
   name: 'contact',
   type: 'document',
+  groups: [
+    { name: 'seo', title: 'SEO' }
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -34,5 +37,11 @@ export default defineType({
       ],
       validation: Rule => Rule.unique()
     }),
+    defineField({
+      title: "SEO",
+      name: "seo",
+      type: "seoMetaFields",
+      group: 'seo'
+    }),    
   ],
 })

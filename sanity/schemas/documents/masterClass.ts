@@ -7,7 +7,8 @@ export default defineType({
   type: 'document',
   groups: [
     { name: 'general', title: 'Üldine' },
-    { name: 'shortCourses', title: 'Lühiklassid' }
+    { name: 'shortCourses', title: 'Lühiklassid' },
+    { name: 'seo', title: 'SEO' }
   ],
   fieldsets: [
     { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
@@ -155,7 +156,12 @@ export default defineType({
       group: 'general',
       description: 'Kui see puudub, kuvatakse "Registreeri huvi linki". NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit'
     }),
-
+    defineField({
+      title: "SEO",
+      name: "seo",
+      type: "seoMetaFields",
+      group: 'seo'
+    }),
   ], // fields list end
   preview: {
     select: {

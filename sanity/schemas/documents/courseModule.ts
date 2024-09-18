@@ -7,7 +7,8 @@ export default defineType({
   title: 'Eriklass',
   type: 'document',
   groups: [
-    { name: 'shortCourses', title: 'Lühiklassid' }
+    { name: 'shortCourses', title: 'Lühiklassid' },
+    { name: 'seo', title: 'SEO' }
   ],
   fieldsets: [
     { name: 'participants', title: 'Osalejad', options: { columns: 2 } },
@@ -171,6 +172,12 @@ export default defineType({
       title: 'Registreerimise link (Google Forms)',
       type: 'url',
       description: 'Kui see puudub, kuvatakse "Registreeri huvi linki". NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit'
+    }),
+    defineField({
+      title: "SEO",
+      name: "seo",
+      type: "seoMetaFields",
+      group: 'seo'
     }),
   ], // list end
   preview: {

@@ -77,7 +77,7 @@ export default function CourseLayout({
     
             </div>
     
-            { course._type === 'shortCourse' && <ShortCourseSchedule shortCourse={course as ShortCourse} /> }
+            { course._type === 'shortCourse' && <ShortCourseSchedule shortCourse={course as unknown as ShortCourse} /> }
             { course._type !== 'shortCourse' && !!events.length &&
             <ClassCourseSchedule 
                 classCourse={course}

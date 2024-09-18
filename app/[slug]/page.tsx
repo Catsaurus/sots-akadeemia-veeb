@@ -30,12 +30,47 @@ import GenericPage from '../components/pages/GenericPage';
 import MasterClassPage from '../components/pages/MasterClassPage';
 import { ShortCoursePage } from '../components/pages/ShortCoursePage';
 import { sortByStartDate } from '../helpers/event.helper';
+import { Metadata } from 'next';
+
+type Props = {
+    params: { id: string }
+    searchParams: { [key: string]: string | string[] | undefined }
+  }
 
 export async function generateStaticParams() {
     return await client.fetch(MasterClassPathsQuery);
 }
 
-const Page = async ({ params }: { params: any }) => {
+export async function generateMetadata(
+    { params }: Props
+  ): Promise<Metadata> {
+    // read route params
+  
+    const [course, genericPage] = await Promise.all([
+        sanityFetch<SingleClassModuleCourseQueryResult>({ query: SingleClassModuleCourseQuery, params }),
+        sanityFetch<SingleGenericPageQueryResult>({ query: SingleGenericPageQuery, params }),
+    ]);
+
+    const type = genericPage?._type ?? course?._type;
+
+    const page = type === 'genericPage' ? genericPage : course;
+
+    let seo, slug;
+    if (type === 'genericPage') {
+        seo = genericPage!.seo;
+        slug = genericPage!.slug!.current!;
+    } else {
+        seo = course!.seo;
+        slug = course!.slug!.current!;
+    }
+
+    return {
+      title: seo!.metaTitle ?? page?.name,
+      description: seo!.metaDescription
+    }
+}
+
+const Page = async ({ params }: Props) => {
 
     const [settings, masterClasses, courseModules, shortCourses, course, genericPage, events, calendar] = await Promise.all([
         sanityFetch<SettingsQueryResult>({ query: SettingsQuery }),
@@ -50,56 +85,52 @@ const Page = async ({ params }: { params: any }) => {
 
     calendar.sort(sortByStartDate);
 
+
     const type = genericPage?._type ?? course?._type;
 
+    let Component;
+
     if (type === 'masterClass') {
-        return (
-            <MasterClassPage
-                settings={settings}
-                masterClasses={masterClasses}
-                courseModules={courseModules}
-                shortCourses={shortCourses}
-                masterClass={course}
-                events={events}
-                calendar={calendar}
-            />);
+        Component = <MasterClassPage
+            settings={settings}
+            masterClasses={masterClasses}
+            courseModules={courseModules}
+            shortCourses={shortCourses}
+            masterClass={course}
+            events={events}
+            calendar={calendar}
+        />;
     } else if (type === 'courseModule') {
-        return (
-            <CourseModulePage
-                settings={settings}
-                masterClasses={masterClasses}
-                courseModules={courseModules}
-                shortCourses={shortCourses}
-                courseModule={course}
-                events={events}
-                calendar={calendar}
-            />
-        )
+        Component = <CourseModulePage
+            settings={settings}
+            masterClasses={masterClasses}
+            courseModules={courseModules}
+            shortCourses={shortCourses}
+            courseModule={course}
+            events={events}
+            calendar={calendar}
+        />;
     } else if (type === 'shortCourse') {
-        return (
-            <ShortCoursePage
-                settings={settings}
-                masterClasses={masterClasses}
-                courseModules={courseModules}
-                shortCourse={course}
-                events={events}
-                calendar={calendar}
-            />
-        )
+        Component = <ShortCoursePage
+            settings={settings}
+            masterClasses={masterClasses}
+            courseModules={courseModules}
+            shortCourse={course}
+            events={events}
+            calendar={calendar}
+        />;
     } else {
-        return (
-            <GenericPage
-                settings={settings}
-                masterClasses={masterClasses}
-                courseModules={courseModules}
-                shortCourses={shortCourses}
-                page={genericPage as unknown as GenericPageType}
-                calendar={calendar}
-            />
-        )
+        Component = <GenericPage
+            settings={settings}
+            masterClasses={masterClasses}
+            courseModules={courseModules}
+            shortCourses={shortCourses}
+            page={genericPage as unknown as GenericPageType}
+            calendar={calendar}
+        />;
     }
 
-    return null;
+    return Component;
 }
 
 export default Page;

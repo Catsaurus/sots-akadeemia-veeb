@@ -57,18 +57,6 @@ export default defineType({
       group: 'company'
     }),
     defineField({
-      name: 'title',
-      title: 'Lehe pealkiri',
-      type: 'string',
-      group: 'seo'
-    }),
-    defineField({
-      name: 'description',
-      title: 'Lehe kirjeldus',
-      type: 'string',
-      group: 'seo'
-    }),
-    defineField({
       name: 'registerInterestShortCourse',
       title: 'Registreeri huvi lühiklassile',
       type: 'url',
@@ -116,5 +104,21 @@ export default defineType({
       type: 'blockContent',
       group: 'footer'
     }),
+    defineField({
+      title: "SEO",
+      name: "seo",
+      type: "seoMetaFields",
+      group: 'seo'
+    }),    
   ],
+  preview: {
+    select: {
+      title: 'seo.metaTitle', 
+    },
+    prepare: ({title}) => {
+      return {
+        title
+      }
+    },
+  }
 })

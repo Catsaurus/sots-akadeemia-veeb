@@ -38,7 +38,7 @@ export default function MasterClassPage({
       course={masterClass}
       events={events}
       calendar={calendar}
-      headingContainerBackground={(masterClass as MasterClass).color?.hex}
+      headingContainerBackground={(masterClass as unknown as MasterClass).color?.hex}
     />
   )
 }

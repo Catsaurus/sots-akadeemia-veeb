@@ -1,27 +1,33 @@
 import React from 'react';
 
-import { client } from "@/sanity/lib/client";
 import { sanityFetch } from "@/sanity/lib/fetch";
 import { 
     ContactQuery,
     CourseModuleListQuery,
     MasterClassListQuery,
-    MasterClassPathsQuery,
     SettingsQuery,
-    TeachersQuery
 } from "@/sanity/lib/queries";
 import {
     ContactQueryResult,
     CourseModuleListQueryResult,
     MasterClassListQueryResult,
     SettingsQueryResult,
-    TeachersQueryResult
 } from '@/sanity/types';
 
 import ContactPage from '../components/pages/ContactPage';
+import { Metadata } from 'next';
 
-export async function generateStaticParams() {
-    return await client.fetch(MasterClassPathsQuery);
+export async function generateMetadata(): Promise<Metadata> {
+    // read route params
+  
+    const contactPage = await sanityFetch<ContactQueryResult>({ query: ContactQuery });
+
+    const seo = contactPage!.seo;
+
+    return {
+      title: seo!.metaTitle ?? contactPage?.title,
+      description: seo!.metaDescription
+    }
 }
 
 const Page = async ({ params }: { params: any }) => {

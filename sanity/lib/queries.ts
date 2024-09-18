@@ -1,4 +1,5 @@
 import { groq } from "next-sanity";
+import { seo } from "./seoQueryFields";
 
 // Get all meistriklassid
 export const MasterClassListQuery = groq`*[_type == "masterClass"] {
@@ -50,10 +51,14 @@ export const SingleClassModuleCourseQuery = groq`*[_type in ["masterClass", "cou
     "description": @->description,
     "email": @->email,
     "phone": @->phone
-  }
+  },
+  ${seo},
 }`;
 
-export const SingleGenericPageQuery = groq`*[_type == "genericPage" && slug.current == $slug][0]`;
+export const SingleGenericPageQuery = groq`*[_type == "genericPage" && slug.current == $slug][0]{
+  ...,
+  ${seo}
+}`;
 
 // Get all post slugs
 export const MasterClassPathsQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{
@@ -78,7 +83,8 @@ export const ContactQuery = groq`*[_type == "contact"][0]{
     "description": @->description,
     "email": @->email,
     "phone": @->phone
-  }
+  },
+  ${seo}
 }`;
 
 export const TeachersQuery = groq`*[_type == "teacher"]`;
