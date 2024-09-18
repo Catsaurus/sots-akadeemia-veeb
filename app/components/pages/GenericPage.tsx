@@ -43,13 +43,13 @@ export default function GenericPageComponent({
       <div className='inline-block bg-gray-200 p-4 mb-10 rounded-md items-center overflow-x-scroll w-full'>
         <div className='flex flex-row gap-2 ali'>
           <ServiceProcess step={"Registreerid klassi"} number='1'></ServiceProcess>
-          <ArrowLongRightIcon className="size-10" />
+          <ArrowLongRightIcon className="size-10 mt-10" />
           <ServiceProcess step={"Kirjutame sulle 1-4 päeva jooksul ja saadame arve"} number='2'></ServiceProcess>
-          <ArrowLongRightIcon className="size-10" />
+          <ArrowLongRightIcon className="size-10 mt-10" />
           <ServiceProcess step={"Tasud arve vastavalt soovile"} number='3'></ServiceProcess>
-          <ArrowLongRightIcon className="size-10" />
+          <ArrowLongRightIcon className="size-10 mt-10" />
           <ServiceProcess step={"Saadame kinnituse, et arve on tasutud"} number='4'></ServiceProcess>
-          <ArrowLongRightIcon className="size-10" />
+          <ArrowLongRightIcon className="size-10 mt-10" />
           <ServiceProcess step={"7 päeva enne klassi algust saadame meeldetuletuse"} number='5'></ServiceProcess>
         </div>
       </div>
