@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { CourseModuleListQueryResult,MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
+import { CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
 
 import Container from "./Container";
 import Footer from "./Footer";
@@ -29,7 +29,7 @@ export default function PageLayout({
                 hideHeaderOnTop
             />
             <Container className={`flex-grow mb-6 md:mb-16 ${isHomepage ? '' : 'bg-white p-8 rounded-md lg:rounded-lg'} `} hasLogoOnPage={!isHomepage}>
-               {title && <h1 className="font-display text-2xl md:text-4xl font-normal mt-6 lg:mt-10 mb-6 lg:mb-10">{title}</h1> }
+                {title && <h1 className="font-display text-2xl md:text-4xl font-normal mt-6 lg:mt-10 mb-6 lg:mb-10">{title}</h1>}
                 {children}
             </Container>
 
