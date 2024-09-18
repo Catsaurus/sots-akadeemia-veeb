@@ -39,9 +39,9 @@ export default function GenericPageComponent({
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
-      {/** 
+  {page?.slug?.current === 'luhiklassid' &&
       <div className='inline-block bg-gray-200 p-4 mb-10 rounded-md items-center overflow-x-scroll w-full'>
-        <div className='flex flex-row gap-2'>
+        <div className='flex flex-row gap-2 ali'>
           <ServiceProcess step={"Registreerid klassi"} number='1'></ServiceProcess>
           <ArrowLongRightIcon className="size-10" />
           <ServiceProcess step={"Kirjutame sulle 1-4 päeva jooksul ja saadame arve"} number='2'></ServiceProcess>
@@ -53,7 +53,7 @@ export default function GenericPageComponent({
           <ServiceProcess step={"7 päeva enne klassi algust saadame meeldetuletuse"} number='5'></ServiceProcess>
         </div>
       </div>
-      */}
+    }
 
       <div className='flex flex-col gap-10'>
         {page.blocks?.filter(block => block._type !== 'textBlock' || block.content).map(block => {
