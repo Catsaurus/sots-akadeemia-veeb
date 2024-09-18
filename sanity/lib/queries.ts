@@ -95,6 +95,7 @@ export const TeachersQuery = groq`*[_type == "teacher"]`;
 export const CalendarQuery = groq`*[_type == "calendar"]{
   ...,
   "course": {
+    "_id": @.classes->_id, 
     "_type": @.classes->_type,
     "slug": @.classes->slug.current,
     "name": @.classes->name,
@@ -103,34 +104,32 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
     "color": @.classes->color,
     "maxParticipants": @.classes->maxParticipants,
     "minParticipants": @.classes->minParticipants,
-    "courseSize": @.classes->courseSize 
+    "courseSize": @.classes->courseSize
   },
-  "parentMasterClass": {
-    "_type": @.parentMasterClass->_type,
-    "name": @.parentMasterClass->name,
-    "startDate": @.parentMasterClass->startDate,
-    "endDate": @.parentMasterClass->endDate,
+  parentMasterClasses[]{
+    ...,
+    "_id": @->_id,
+    "_type": @->_type,
+    "startDate": @->startDate,
+    "endDate": @->endDate,
     "course": {
-      "_type": @.parentMasterClass->classes->_type,
-      "slug": @.parentMasterClass->classes->slug.current,
-      "name": @.parentMasterClass->classes->name,
-      "color": @.parentMasterClass->classes->color,
-      "maxParticipants": @.parentMasterClass->classes->maxParticipants,
-      "minParticipants": @.parentMasterClass->classes->minParticipants
+      "_id": @->classes->_id,
+      "_type": @->classes->_type,
+      "slug": @->classes->slug.current,
+      "name": @->classes->name,
     }
   },
-  "parentCourseModule": {
-    "_type": @.parentCourseModule->_type,
-    "name": @.parentCourseModule->name,
-    "startDate": @.parentCourseModule->startDate,
-    "endDate": @.parentCourseModule->endDate,
+  parentCourseModules[]{
+    ...,
+    "_id": @->_id,
+    "_type": @->_type,
+    "startDate": @->startDate,
+    "endDate": @->endDate,
     "course": {
-      "_type": @.parentCourseModule->classes->_type,
-      "slug": @.parentCourseModule->classes->slug.current,
-      "name": @.parentCourseModule->classes->name,
-      "color": @.parentCourseModule->classes->color,
-      "maxParticipants": @.parentCourseModule->classes->maxParticipants,
-      "minParticipants": @.parentCourseModule->classes->minParticipants
+      "_id": @->classes->_id,
+      "_type": @->classes->_type,
+      "slug": @->classes->slug.current,
+      "name": @->classes->name,
     }
   }
 }`;
@@ -138,6 +137,7 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
 export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes->slug.current == $slug][]{
   ...,
   "course": {
+    "_id": @.classes->_id, 
     "_type": @.classes->_type,
     "slug": @.classes->slug.current,
     "name": @.classes->name,
@@ -147,32 +147,30 @@ export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes-
     "maxParticipants": @.classes->maxParticipants,
     "minParticipants": @.classes->minParticipants
   },
-  "parentMasterClass": {
-    "_type": @.parentMasterClass->_type,
-    "name": @.parentMasterClass->name,
-    "startDate": @.parentMasterClass->startDate,
-    "endDate": @.parentMasterClass->endDate,
+  parentMasterClasses[]{
+    ...,
+    "_id": @->_id,
+    "_type": @->_type,
+    "startDate": @->startDate,
+    "endDate": @->endDate,
     "course": {
-      "_type": @.parentMasterClass->classes->_type,
-      "slug": @.parentMasterClass->classes->slug.current,
-      "name": @.parentMasterClass->classes->name,
-      "color": @.parentMasterClass->classes->color,
-      "maxParticipants": @.parentMasterClass->classes->maxParticipants,
-      "minParticipants": @.parentMasterClass->classes->minParticipants
+      "_id": @->classes->_id,
+      "_type": @->classes->_type,
+      "slug": @->classes->slug.current,
+      "name": @->classes->name,
     }
   },
-  "parentCourseModule": {
-    "_type": @.parentCourseModule->_type,
-    "name": @.parentCourseModule->name,
-    "startDate": @.parentCourseModule->startDate,
-    "endDate": @.parentCourseModule->endDate,
+  parentCourseModules[]{
+    ...,
+    "_id": @->_id,
+    "_type": @->_type,
+    "startDate": @->startDate,
+    "endDate": @->endDate,
     "course": {
-      "_type": @.parentCourseModule->classes->_type,
-      "slug": @.parentCourseModule->classes->slug.current,
-      "name": @.parentCourseModule->classes->name,
-      "color": @.parentCourseModule->classes->color,
-      "maxParticipants": @.parentCourseModule->classes->maxParticipants,
-      "minParticipants": @.parentCourseModule->classes->minParticipants
+      "_id": @->classes->_id,
+      "_type": @->classes->_type,
+      "slug": @->classes->slug.current,
+      "name": @->classes->name,
     }
   }
 }`;

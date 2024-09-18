@@ -64,10 +64,10 @@ export default function ShortCourseTable({
     }
     return calendar.filter(e => {
 
-      const parent = classCourse?._type === 'courseModule' ? e.parentCourseModule : e.parentMasterClass;
+      const parents = classCourse?._type === 'courseModule' ? e.parentCourseModules : e.parentMasterClasses;
 
       return e.course.slug === courseSlug && (!enableDateFilter ||
-        (parent.startDate === selectedEvent?.startDate && parent.course.name === selectedEvent?.course.name));
+        (parents ?? []).some(parent => parent.startDate === selectedEvent?.startDate && parent.course.name === selectedEvent?.course.name));
     });
   }
 
