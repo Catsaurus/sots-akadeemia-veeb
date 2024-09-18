@@ -53,6 +53,56 @@ export default defineType({
         },
       }
     }),
+
+    defineField({
+      name: 'parentMasterClasses',
+      title: 'Sündmus toimub meistriklassi sündmuse raames',
+      type: 'array',
+      of: [
+        {
+          title: 'Vali meistriklass',
+          type: 'reference',
+          to: [{ type: 'calendar' }],
+          options: {
+            filter: async () => {
+              const parentEventIds = await client.fetch(
+                '*[_type == "calendar" && classes._ref in *[_type == "masterClass" && documentNotReady != true]._id]._id'
+              );
+              return {
+                filter: '_id in $parentEventIds',
+                params: { parentEventIds },
+              }
+            },
+          },
+        }
+      ],
+      validation: Rule => Rule.unique()
+    }),
+
+    defineField({
+      name: 'parentCourseModules',
+      title: 'Sündmus toimub eriklassi sündmuse raames',
+      type: 'array',
+      of: [
+        {
+          title: 'Vali eriklass',
+          type: 'reference',
+          to: [{ type: 'calendar' }],
+          options: {
+            filter: async () => {
+              const parentEventIds = await client.fetch(
+                '*[_type == "calendar" && classes._ref in *[_type == "courseModule" && documentNotReady != true]._id]._id'
+              );
+              return {
+                filter: '_id in $parentEventIds',
+                params: { parentEventIds },
+              }
+            },
+          },
+        }
+      ],
+      validation: Rule => Rule.unique()
+    }),
     defineField({
       name: 'active',
       title: 'Sündmusele saab registreerida',
