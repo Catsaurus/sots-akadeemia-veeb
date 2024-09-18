@@ -27,11 +27,14 @@ export default defineType({
       name: 'phone',
       title: 'Telefon',
       type: 'string',
+      description: 'Selle välja tühjaks jätmisel, ei kuvata isiku juures tema telefoni numbrit'
+
     }),
     defineField({
       name: 'email',
       title: 'E-post',
       type: 'string',
+      description: 'Selle välja tühjaks jätmisel, ei kuvata isiku juures tema emaili'
     }),
   ],
 })
