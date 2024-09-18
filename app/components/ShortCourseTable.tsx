@@ -115,7 +115,7 @@ export default function ShortCourseTable({ shortCourses, calendar, events, setti
           <tr>
             <th className="pr-6 py-3 w-[200px]">Eriklass</th>
             <th className="px-6 py-3">Lühiklass</th>
-            <th className="px-6 py-3">Registreerimiseks avatud</th>
+            <th className="px-6 py-3">Toimumise kp</th>
             <th className="px-6 py-3"></th>
           </tr>
         </thead>

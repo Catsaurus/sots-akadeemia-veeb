@@ -52,13 +52,6 @@ export default defineType({
         maxLength: 96,
       },
     }),
-
-    defineField({
-      name: 'registrationLink',
-      title: 'Registreerimise link (Google Forms)',
-      type: 'url',
-      description: 'NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit'
-    }),
     defineField({
       name: 'minParticipants',
       title: 'Minimaalne osalejate arv',
@@ -88,11 +81,13 @@ export default defineType({
       name: 'city',
       title: 'Toimumiskoht (linn)',
       type: 'string',
+      initialValue: 'Tartu',
     }),
     defineField({
       name: 'address',
       title: 'Toimumiskoha aadress',
       type: 'string',
+      initialValue: 'Suur Kaar 53, Tartu Sissepääs hoovipoolsest uksest',
     }),
     defineField({
       name: 'teachers',
@@ -113,7 +108,13 @@ export default defineType({
       description: 'Vali akadeemik, kelle andmed kuvatakse kontakti plokis',
       type: 'reference',
       to: [{ type: 'teacher' }],
-    })
+    }),
+    defineField({
+      name: 'registrationLink',
+      title: 'Registreerimise link (Google Forms)',
+      type: 'url',
+      description: 'Kui see puudub, kuvatakse "Registreeri huvi linki". NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit'
+    }),
   ], // list end
   preview: {
     select: {
