@@ -142,20 +142,6 @@ export default defineType({
       initialValue: 'Suur Kaar 53, Tartu Sissepääs hoovipoolsest uksest',
     }),
     defineField({
-      name: 'teachers',
-      title: 'Kes õpetavad',
-      type: 'array',
-      of: [
-        {
-          title: 'Vali akadeemik',
-          type: 'reference',
-          to: [{ type: 'teacher' }],
-        },
-      ],
-      validation: Rule => Rule.unique(),
-      group: 'general',
-    }),
-    defineField({
       name: 'contactPerson',
       title: 'Kontaktisik',
       description: 'Vali akadeemik, kelle andmed kuvatakse kontakti plokis',

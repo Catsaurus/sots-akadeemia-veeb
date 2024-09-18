@@ -38,18 +38,11 @@ export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
 // Get a single post by its slug
 export const SingleClassModuleCourseQuery = groq`*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{
   ...,
-  teachers[]{
-    ...,
-    "name": @->name,
-    "image": @->image,
-    "description": @->description,
-    "email": @->email,
-    "phone": @->phone
-  },
   courses[]{
     ...,
-    "slug": @->slug
+    "slug": @->slug,
   },
+  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && _id in ^.^.courses[]._ref].teachers[]._ref],
   contactPerson{
     ...,
     "name": @->name,

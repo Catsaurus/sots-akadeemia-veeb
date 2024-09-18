@@ -440,13 +440,6 @@ export type CourseModule = {
     _key: string;
     [internalGroqTypeReferenceTo]?: "shortCourse";
   }>;
-  teachers?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }>;
   contactPerson?: {
     _ref: string;
     _type: "reference";
@@ -796,13 +789,6 @@ export type MasterClass = {
   price?: number;
   city?: string;
   address?: string;
-  teachers?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    _key: string;
-    [internalGroqTypeReferenceTo]?: "teacher";
-  }>;
   contactPerson?: {
     _ref: string;
     _type: "reference";
@@ -1251,13 +1237,6 @@ export type ShortCourseListQueryResult = Array<{
       _key: string;
       [internalGroqTypeReferenceTo]?: "shortCourse";
     }>;
-    teachers?: Array<{
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      _key: string;
-      [internalGroqTypeReferenceTo]?: "teacher";
-    }>;
     contactPerson?: {
       _ref: string;
       _type: "reference";
@@ -1271,7 +1250,7 @@ export type ShortCourseListQueryResult = Array<{
   documentNotReady: boolean | null;
 }>;
 // Variable: SingleClassModuleCourseQuery
-// Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  courses[]{    ...,    "slug": @->slug  },  contactPerson{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  }}
+// Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  courses[]{    ...,    "slug": @->slug,  },  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && _id in ^.^.courses[]._ref].teachers[]._ref],  contactPerson{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  }}
 export type SingleClassModuleCourseQueryResult =
   | {
       _id: string;
@@ -1437,61 +1416,6 @@ export type SingleClassModuleCourseQueryResult =
         _key: string;
         slug: Slug | null;
       }> | null;
-      teachers: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        name: string | null;
-        image: {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: "image";
-        } | null;
-        description: Array<
-          | ({
-              _key: string;
-            } & Table)
-          | {
-              children?: Array<{
-                marks?: Array<string>;
-                text?: string;
-                _type: "span";
-                _key: string;
-              }>;
-              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-              listItem?: "bullet" | "number";
-              markDefs?: Array<{
-                href?: string;
-                _type: "link";
-                _key: string;
-              }>;
-              level?: number;
-              _type: "block";
-              _key: string;
-            }
-          | {
-              asset?: {
-                _ref: string;
-                _type: "reference";
-                _weak?: boolean;
-                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-              };
-              hotspot?: SanityImageHotspot;
-              crop?: SanityImageCrop;
-              _type: "image";
-              _key: string;
-            }
-        > | null;
-        email: string | null;
-        phone: string | null;
-      }> | null;
       contactPerson: {
         _ref: string;
         _type: "reference";
@@ -1547,6 +1471,62 @@ export type SingleClassModuleCourseQueryResult =
         phone: string | null;
       } | null;
       registrationLink?: string;
+      teachers: Array<{
+        _id: string;
+        _type: "teacher";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        name?: string;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        description?: Array<
+          | ({
+              _key: string;
+            } & Table)
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: "reference";
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+              };
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+              _key: string;
+            }
+        >;
+        phone?: string;
+        email?: string;
+      }>;
     }
   | {
       _id: string;
@@ -1712,61 +1692,6 @@ export type SingleClassModuleCourseQueryResult =
       price?: number;
       city?: string;
       address?: string;
-      teachers: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        name: string | null;
-        image: {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: "image";
-        } | null;
-        description: Array<
-          | ({
-              _key: string;
-            } & Table)
-          | {
-              children?: Array<{
-                marks?: Array<string>;
-                text?: string;
-                _type: "span";
-                _key: string;
-              }>;
-              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-              listItem?: "bullet" | "number";
-              markDefs?: Array<{
-                href?: string;
-                _type: "link";
-                _key: string;
-              }>;
-              level?: number;
-              _type: "block";
-              _key: string;
-            }
-          | {
-              asset?: {
-                _ref: string;
-                _type: "reference";
-                _weak?: boolean;
-                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-              };
-              hotspot?: SanityImageHotspot;
-              crop?: SanityImageCrop;
-              _type: "image";
-              _key: string;
-            }
-        > | null;
-        email: string | null;
-        phone: string | null;
-      }> | null;
       contactPerson: {
         _ref: string;
         _type: "reference";
@@ -1822,6 +1747,62 @@ export type SingleClassModuleCourseQueryResult =
         phone: string | null;
       } | null;
       registrationLink?: string;
+      teachers: Array<{
+        _id: string;
+        _type: "teacher";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        name?: string;
+        image?: {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+        };
+        description?: Array<
+          | ({
+              _key: string;
+            } & Table)
+          | {
+              children?: Array<{
+                marks?: Array<string>;
+                text?: string;
+                _type: "span";
+                _key: string;
+              }>;
+              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+              listItem?: "bullet" | "number";
+              markDefs?: Array<{
+                href?: string;
+                _type: "link";
+                _key: string;
+              }>;
+              level?: number;
+              _type: "block";
+              _key: string;
+            }
+          | {
+              asset?: {
+                _ref: string;
+                _type: "reference";
+                _weak?: boolean;
+                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+              };
+              hotspot?: SanityImageHotspot;
+              crop?: SanityImageCrop;
+              _type: "image";
+              _key: string;
+            }
+        >;
+        phone?: string;
+        email?: string;
+      }>;
     }
   | {
       _id: string;
@@ -1978,61 +1959,7 @@ export type SingleClassModuleCourseQueryResult =
       price?: number;
       city?: string;
       address?: string;
-      teachers: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        name: string | null;
-        image: {
-          asset?: {
-            _ref: string;
-            _type: "reference";
-            _weak?: boolean;
-            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-          };
-          hotspot?: SanityImageHotspot;
-          crop?: SanityImageCrop;
-          _type: "image";
-        } | null;
-        description: Array<
-          | ({
-              _key: string;
-            } & Table)
-          | {
-              children?: Array<{
-                marks?: Array<string>;
-                text?: string;
-                _type: "span";
-                _key: string;
-              }>;
-              style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
-              listItem?: "bullet" | "number";
-              markDefs?: Array<{
-                href?: string;
-                _type: "link";
-                _key: string;
-              }>;
-              level?: number;
-              _type: "block";
-              _key: string;
-            }
-          | {
-              asset?: {
-                _ref: string;
-                _type: "reference";
-                _weak?: boolean;
-                [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-              };
-              hotspot?: SanityImageHotspot;
-              crop?: SanityImageCrop;
-              _type: "image";
-              _key: string;
-            }
-        > | null;
-        email: string | null;
-        phone: string | null;
-      }> | null;
+      teachers: Array<never>;
       contactPerson: {
         _ref: string;
         _type: "reference";
@@ -2556,13 +2483,6 @@ export type CalendarQueryResult = Array<{
         _key: string;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       }>;
-      teachers?: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
       contactPerson?: {
         _ref: string;
         _type: "reference";
@@ -2735,13 +2655,6 @@ export type CalendarQueryResult = Array<{
       price?: number;
       city?: string;
       address?: string;
-      teachers?: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
       contactPerson?: {
         _ref: string;
         _type: "reference";
@@ -2983,13 +2896,6 @@ export type CalendarEventByCourseQueryResult = Array<{
         _key: string;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       }>;
-      teachers?: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
       contactPerson?: {
         _ref: string;
         _type: "reference";
@@ -3162,13 +3068,6 @@ export type CalendarEventByCourseQueryResult = Array<{
       price?: number;
       city?: string;
       address?: string;
-      teachers?: Array<{
-        _ref: string;
-        _type: "reference";
-        _weak?: boolean;
-        _key: string;
-        [internalGroqTypeReferenceTo]?: "teacher";
-      }>;
       contactPerson?: {
         _ref: string;
         _type: "reference";
@@ -3190,7 +3089,7 @@ declare module "@sanity/client" {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize,\n    documentNotReady\n}': MasterClassListQueryResult;
     '*[_type == "courseModule"] {\n  _id,\n  _type,\n  name,\n  slug,\n  color,\n  documentNotReady,\n  notSeparatelyTakeable\n}': CourseModuleListQueryResult;
     '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": *[_type == "courseModule" && references(^._id)][0]{\n    ...\n  },\n  slug,\n  registrationLink,\n  documentNotReady\n}': ShortCourseListQueryResult;
-    '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  courses[]{\n    ...,\n    "slug": @->slug\n  },\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  }\n}': SingleClassModuleCourseQueryResult;
+    '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  courses[]{\n    ...,\n    "slug": @->slug,\n  },\n  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && _id in ^.^.courses[]._ref].teachers[]._ref],\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  }\n}': SingleClassModuleCourseQueryResult;
     '*[_type == "genericPage" && slug.current == $slug][0]': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
     '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;

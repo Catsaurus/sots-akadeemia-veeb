@@ -102,7 +102,7 @@ export default function CourseLayout({
             <ContentBlock title="Akadeemikud">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 mt-5">
                     { course.teachers?.map(teacher => (
-                        <TeacherCard key={teacher._key} teacher={teacher as unknown as Teacher} />
+                        <TeacherCard key={teacher._id} teacher={teacher as unknown as Teacher} />
                     )) }
                 </div>
             </ContentBlock>
