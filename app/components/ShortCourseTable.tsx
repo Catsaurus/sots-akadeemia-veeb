@@ -59,12 +59,13 @@ export default function ShortCourseTable({
 
 
   const getCourseEvents = (courseSlug?: string) => {
+    console.log(courseSlug, calendar)
     if (!courseSlug) {
       return [];
     }
     return calendar.filter(e =>
       e.course.slug === courseSlug && (!enableDateFilter ||
-        ((e.parentCourseModule._type ? e.parentCourseModule.startDate : e.parentMasterClass.startDate) === selectedEvent?.startDate)));
+        ((classCourse?._type === 'courseModule' ? e.parentCourseModule.startDate : e.parentMasterClass.startDate) === selectedEvent?.startDate)));
   }
 
   return (
@@ -152,6 +153,7 @@ export default function ShortCourseTable({
                 const nextEvent = courseEvents[0];
                 const isEventInPast = !!nextEvent && isPast(nextEvent.startDate!);
                 const nextRegisterableEvent = !c.documentNotReady && courseEvents.filter(isEventRegisterable)[0];
+                console.log(c.name, courseEvents, nextEvent, nextRegisterableEvent)
 
                 return (
                 <tr key={c._id} className="bg-white">

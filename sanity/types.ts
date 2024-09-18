@@ -2567,7 +2567,7 @@ export type MasterClassPathsQueryResult = Array<{
   };
 }>;
 // Variable: SettingsQuery
-// Query: *[_type == "settings"][0]{  ...,  menu[]{    ...,    "slug": @.reference->slug.current  }}
+// Query: *[_type == "settings"][0]{  ...,  menu[]{    ...,    "slug": @.reference->slug.current  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
 export type SettingsQueryResult = {
   _id: string;
   _type: "settings";
@@ -2650,7 +2650,114 @@ export type SettingsQueryResult = {
         _key: string;
       }
   >;
-  seo?: SeoMetaFields;
+  seo: {
+    _type: "seoMetaFields";
+    metaTitle: string | null;
+    nofollowAttributes: boolean | null;
+    seoKeywords: Array<string> | null;
+    metaDescription: string | null;
+    openGraph: {
+      _type: "openGraph";
+      siteName: string | null;
+      url: string | null;
+      description: string | null;
+      title: string | null;
+      image: {
+        _type: "image";
+        crop: {
+          _type: "sanity.imageCrop";
+          right: number | null;
+          top: number | null;
+          left: number | null;
+          bottom: number | null;
+        } | null;
+        hotspot: {
+          _type: "sanity.imageHotspot";
+          x: number | null;
+          y: number | null;
+          height: number | null;
+          width: number | null;
+        } | null;
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+      } | null;
+    } | null;
+    twitter: {
+      _type: "twitter";
+      site: string | null;
+      creator: string | null;
+      cardType: string | null;
+      handle: string | null;
+    } | null;
+    additionalMetaTags: Array<{
+      _type: "metaTag";
+      metaAttributes: Array<{
+        _type: "metaAttribute";
+        attributeValueString: string | null;
+        attributeType: "image" | "string" | null;
+        attributeKey: string | null;
+        attributeValueImage: {
+          _type: "image";
+          crop: {
+            _type: "sanity.imageCrop";
+            right: number | null;
+            top: number | null;
+            left: number | null;
+            bottom: number | null;
+          } | null;
+          hotspot: {
+            _type: "sanity.imageHotspot";
+            x: number | null;
+            y: number | null;
+            height: number | null;
+            width: number | null;
+          } | null;
+          asset: {
+            _id: string;
+            _type: "sanity.imageAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            metadata?: SanityImageMetadata;
+            source?: SanityAssetSourceData;
+          } | null;
+        } | null;
+      }> | null;
+    }> | null;
+  } | null;
 } | null;
 // Variable: ContactQuery
 // Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
@@ -2886,7 +2993,7 @@ export type TeachersQueryResult = Array<{
   email?: string;
 }>;
 // Variable: CalendarQuery
-// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants,    "courseSize": @.classes->courseSize   },  "parentMasterClass": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  },  "parentCourseModule": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
+// Query: *[_type == "calendar"]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants,    "courseSize": @.classes->courseSize   },  "parentMasterClass": {    "_type": @.parentMasterClass->_type,    "name": @.parentMasterClass->name,    "startDate": @.parentMasterClass->startDate,    "endDate": @.parentMasterClass->endDate,    "course": {      "_type": @.parentMasterClass->classes->_type,      "slug": @.parentMasterClass->classes->slug.current,      "name": @.parentMasterClass->classes->name,      "color": @.parentMasterClass->classes->color,      "maxParticipants": @.parentMasterClass->classes->maxParticipants,      "minParticipants": @.parentMasterClass->classes->minParticipants    }  },  "parentCourseModule": {    "_type": @.parentCourseModule->_type,    "name": @.parentCourseModule->name,    "startDate": @.parentCourseModule->startDate,    "endDate": @.parentCourseModule->endDate,    "course": {      "_type": @.parentCourseModule->classes->_type,      "slug": @.parentCourseModule->classes->slug.current,      "name": @.parentCourseModule->classes->name,      "color": @.parentCourseModule->classes->color,      "maxParticipants": @.parentCourseModule->classes->maxParticipants,      "minParticipants": @.parentCourseModule->classes->minParticipants    }  }}
 export type CalendarQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -2913,31 +3020,31 @@ export type CalendarQueryResult = Array<{
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
   parentMasterClass: {
-    _type: null;
+    _type: "calendar" | null;
     name: null;
-    startDate: null;
-    endDate: null;
+    startDate: string | null;
+    endDate: string | null;
     course: {
-      _type: null;
-      slug: null;
-      name: null;
-      color: null;
-      maxParticipants: null;
-      minParticipants: null;
+      _type: "courseModule" | "masterClass" | "shortCourse" | null;
+      slug: string | null;
+      name: string | null;
+      color: Color | null;
+      maxParticipants: number | null;
+      minParticipants: number | null | string;
     };
   };
   parentCourseModule: {
-    _type: null;
+    _type: "calendar" | null;
     name: null;
-    startDate: null;
-    endDate: null;
+    startDate: string | null;
+    endDate: string | null;
     course: {
-      _type: null;
-      slug: null;
-      name: null;
-      color: null;
-      maxParticipants: null;
-      minParticipants: null;
+      _type: "courseModule" | "masterClass" | "shortCourse" | null;
+      slug: string | null;
+      name: string | null;
+      color: Color | null;
+      maxParticipants: number | null;
+      minParticipants: number | null | string;
     };
   };
   active?: boolean;
@@ -3301,7 +3408,7 @@ export type CalendarQueryResult = Array<{
   };
 }>;
 // Variable: CalendarEventByCourseQuery
-// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parentMasterClass": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  },  "parentCourseModule": {    "_type": @.parent->_type,    "name": @.parent->name,    "startDate": @.parent->startDate,    "endDate": @.parent->endDate,    "course": {      "_type": @.parent->classes->_type,      "slug": @.parent->classes->slug.current,      "name": @.parent->classes->name,      "color": @.parent->classes->color,      "maxParticipants": @.parent->classes->maxParticipants,      "minParticipants": @.parent->classes->minParticipants    }  }}
+// Query: *[_type == "calendar" && classes->slug.current == $slug][]{  ...,  "course": {    "_type": @.classes->_type,    "slug": @.classes->slug.current,    "name": @.classes->name,    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],    "color": @.classes->color,    "maxParticipants": @.classes->maxParticipants,    "minParticipants": @.classes->minParticipants  },  "parentMasterClass": {    "_type": @.parentMasterClass->_type,    "name": @.parentMasterClass->name,    "startDate": @.parentMasterClass->startDate,    "endDate": @.parentMasterClass->endDate,    "course": {      "_type": @.parentMasterClass->classes->_type,      "slug": @.parentMasterClass->classes->slug.current,      "name": @.parentMasterClass->classes->name,      "color": @.parentMasterClass->classes->color,      "maxParticipants": @.parentMasterClass->classes->maxParticipants,      "minParticipants": @.parentMasterClass->classes->minParticipants    }  },  "parentCourseModule": {    "_type": @.parentCourseModule->_type,    "name": @.parentCourseModule->name,    "startDate": @.parentCourseModule->startDate,    "endDate": @.parentCourseModule->endDate,    "course": {      "_type": @.parentCourseModule->classes->_type,      "slug": @.parentCourseModule->classes->slug.current,      "name": @.parentCourseModule->classes->name,      "color": @.parentCourseModule->classes->color,      "maxParticipants": @.parentCourseModule->classes->maxParticipants,      "minParticipants": @.parentCourseModule->classes->minParticipants    }  }}
 export type CalendarEventByCourseQueryResult = Array<{
   _id: string;
   _type: "calendar";
@@ -3328,31 +3435,31 @@ export type CalendarEventByCourseQueryResult = Array<{
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
   parentMasterClass: {
-    _type: null;
+    _type: "calendar" | null;
     name: null;
-    startDate: null;
-    endDate: null;
+    startDate: string | null;
+    endDate: string | null;
     course: {
-      _type: null;
-      slug: null;
-      name: null;
-      color: null;
-      maxParticipants: null;
-      minParticipants: null;
+      _type: "courseModule" | "masterClass" | "shortCourse" | null;
+      slug: string | null;
+      name: string | null;
+      color: Color | null;
+      maxParticipants: number | null;
+      minParticipants: number | null | string;
     };
   };
   parentCourseModule: {
-    _type: null;
+    _type: "calendar" | null;
     name: null;
-    startDate: null;
-    endDate: null;
+    startDate: string | null;
+    endDate: string | null;
     course: {
-      _type: null;
-      slug: null;
-      name: null;
-      color: null;
-      maxParticipants: null;
-      minParticipants: null;
+      _type: "courseModule" | "masterClass" | "shortCourse" | null;
+      slug: string | null;
+      name: string | null;
+      color: Color | null;
+      maxParticipants: number | null;
+      minParticipants: number | null | string;
     };
   };
   active?: boolean;
@@ -3725,10 +3832,10 @@ declare module "@sanity/client" {
     '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  courses[]{\n    ...,\n    "slug": @->slug,\n  },\n  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && _id in ^.^.courses[]._ref].teachers[]._ref],\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n},\n}': SingleClassModuleCourseQueryResult;
     '*[_type == "genericPage" && slug.current == $slug][0]{\n  ...,\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{\n    "params": { "slug": slug.current }\n  }': MasterClassPathsQueryResult;
-    '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  }\n}': SettingsQueryResult;
+    '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SettingsQueryResult;
     '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': ContactQueryResult;
     '*[_type == "teacher"]': TeachersQueryResult;
-    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants,\n    "courseSize": @.classes->courseSize \n  },\n  "parentMasterClass": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  },\n  "parentCourseModule": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarQueryResult;
-    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parentMasterClass": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  },\n  "parentCourseModule": {\n    "_type": @.parent->_type,\n    "name": @.parent->name,\n    "startDate": @.parent->startDate,\n    "endDate": @.parent->endDate,\n    "course": {\n      "_type": @.parent->classes->_type,\n      "slug": @.parent->classes->slug.current,\n      "name": @.parent->classes->name,\n      "color": @.parent->classes->color,\n      "maxParticipants": @.parent->classes->maxParticipants,\n      "minParticipants": @.parent->classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
+    '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants,\n    "courseSize": @.classes->courseSize \n  },\n  "parentMasterClass": {\n    "_type": @.parentMasterClass->_type,\n    "name": @.parentMasterClass->name,\n    "startDate": @.parentMasterClass->startDate,\n    "endDate": @.parentMasterClass->endDate,\n    "course": {\n      "_type": @.parentMasterClass->classes->_type,\n      "slug": @.parentMasterClass->classes->slug.current,\n      "name": @.parentMasterClass->classes->name,\n      "color": @.parentMasterClass->classes->color,\n      "maxParticipants": @.parentMasterClass->classes->maxParticipants,\n      "minParticipants": @.parentMasterClass->classes->minParticipants\n    }\n  },\n  "parentCourseModule": {\n    "_type": @.parentCourseModule->_type,\n    "name": @.parentCourseModule->name,\n    "startDate": @.parentCourseModule->startDate,\n    "endDate": @.parentCourseModule->endDate,\n    "course": {\n      "_type": @.parentCourseModule->classes->_type,\n      "slug": @.parentCourseModule->classes->slug.current,\n      "name": @.parentCourseModule->classes->name,\n      "color": @.parentCourseModule->classes->color,\n      "maxParticipants": @.parentCourseModule->classes->maxParticipants,\n      "minParticipants": @.parentCourseModule->classes->minParticipants\n    }\n  }\n}': CalendarQueryResult;
+    '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "course": {\n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  "parentMasterClass": {\n    "_type": @.parentMasterClass->_type,\n    "name": @.parentMasterClass->name,\n    "startDate": @.parentMasterClass->startDate,\n    "endDate": @.parentMasterClass->endDate,\n    "course": {\n      "_type": @.parentMasterClass->classes->_type,\n      "slug": @.parentMasterClass->classes->slug.current,\n      "name": @.parentMasterClass->classes->name,\n      "color": @.parentMasterClass->classes->color,\n      "maxParticipants": @.parentMasterClass->classes->maxParticipants,\n      "minParticipants": @.parentMasterClass->classes->minParticipants\n    }\n  },\n  "parentCourseModule": {\n    "_type": @.parentCourseModule->_type,\n    "name": @.parentCourseModule->name,\n    "startDate": @.parentCourseModule->startDate,\n    "endDate": @.parentCourseModule->endDate,\n    "course": {\n      "_type": @.parentCourseModule->classes->_type,\n      "slug": @.parentCourseModule->classes->slug.current,\n      "name": @.parentCourseModule->classes->name,\n      "color": @.parentCourseModule->classes->color,\n      "maxParticipants": @.parentCourseModule->classes->maxParticipants,\n      "minParticipants": @.parentCourseModule->classes->minParticipants\n    }\n  }\n}': CalendarEventByCourseQueryResult;
   }
 }
