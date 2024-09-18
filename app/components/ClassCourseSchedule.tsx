@@ -23,6 +23,7 @@ export default function ClassCourseSchedule({ shortCourses, classCourse, events,
     return (
         <ContentBlock title={`${ classCourse?._type === 'courseModule' ? 'Eriklassi' : 'Meistriklassi'} graafik`}>
             <ShortCourseTable
+                classCourse={classCourse}
                 shortCourses={filteredShortCourses}
                 calendar={calendar}
                 events={events}

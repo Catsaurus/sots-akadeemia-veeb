@@ -49,7 +49,7 @@ export default function Calendar({ showFullDate, events }: Readonly<CalendarProp
                         },
                     )}
                         key={year} onClick={() => setSelectedYear(year)}
-                    >{format(year, DATE_FORMAT)}</button>
+                    >{showFullDate ? format(year, DATE_FORMAT) : year}</button>
                 ))}
             </div>
             <div className="flex flex-col mt-4">

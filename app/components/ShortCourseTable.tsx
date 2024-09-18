@@ -5,7 +5,7 @@ import { format, isPast } from "date-fns";
 import Link from "next/link";
 import { useState } from "react";
 
-import { CalendarEventByCourseQueryResult, CalendarQueryResult, CourseModule,SettingsQueryResult, ShortCourseListQueryResult } from "@/sanity/types";
+import { CalendarEventByCourseQueryResult, CalendarQueryResult, CourseModule,SettingsQueryResult, ShortCourseListQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
 
 import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
 import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent, isEventRegisterable, sortByStartDate } from "../helpers/event.helper";
@@ -13,6 +13,7 @@ import Button from "./Button";
 
 
 interface ShortCourseTableProps {
+  classCourse?: SingleClassModuleCourseQueryResult;
   shortCourses: ShortCourseListQueryResult;
   calendar: CalendarQueryResult;
   events?: CalendarEventByCourseQueryResult;
@@ -23,14 +24,17 @@ interface ShortCourseTableProps {
 }
 
 export default function ShortCourseTable({
-  hideCourseModuleColumn, shortCourses, calendar, events, settings, enableDateFilter = false, enableRegister = true
+  hideCourseModuleColumn, shortCourses, calendar, events, settings, enableDateFilter = false, enableRegister = true, classCourse
 }: Readonly<ShortCourseTableProps>) {
   const [selectedEvent, setSelectedEvent] = useState<CalendarEventByCourseQueryResult[0] | undefined>(events ? events[0] : undefined);
+
+  const classCourseMainEvent = classCourse ? calendar.find(e => e.course.slug === classCourse.slug?.current) : undefined;
 
   const courseModules: { courseModule: CourseModule | null; courses: ShortCourseListQueryResult; }[] = [];
 
   for (const course of shortCourses) {
     const existing = courseModules.find(m => m.courseModule?.name === course.courseModule?.name);
+
     if (!existing) {
       courseModules.push({
         courseModule: course.courseModule,
@@ -41,14 +45,18 @@ export default function ShortCourseTable({
     }
   }
 
-  courseModules.sort((a, b) => !a.courseModule ? 1 : !b.courseModule ? -1 : 0);
-
   for (const courseModule of courseModules) {
     const order = courseModule.courseModule?.courses?.map(c => c._ref);
     if (order) {
       courseModule.courses.sort((a, b) => order.indexOf(a._id) - order.indexOf(b._id));
     }
   }
+
+  const classCourseCourses = classCourse ? (classCourse.courses ?? []).map(c => c.slug?.current) : undefined;
+  courseModules.sort((a, b) => !a.courseModule ? 1 : !b.courseModule ? -1 : (
+    classCourseCourses ? classCourseCourses.indexOf(a.courses[0].slug?.current) - classCourseCourses?.indexOf(b.courses[0].slug?.current) : 0
+  ));
+
 
   const getCourseEvents = (courseSlug?: string) => {
     if (!courseSlug) {
@@ -72,7 +80,7 @@ export default function ShortCourseTable({
               },
           )}
             key={event._id} onClick={() => setSelectedEvent(event)}
-          >{format(event.startDate!, DATE_FORMAT)}</button>
+          >{formatRange(event.startDate!, event.endDate, DATE_FORMAT)}</button>
         ))}
       </div> }
       <div className="flex flex-col gap-10 md:hidden ">
@@ -89,8 +97,8 @@ export default function ShortCourseTable({
                 const nextRegisterableEvent = !c.documentNotReady && courseEvents.filter(isEventRegisterable)[0];
                 const content = <>
                   { c.name }
-                  { !enableRegister && !!nextEvent && !isEventInPast && <p className="text-xs  mt-1">Toimub { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
-                  { !enableRegister && !!nextEvent && isEventInPast && <p className="text-xs  mt-1">Toimus { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
+                  { !enableRegister && !!nextEvent && !isEventInPast && <p className="text-xs mt-1">Toimub { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
+                  { !enableRegister && !!nextEvent && isEventInPast && <p className="text-xs mt-1">Toimus { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
                   {
                     !!enableRegister && (
                       !!nextRegisterableEvent ? <>
@@ -115,7 +123,14 @@ export default function ShortCourseTable({
               )})}
             </div>
           ))}
-
+        { !enableRegister && classCourseMainEvent?.course._type === 'masterClass' &&
+          <div className="flex flex-row rounded-md p-5 border border-gray-200 bg-gray-100 mb-2">
+            <div className="flex flex-col w-full">
+              Kokkuvõtlik taipamiste päev
+              <p className="text-xs mt-1">{ classCourseMainEvent.summaryEventDate ? format(classCourseMainEvent.summaryEventDate, DATE_FORMAT) : 'Info peagi tulekul' }</p>
+            </div>
+          </div>
+        }
       </div>
 
 
@@ -125,7 +140,7 @@ export default function ShortCourseTable({
           <tr>
             { !hideCourseModuleColumn && <th className="pr-6 py-3 w-[200px]">Eriklass</th>}
             <th className={`${hideCourseModuleColumn ? 'pr-6' : 'px-6'} py-3`}>Lühiklass</th>
-            <th className="px-6 py-3">{ enableRegister ? 'Registreerimiseks avatud' : 'Toimumise kuupäev' }</th>
+            <th className="px-6 py-3">Toimumise kuupäev</th>
             { !!enableRegister && <th className="px-6 py-3"></th>}
           </tr>
         </thead>
@@ -148,7 +163,7 @@ export default function ShortCourseTable({
                   <td className="px-6 py-3">
                     { !c.documentNotReady && !enableRegister && !nextEvent && <span>Info peagi tulekul</span> }
                     { !c.documentNotReady && !enableRegister && isEventInPast && <span>Toimus {format(nextEvent.startDate!, DATE_FORMAT)}</span> }
-                    { !c.documentNotReady && !enableRegister && !isEventInPast && <span>Toimub {format(nextEvent.startDate!, DATE_FORMAT)}</span> }
+                    { !c.documentNotReady && !enableRegister && !!nextEvent && !isEventInPast && <span>{ format(nextEvent.startDate!, DATE_FORMAT) }</span> }
                     { !c.documentNotReady && !!enableRegister && !!nextRegisterableEvent && formatRange(nextRegisterableEvent.startDate!, nextRegisterableEvent.endDate, DATE_FORMAT) }
                     
                   </td>
@@ -163,16 +178,25 @@ export default function ShortCourseTable({
                     }
                     { !c.documentNotReady && !nextRegisterableEvent &&
                       <Button color="yellow" className="min-w-[150px]" onClick={() => handleRegisterInterest(settings, c)}>
-                          Registreeri huvi
-                          <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
-                        </Button>
+                        Registreeri huvi
+                        <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
+                      </Button>
                       }
                     { !!c.documentNotReady && <span className="px-4">Info peagi tulekul</span> }
                     
-                  </td>}
+                  </td> }
                 </tr>
               )})}
             </tbody>))
+        }
+        { !enableRegister && classCourseMainEvent?.course._type === 'masterClass' &&
+          <tbody>
+            <tr>
+              <td></td>
+              <td className="px-6 py-3">Kokkuvõtlik taipamiste päev</td>
+              <td className="px-6 py-3">{ classCourseMainEvent.summaryEventDate ? format(classCourseMainEvent.summaryEventDate, DATE_FORMAT) : 'Info peagi tulekul' }</td>
+            </tr>
+          </tbody>
         }
       </table>
 
