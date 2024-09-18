@@ -6,13 +6,11 @@ import localFont from 'next/font/local'
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 
-
 const unbounded = Unbounded({
   subsets: ["latin"],
   variable: '--font-unbounded',
-}
+});
 
-);
 const helvetica = localFont({
   variable: '--font-helvetica',
   src: [
@@ -35,8 +33,7 @@ const helvetica = localFont({
       path: './../public/fonts/HelveticaNeue-Bold.woff',
       weight: '600',
       style: 'Bold'
-    },
-
+    }
   ]
 })
 
