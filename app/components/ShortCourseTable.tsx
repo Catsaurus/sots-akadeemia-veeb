@@ -62,9 +62,13 @@ export default function ShortCourseTable({
     if (!courseSlug) {
       return [];
     }
-    return calendar.filter(e =>
-      e.course.slug === courseSlug && (!enableDateFilter ||
-        ((classCourse?._type === 'courseModule' ? e.parentCourseModule.startDate : e.parentMasterClass.startDate) === selectedEvent?.startDate)));
+    return calendar.filter(e => {
+
+      const parent = classCourse?._type === 'courseModule' ? e.parentCourseModule : e.parentMasterClass;
+
+      return e.course.slug === courseSlug && (!enableDateFilter ||
+        (parent.startDate === selectedEvent?.startDate && parent.course.name === selectedEvent?.course.name));
+    });
   }
 
   return (
