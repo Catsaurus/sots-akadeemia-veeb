@@ -78,7 +78,7 @@ export default function CourseLayout({
             </div>
     
             { course._type === 'shortCourse' && <ShortCourseSchedule shortCourse={course as ShortCourse} /> }
-            { course._type !== 'shortCourse' &&
+            { course._type !== 'shortCourse' && !!events.length &&
             <ClassCourseSchedule 
                 classCourse={course}
                 shortCourses={shortCourses!}
@@ -99,14 +99,14 @@ export default function CourseLayout({
                 </ContentBlock> }
             </div>
     
-            <ContentBlock title="Akadeemikud">
+            { !!course.teachers?.length && <ContentBlock title="Akadeemikud">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 lg:gap-10 mt-5">
                     { course.teachers?.map(teacher => (
                         <TeacherCard key={teacher._id} teacher={teacher as unknown as Teacher} />
                     )) }
                 </div>
-            </ContentBlock>
-            <ContentBlock title="Kontakt">
+            </ContentBlock>}
+            { !!course.contactPerson && <ContentBlock title="Kontakt">
                 <div className="grid grid-cols-1 md:grid-cols-2">
                     <p className='text-sm md:text-base'>Aadress: { course.address }</p>
                     <div>
@@ -115,7 +115,7 @@ export default function CourseLayout({
                         <p className='text-sm md:text-base'>Telefon: { course.contactPerson?.phone }</p>
                     </div>
                 </div>
-            </ContentBlock>
+            </ContentBlock>}
           </Container>
           <Footer />
         </main>

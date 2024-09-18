@@ -58,7 +58,7 @@ export default function ContactPage({
 
         <h2 className='font-display text-2xl font-normal mb-10'>Akadeemikud</h2>
 
-        <Card title="Akadeemikud">
+        { !!page?.teachers?.length && <Card title="Akadeemikud">
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16'>
             {
               page?.teachers?.map(teacher => (
@@ -66,7 +66,7 @@ export default function ContactPage({
               ))
             }
           </div>
-        </Card>
+        </Card>}
       </div>
 
 

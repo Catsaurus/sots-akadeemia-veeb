@@ -35,6 +35,14 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType}
             options: {perspective: 'previewDrafts'}
           })
           .title('Seotud sündmused'),
+          S.view
+          .component(DocumentsPane)
+          .options({
+            query: `*[_type == "teacher" && _id in *[_type == "shortCourse" && _id in $courses._ref].teachers[]._ref]`,
+            params: {courses: `courses`},
+            options: {perspective: 'previewDrafts'}
+          })
+          .title('Akadeemikud'),          
       ])      
     default:
       return S.document().views([S.view.form()])
