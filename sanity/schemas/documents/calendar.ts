@@ -78,7 +78,17 @@ export default defineType({
       type: 'date'
     }),
 
-  ], // list end
+  ],
+  orderings: [
+    {
+      title: 'Alguskuupäev',
+      name: 'startDateAsc',
+      by: [
+        { field: 'startDate', direction: 'asc' },
+        { field: 'endDate', direction: 'asc' }
+      ]
+    }
+  ],
   preview: {
     select: {
       title: 'classes.name', 
@@ -87,10 +97,11 @@ export default defineType({
       startDate: 'startDate',
       endDate: 'endDate',
     },
-    prepare: ({ className, classType, startDate}) => {
+    prepare: ({ className, classType, startDate, endDate }) => {
       return {
-        title: className + ' - ' + formatDate(startDate, 'dd.MM.yyyy'),
-        subtitle: classType === 'shortCourse' ? 'Lühiklass' : classType === 'masterClass' ? 'Meistriklass' : 'Eriklass'
+        title: className,
+        subtitle: formatDate(startDate, 'dd.MM.yyyy') + '-' + formatDate(endDate, 'dd.MM.yyyy') + ' / ' +
+          (classType === 'shortCourse' ? 'Lühiklass' : classType === 'masterClass' ? 'Meistriklass' : 'Eriklass' )
       }
     },
   },
