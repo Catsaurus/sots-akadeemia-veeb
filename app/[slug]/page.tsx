@@ -65,8 +65,8 @@ export async function generateMetadata(
     }
 
     return {
-      title: seo!.metaTitle ?? page?.name,
-      description: seo!.metaDescription
+      title: seo?.metaTitle ?? page?.name,
+      description: seo?.metaDescription
     }
 }
 

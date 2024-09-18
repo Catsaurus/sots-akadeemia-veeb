@@ -19,8 +19,8 @@ export async function generateMetadata(): Promise<Metadata> {
   const seo = settings!.seo;
 
   return {
-    title: seo!.metaTitle,
-    description: seo!.metaDescription
+    title: seo?.metaTitle,
+    description: seo?.metaDescription
   }
 }
 

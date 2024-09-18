@@ -25,8 +25,8 @@ export async function generateMetadata(): Promise<Metadata> {
     const seo = contactPage!.seo;
 
     return {
-      title: seo!.metaTitle ?? contactPage?.title,
-      description: seo!.metaDescription
+      title: seo?.metaTitle ?? contactPage?.title,
+      description: seo?.metaDescription
     }
 }
 
