@@ -14,7 +14,28 @@ export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType}
             options: {perspective: 'previewDrafts'}
           })
           .title('Seotud meistri- ja eriklassid'),
+        S.view
+          .component(DocumentsPane)
+          .options({
+            query: `*[_type in ["calendar"] && references($id)] | order(startDate asc)`,
+            params: {id: `_id`},
+            options: {perspective: 'previewDrafts'}
+          })
+          .title('Seotud sündmused'),
       ])
+    case 'masterClass':
+    case 'courseModule':
+      return S.document().views([
+        S.view.form(),
+        S.view
+          .component(DocumentsPane)
+          .options({
+            query: `*[_type in ["calendar"] && references($id)] | order(startDate asc)`,
+            params: {id: `_id`},
+            options: {perspective: 'previewDrafts'}
+          })
+          .title('Seotud sündmused'),
+      ])      
     default:
       return S.document().views([S.view.form()])
   }
