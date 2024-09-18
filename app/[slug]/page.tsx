@@ -19,7 +19,6 @@ import {
     CourseModuleListQueryResult,
     GenericPage as GenericPageType,
     MasterClassListQueryResult,
-    SeoMetaFields,
     SettingsQueryResult,
     ShortCourseListQueryResult,
     SingleClassModuleCourseQueryResult,
@@ -33,6 +32,7 @@ import { ShortCoursePage } from '../components/pages/ShortCoursePage';
 import { sortByStartDate } from '../helpers/event.helper';
 import { Metadata } from 'next';
 import { getSeoMetadata } from '../helpers/metadata.helper';
+import { PageSeo } from '@/sanity/seo-types';
 
 type Props = {
     params: { id: string }
@@ -57,7 +57,7 @@ export async function generateMetadata(
 
     const page = type === 'genericPage' ? genericPage : course;
 
-    return getSeoMetadata(page!.seo as unknown as SeoMetaFields);
+    return getSeoMetadata(page!.seo as unknown as PageSeo);
 }
 
 const Page = async ({ params }: Props) => {

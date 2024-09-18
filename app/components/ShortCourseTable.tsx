@@ -59,7 +59,6 @@ export default function ShortCourseTable({
 
 
   const getCourseEvents = (courseSlug?: string) => {
-    console.log(courseSlug, calendar)
     if (!courseSlug) {
       return [];
     }
@@ -153,7 +152,6 @@ export default function ShortCourseTable({
                 const nextEvent = courseEvents[0];
                 const isEventInPast = !!nextEvent && isPast(nextEvent.startDate!);
                 const nextRegisterableEvent = !c.documentNotReady && courseEvents.filter(isEventRegisterable)[0];
-                console.log(c.name, courseEvents, nextEvent, nextRegisterableEvent)
 
                 return (
                 <tr key={c._id} className="bg-white">

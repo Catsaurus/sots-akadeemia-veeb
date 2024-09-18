@@ -11,13 +11,13 @@ import {
     ContactQueryResult,
     CourseModuleListQueryResult,
     MasterClassListQueryResult,
-    SeoMetaFields,
     SettingsQueryResult,
 } from '@/sanity/types';
 
 import ContactPage from '../components/pages/ContactPage';
 import { Metadata } from 'next';
 import { getSeoMetadata } from '../helpers/metadata.helper';
+import { PageSeo } from '@/sanity/seo-types';
 
 export async function generateMetadata(): Promise<Metadata> {
     // read route params
@@ -26,7 +26,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
     const seo = contactPage!.seo;
 
-    return getSeoMetadata(seo as unknown as SeoMetaFields);
+    return getSeoMetadata(seo as unknown as PageSeo);
 
 }
 

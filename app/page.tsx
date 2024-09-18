@@ -1,6 +1,6 @@
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { CalendarQuery, CourseModuleListQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
-import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SeoMetaFields, SettingsQueryResult } from "@/sanity/types";
+import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
 
 import Calendar from "./components/Calendar";
 import { AboutUs }  from "./components/homepage/AboutUs";
@@ -12,6 +12,7 @@ import { isFuture, isToday } from "date-fns";
 import { sortByStartDate } from "./helpers/event.helper";
 import { Metadata } from "next";
 import { getSeoMetadata } from "./helpers/metadata.helper";
+import { PageSeo } from "@/sanity/seo-types";
 
 export async function generateMetadata(): Promise<Metadata> {
 
@@ -19,7 +20,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const seo = settings!.seo;
 
-  return getSeoMetadata(seo as unknown as SeoMetaFields);
+  return getSeoMetadata(seo as unknown as PageSeo);
 }
 
 export default async function Home() {
