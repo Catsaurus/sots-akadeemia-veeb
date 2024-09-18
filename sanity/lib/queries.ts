@@ -104,7 +104,21 @@ export const CalendarQuery = groq`*[_type == "calendar"]{
     "minParticipants": @.classes->minParticipants,
     "courseSize": @.classes->courseSize 
   },
-  "parent": {
+  "parentMasterClass": {
+    "_type": @.parent->_type,
+    "name": @.parent->name,
+    "startDate": @.parent->startDate,
+    "endDate": @.parent->endDate,
+    "course": {
+      "_type": @.parent->classes->_type,
+      "slug": @.parent->classes->slug.current,
+      "name": @.parent->classes->name,
+      "color": @.parent->classes->color,
+      "maxParticipants": @.parent->classes->maxParticipants,
+      "minParticipants": @.parent->classes->minParticipants
+    }
+  },
+  "parentCourseModule": {
     "_type": @.parent->_type,
     "name": @.parent->name,
     "startDate": @.parent->startDate,
@@ -132,7 +146,21 @@ export const CalendarEventByCourseQuery = groq`*[_type == "calendar" && classes-
     "maxParticipants": @.classes->maxParticipants,
     "minParticipants": @.classes->minParticipants
   },
-  "parent": {
+  "parentMasterClass": {
+    "_type": @.parent->_type,
+    "name": @.parent->name,
+    "startDate": @.parent->startDate,
+    "endDate": @.parent->endDate,
+    "course": {
+      "_type": @.parent->classes->_type,
+      "slug": @.parent->classes->slug.current,
+      "name": @.parent->classes->name,
+      "color": @.parent->classes->color,
+      "maxParticipants": @.parent->classes->maxParticipants,
+      "minParticipants": @.parent->classes->minParticipants
+    }
+  },
+  "parentCourseModule": {
     "_type": @.parent->_type,
     "name": @.parent->name,
     "startDate": @.parent->startDate,

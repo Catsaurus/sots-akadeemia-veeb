@@ -29,6 +29,7 @@ import CourseModulePage from '../components/pages/CourseModulePage';
 import GenericPage from '../components/pages/GenericPage';
 import MasterClassPage from '../components/pages/MasterClassPage';
 import { ShortCoursePage } from '../components/pages/ShortCoursePage';
+import { sortByStartDate } from '../helpers/event.helper';
 
 export async function generateStaticParams() {
     return await client.fetch(MasterClassPathsQuery);
@@ -46,6 +47,8 @@ const Page = async ({ params }: { params: any }) => {
         sanityFetch<CalendarEventByCourseQueryResult>({ query: CalendarEventByCourseQuery, params }),
         sanityFetch<CalendarQueryResult>({ query: CalendarQuery, params })
     ]);
+
+    calendar.sort(sortByStartDate);
 
     const type = genericPage?._type ?? course?._type;
 

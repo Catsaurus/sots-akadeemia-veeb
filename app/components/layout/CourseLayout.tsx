@@ -45,7 +45,7 @@ export default function CourseLayout({
         return null;
     }
 
-    const nextEvent = events.toSorted(sortByStartDate).filter(isEventRegisterable)[0];
+    const nextEvent = events.sort(sortByStartDate).filter(isEventRegisterable)[0];
     
     return (
         <main className="min-h-screen flex flex-col">

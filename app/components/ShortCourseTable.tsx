@@ -1,7 +1,7 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import clsx from "clsx";
-import { format } from "date-fns";
+import { format, isPast } from "date-fns";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -54,7 +54,9 @@ export default function ShortCourseTable({
     if (!courseSlug) {
       return [];
     }
-    return calendar.filter(e => e.course.slug === courseSlug && (!enableDateFilter || e.parent.startDate === selectedEvent?.startDate));
+    return calendar.filter(e =>
+      e.course.slug === courseSlug && (!enableDateFilter ||
+        ((e.parentCourseModule._type ? e.parentCourseModule.startDate : e.parentMasterClass.startDate) === selectedEvent?.startDate)));
   }
 
   return (
@@ -62,7 +64,7 @@ export default function ShortCourseTable({
     <div className="">
       { enableDateFilter && !!events && 
       <div className="flex flex-wrap items-center gap-1 md:gap-3 mb-4">
-        { events.toSorted(sortByStartDate).map(event => (
+        { events.sort(sortByStartDate).map(event => (
           <button className={clsx(
             'border border-gray-300 rounded-md lg:rounded-lg pt-2 pb-1 px-2 md:px-4 hover:border-dark text-xs md:text-base',
             {
@@ -83,19 +85,19 @@ export default function ShortCourseTable({
               {m.courses.map((c, i) => {
                 const courseEvents = getCourseEvents(c.slug!.current);
                 const nextEvent = courseEvents[0];
+                const isEventInPast = !!nextEvent && isPast(nextEvent.startDate!);
                 const nextRegisterableEvent = !c.documentNotReady && courseEvents.filter(isEventRegisterable)[0];
                 const content = <>
-                  {c.name}
-                  {
-                    !enableRegister && !!nextEvent && <p className="text-xs  mt-1">Toimub: { format(nextEvent.startDate!, DATE_FORMAT) }</p>
-                  }
+                  { c.name }
+                  { !enableRegister && !!nextEvent && !isEventInPast && <p className="text-xs  mt-1">Toimub { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
+                  { !enableRegister && !!nextEvent && isEventInPast && <p className="text-xs  mt-1">Toimus { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
                   {
                     !!enableRegister && (
                       !!nextRegisterableEvent ? <>
                         <p className="text-xs mt-1">Toimub: { format(nextRegisterableEvent.startDate!, DATE_FORMAT) }</p>
                         <p className="text-xs">Registreerida saab kuni { format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) }</p>
                       </> :
-                      <p className="text-xs">{ c.documentNotReady ? 'Info peagi tulekul' : 'Klass ei ole registreerimiseks avatud'}</p>
+                      <p className="text-xs">{ c.documentNotReady ? 'Info peagi tulekul' : 'Klass ei ole registreerimiseks avatud' }</p>
                     )
                   }
                 </>
@@ -133,6 +135,7 @@ export default function ShortCourseTable({
               {m.courses.map((c, i) => {
                 const courseEvents = getCourseEvents(c.slug!.current);
                 const nextEvent = courseEvents[0];
+                const isEventInPast = !!nextEvent && isPast(nextEvent.startDate!);
                 const nextRegisterableEvent = !c.documentNotReady && courseEvents.filter(isEventRegisterable)[0];
 
                 return (
@@ -143,25 +146,28 @@ export default function ShortCourseTable({
                     { !!c.documentNotReady && c.name }
                   </td>
                   <td className="px-6 py-3">
-                    { !c.documentNotReady && !enableRegister && !!nextEvent && format(nextEvent.startDate!, DATE_FORMAT) }
+                    { !c.documentNotReady && !enableRegister && !nextEvent && <span>Info peagi tulekul</span> }
+                    { !c.documentNotReady && !enableRegister && isEventInPast && <span>Toimus {format(nextEvent.startDate!, DATE_FORMAT)}</span> }
+                    { !c.documentNotReady && !enableRegister && !isEventInPast && <span>Toimub {format(nextEvent.startDate!, DATE_FORMAT)}</span> }
                     { !c.documentNotReady && !!enableRegister && !!nextRegisterableEvent && formatRange(nextRegisterableEvent.startDate!, nextRegisterableEvent.endDate, DATE_FORMAT) }
-                    { !enableRegister && !nextEvent && !c.documentNotReady && <span>Info peagi tulekul</span> }
+                    
                   </td>
                   { !!enableRegister && <td className="py-2">
-                    { !c.documentNotReady ?
-                      !!nextRegisterableEvent ? <>
+                    { !c.documentNotReady && !!nextRegisterableEvent && <>
                         <Button color="blue" className="min-w-[150px]" onClick={() => handleRegisterToEvent(nextRegisterableEvent, c)}>
                           Registreeri
                           <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
                         </Button>
                         <p className="text-xs mt-1">Registreerida saab kuni {format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) }</p>
-                      </> : <>
-                        <Button color="yellow" className="min-w-[150px]" onClick={() => handleRegisterInterest(settings, c)}>
+                      </> 
+                    }
+                    { !c.documentNotReady && !nextRegisterableEvent &&
+                      <Button color="yellow" className="min-w-[150px]" onClick={() => handleRegisterInterest(settings, c)}>
                           Registreeri huvi
                           <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
                         </Button>
-                      </> : <span className="px-4">Info peagi tulekul</span>
-                    }
+                      }
+                    { !!c.documentNotReady && <span className="px-4">Info peagi tulekul</span> }
                     
                   </td>}
                 </tr>

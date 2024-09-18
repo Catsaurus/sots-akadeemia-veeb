@@ -8,6 +8,8 @@ import CourseExplonation from "./components/homepage/CourseExplonation";
 import Hero from "./components/homepage/Hero"
 import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
 import PageLayout from "./components/layout/PageLayout";
+import { isFuture, isToday } from "date-fns";
+import { sortByStartDate } from "./helpers/event.helper";
 
 
 export default async function Home() {
@@ -17,7 +19,11 @@ export default async function Home() {
     sanityFetch<MasterClassListQueryResult>({ query: MasterClassListQuery }),
     sanityFetch<CourseModuleListQueryResult>({ query: CourseModuleListQuery }),
     sanityFetch<CalendarQueryResult>({ query: CalendarQuery })
-  ])
+  ]);
+
+  calendar.sort(sortByStartDate);
+
+  const futureEvents = calendar.filter(evt => !!evt.startDate).filter(evt => isToday(evt.startDate!) || isFuture(evt.startDate!));
 
   return (
     <PageLayout
@@ -26,11 +32,11 @@ export default async function Home() {
       courseModules={courseModules}
       isHomepage={true}
     >
-      <Hero events={calendar}></Hero>
+      <Hero events={futureEvents}></Hero>
 
       <div className="mt-40 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
         <h2 className="font-display mb-10 text-2xl font-normal">Kalender</h2>
-        <Calendar events={calendar} />
+        <Calendar events={futureEvents} />
       </div>
 
       <div className="lg:mt-60">
