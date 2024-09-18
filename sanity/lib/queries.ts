@@ -43,7 +43,7 @@ export const SingleClassModuleCourseQuery = groq`*[_type in ["masterClass", "cou
     ...,
     "slug": @->slug,
   },
-  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && _id in ^.^.courses[]._ref].teachers[]._ref],
+  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],
   contactPerson{
     ...,
     "name": @->name,
