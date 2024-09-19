@@ -53,6 +53,9 @@ export const seofields = /* groq */ `
     nofollowAttributes,
     seoKeywords,
     metaDescription,
+    metaImage{
+        ${imageFields}
+    },
     openGraph{
     ${openGraphQuery}
     },

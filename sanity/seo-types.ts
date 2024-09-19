@@ -6,6 +6,45 @@ export type PageSeo = {
     nofollowAttributes: boolean | undefined;
     seoKeywords: Array<string> | undefined;
     metaDescription: string | undefined;
+    metaImage: {
+      _type: "image";
+      crop: {
+        _type: "sanity.imageCrop";
+        right: number | undefined;
+        top: number | undefined;
+        left: number | undefined;
+        bottom: number | undefined;
+      } | undefined;
+      hotspot: {
+        _type: "sanity.imageHotspot";
+        x: number | undefined;
+        y: number | undefined;
+        height: number | undefined;
+        width: number | undefined;
+      } | undefined;
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | undefined;
+    } | undefined;    
     openGraph: {
       _type: "openGraph";
       siteName: string | undefined;
