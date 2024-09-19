@@ -15,7 +15,7 @@ export const AboutUs = () => {
                 <Link className="bg-gray-200 hover:brightness-90 hover:saturate-150 py-2 px-4 gap-1 rounded-lg" href={"/kontakt#meist"}>Loe meist lähemalt</Link>
 
             </div>
-            <div className='custom-image-wrap flex flex-1 relative rounded-md'>
+            <div className='custom-image-wrap flex flex-col flex-1 gap-2 relative rounded-md'>
                 <Image
                     src="/static/aboutUsImage1.jpeg"
                     alt="about"
@@ -23,6 +23,12 @@ export const AboutUs = () => {
                     width={500}
                     objectFit="contain"
                 />
+                <p className='text-sm'>Pilt on tehtud 2023. aastal Sotsiaalkindlustusameti korraldatud konverentsil 
+                <a className='underline pl-2' href='https://sotsiaalkindlustusamet.ee/uudised/konverents-teekond-riikliku-perelepitusteenuseni-ja-edasi-27-oktoobril-tallinnas' target='_blank'>"Teekond riikliku perelepitusteenuseni ja edasi ..."</a>
+                . Aila, Ülla ja Merle rääkisid konverentsil riikliku perelepitusteenuse kvaliteedist ja professionaalsusest.
+                </p>
+               
+
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ function LogoOnPage() {
             <span className='header__pseudo-element--bottom'></span>
             <span className='header__pseudo-element--top'></span>
 
-            <Link href="/" className="dark:invert px-8 xl:px-12">
+            <Link href="/" className="dark:invert px-8 xl:px-12 grow">
                 <Logo />
             </Link>
         </div>
