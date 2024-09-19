@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import React from 'react';
 
 import { client } from "@/sanity/lib/client";
@@ -13,6 +14,7 @@ import {
     SingleClassModuleCourseQuery,
     SingleGenericPageQuery
 } from "@/sanity/lib/queries";
+import { PageSeo } from '@/sanity/seo-types';
 import {
     CalendarEventByCourseQueryResult,
     CalendarQueryResult,
@@ -30,9 +32,7 @@ import GenericPage from '../components/pages/GenericPage';
 import MasterClassPage from '../components/pages/MasterClassPage';
 import { ShortCoursePage } from '../components/pages/ShortCoursePage';
 import { sortByStartDate } from '../helpers/event.helper';
-import { Metadata } from 'next';
 import { getSeoMetadata } from '../helpers/metadata.helper';
-import { PageSeo } from '@/sanity/seo-types';
 
 type Props = {
     params: { id: string }

@@ -1,5 +1,9 @@
+import { isFuture, isToday } from "date-fns";
+import { Metadata } from "next";
+
 import { sanityFetch } from "@/sanity/lib/fetch"
 import { CalendarQuery, CourseModuleListQuery, MasterClassListQuery, SettingsQuery } from "@/sanity/lib/queries"
+import { PageSeo } from "@/sanity/seo-types";
 import { CalendarQueryResult, CourseModuleListQueryResult, MasterClassListQueryResult, SettingsQueryResult } from "@/sanity/types";
 
 import Calendar from "./components/Calendar";
@@ -8,11 +12,8 @@ import CourseExplonation from "./components/homepage/CourseExplonation";
 import Hero from "./components/homepage/Hero"
 import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
 import PageLayout from "./components/layout/PageLayout";
-import { isFuture, isToday } from "date-fns";
 import { sortByStartDate } from "./helpers/event.helper";
-import { Metadata } from "next";
 import { getSeoMetadata } from "./helpers/metadata.helper";
-import { PageSeo } from "@/sanity/seo-types";
 
 export async function generateMetadata(): Promise<Metadata> {
 

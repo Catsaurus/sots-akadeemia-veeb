@@ -1,3 +1,4 @@
+import { Metadata } from 'next';
 import React from 'react';
 
 import { sanityFetch } from "@/sanity/lib/fetch";
@@ -7,6 +8,7 @@ import {
     MasterClassListQuery,
     SettingsQuery,
 } from "@/sanity/lib/queries";
+import { PageSeo } from '@/sanity/seo-types';
 import {
     ContactQueryResult,
     CourseModuleListQueryResult,
@@ -15,9 +17,7 @@ import {
 } from '@/sanity/types';
 
 import ContactPage from '../components/pages/ContactPage';
-import { Metadata } from 'next';
 import { getSeoMetadata } from '../helpers/metadata.helper';
-import { PageSeo } from '@/sanity/seo-types';
 
 export async function generateMetadata(): Promise<Metadata> {
     // read route params

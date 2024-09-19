@@ -17,9 +17,9 @@ import {
 
 import NextEventCardSet from "../cards/NextEventCardSet";
 import TeacherCard from "../cards/TeacherCard";
+import ClassCourseSchedule from "../ClassCourseSchedule";
 import ContentBlock from "../ContentBlock";
 import BackLink from "../links/BackLink";
-import ClassCourseSchedule from "../ClassCourseSchedule";
 import ShortCourseSchedule from "../ShortCourseSchedule";
 import Container from "./Container";
 import Footer from "./Footer";
@@ -49,10 +49,12 @@ export default function CourseLayout({
     
     return (
         <main className="min-h-screen flex flex-col">
-          <div
-            style={headingContainerBackground ? { backgroundColor: headingContainerBackground } : undefined}
-            className={`${headingContainerBackground ? '' : 'bg-[url("/static/bg-image.webp")] saturate-0 '}p-5 w-full rounded-br-md rounded-bl-md absolute h-[350px] z-[-1]`}>
-          </div>
+            <div
+                style={headingContainerBackground ? { backgroundColor: headingContainerBackground } : undefined}
+                className={`${headingContainerBackground ? '' : 'bg-[url("/static/bg-image.webp")] saturate-0 '}p-5 w-full rounded-br-md rounded-bl-md absolute h-[350px] z-[-1]`}
+            >
+                { !headingContainerBackground && <div className="bg-gradient-to-t from-gray/0 to-gray-900 absolute top-0 left-0 right-0 h-[120px]"></div> }
+            </div>
           <Header
             settings={settings}
             masterClasses={masterClasses}

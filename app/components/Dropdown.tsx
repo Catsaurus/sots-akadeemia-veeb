@@ -13,7 +13,7 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
 
     return (
         <Menu as="div" className="relative inline-block text-left">
-            <MenuButton className="cursor-pointer flex gap-2 items-center hover:ring-1 hover:ring-dark hover:ring-opacity-25 rounded-sm px-2 lg:px-4 pt-3 pb-2 dark:text-white" as="button">
+            <MenuButton className="cursor-pointer flex gap-2 items-center hover:ring-1 hover:ring-dark hover:ring-opacity-25 dark:hover:ring-gray-200 rounded-sm px-2 lg:px-4 pt-3 pb-2 dark:text-white" as="button">
                 {({ active }) => (
                     <>
                     { name }

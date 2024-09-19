@@ -1,4 +1,5 @@
 import { MetadataRoute } from "next";
+
 import { client } from "../sanity/lib/client";
 import { ContactQuery, MasterClassPathsQuery, SettingsQuery } from "../sanity/lib/queries";
 
