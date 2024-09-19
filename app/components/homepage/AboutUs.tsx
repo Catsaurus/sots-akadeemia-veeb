@@ -21,14 +21,12 @@ export const AboutUs = () => {
                     alt="about"
                     height={500}
                     width={500}
-                    objectFit="contain"
                 />
                 <p className='text-sm'>Pilt on tehtud 2023. aastal Sotsiaalkindlustusameti korraldatud konverentsil 
-                <a className='underline pl-2' href='https://sotsiaalkindlustusamet.ee/uudised/konverents-teekond-riikliku-perelepitusteenuseni-ja-edasi-27-oktoobril-tallinnas' target='_blank'>"Teekond riikliku perelepitusteenuseni ja edasi ..."</a>
+                <a className='underline pl-2' href='https://sotsiaalkindlustusamet.ee/uudised/konverents-teekond-riikliku-perelepitusteenuseni-ja-edasi-27-oktoobril-tallinnas' target='_blank'>&quot;Teekond riikliku perelepitusteenuseni ja edasi ...&quot;</a>
                 . Aila, Ülla ja Merle rääkisid konverentsil riikliku perelepitusteenuse kvaliteedist ja professionaalsusest.
                 </p>
-               
-
+            
             </div>
         </div>
     )
