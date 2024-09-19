@@ -3,7 +3,6 @@ import { Metadata } from "next";
 import { PageSeo } from "@/sanity/seo-types";
 
 export const getSeoMetadata = (slug: string, seo: PageSeo | null): Metadata => {
-    console.log(seo)
     return {
         title: seo?.metaTitle,
         description: seo?.metaDescription,
