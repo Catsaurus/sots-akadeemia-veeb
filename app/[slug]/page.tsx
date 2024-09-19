@@ -56,8 +56,11 @@ export async function generateMetadata(
     const type = genericPage?._type ?? course?._type;
 
     const page = type === 'genericPage' ? genericPage : course;
+    if (!page) {
+        return {}
+    }
 
-    return getSeoMetadata(page!.slug!.current!, page!.seo as unknown as PageSeo);
+    return getSeoMetadata(page.slug!.current!, page!.seo as unknown as PageSeo);
 }
 
 const Page = async ({ params }: Props) => {
