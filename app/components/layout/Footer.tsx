@@ -12,7 +12,7 @@ const Footer = () => {
 
         <div className='flex flex-col md:flex-row justify-between gap-10 pt-10 md:pt-20 pb-10'>
           <div className='flex flex-1 flex-col  justify-start'>
-            <Link href="/" className="invert">
+            <Link href="/" className="invert" aria-label="Avalehele">
               <Logo />
             </Link>
            {/**  <p className='text-white'>Registrikood: 12345098</p>*/}

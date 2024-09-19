@@ -37,12 +37,12 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
 
                     <div className="flex items-center">
                         <div className={`hidden lg:flex items-center ${!isHeaderSticky && hideHeaderOnTop ? 'invisible' : ''}`}>
-                            <Link href="/" className="dark:invert px-8 xl:px-12">
+                            <Link href="/" className="dark:invert px-8 xl:px-12" aria-label="Avalehele">
                                 <Logo />
                             </Link>
                         </div>
 
-                        <Link href="/" className="dark:invert px-5 lg:hidden">
+                        <Link href="/" className="dark:invert px-5 lg:hidden" aria-label="Avalehele">
                             <Logo />
                         </Link>
 
@@ -110,7 +110,7 @@ function MobileNav({ settings, masterClasses, courseModules, open, setOpen }: Re
     return (
         <div className={`fixed top-0 left-0 h-screen w-full z-[1000] bg-white transform ${open ? "-translate-x-0" : "-translate-x-full"} transition-transform duration-300 ease-in-out filter`}>
             <div className="flex items-center justify-between pl-4 filter h-20">
-                <Link className="text-2xl font-semibold" href="/">
+                <Link className="text-2xl font-semibold" href="/" aria-label="Avalehele">
                     <Logo />
                 </Link>
                 <button className="z-50 flex absolute right-5 w-18 h-8 flex-col justify-between items-center lg:hidden" onClick={() => {

@@ -68,7 +68,7 @@ export default function Calendar({ showFullDate, events }: Readonly<CalendarProp
                                 <span className="pr-3 lg:pr-10 text-sm md:text-md pt-1 md:w-1/4 xl:w-1/5">{formatRange(event.startDate!, event.endDate, DATE_FORMAT)}</span>
                                 <Link key={event._id} href={`/${event.course.slug}`} className="flex flex-auto items-center flex-row md:hover:text-gray-800 md:hover:pl-1 group transition-all justify-between active:text-gray-400">
                                     <div className="flex flex-col">
-                                        <h6 className="text-md md:text-xl font-medium group-hover:underline">{event.course.name}</h6>
+                                        <strong className="text-md md:text-xl font-medium group-hover:underline">{event.course.name}</strong>
                                         <small className="text-xs md:text-sm">{type} ({event.course.courseSize} ak){!!event.course.courseModule && `, ${event.course.courseModule.name ?? ''}`}</small>
                                     </div>
                                     <ArrowRightIcon className="size-4 md:size-6 md:hidden text-gray-400 md:text-dark group-hover:block " />
