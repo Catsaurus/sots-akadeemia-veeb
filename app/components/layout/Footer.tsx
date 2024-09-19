@@ -6,7 +6,7 @@ import { Logo } from '../Logo'
 
 const Footer = () => {
   return (
-    <div className="bg-[url('/static/bg-image.png')] pt-10 lg:pt-20 mt-auto">
+    <div className="bg-[url('/static/bg-image.webp')] pt-10 lg:pt-20 mt-auto">
 
       <div className='bg-dark px-10 lg:px-20 max-w-screen-xl mx-auto rounded-t-md lg:rounded-t-lg'>
 

@@ -12,7 +12,7 @@ interface CalendarProps {
 const Hero = ({ events }: Readonly<CalendarProps>) => {
     return (
         <>
-            <div className="bg-[url('/static/bg-image.png')] p-4 md:p-10 rounded-md xl:-mx-10 relative">
+            <div className="bg-[url('/static/bg-image.webp')] p-4 md:p-10 rounded-md xl:-mx-10 relative">
             
                 <div className='absolute left-0 top-0'>
                     <LogoOnPage></LogoOnPage>

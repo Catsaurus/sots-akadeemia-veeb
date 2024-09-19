@@ -17,7 +17,7 @@ export const AboutUs = () => {
             </div>
             <div className='custom-image-wrap flex flex-col flex-1 gap-2 relative rounded-md'>
                 <Image
-                    src="/static/aboutUsImage1.jpeg"
+                    src="/static/aboutUsImage1.webp"
                     alt="about"
                     height={500}
                     width={500}

@@ -6,7 +6,7 @@ const CourseExplonation = () => {
         <div className='flex flex-row gap-20'>
             <div className="flex-1 relative hidden lg:flex">
                 <Image
-                    src="/static/courseExplonation.png"
+                    src="/static/courseExplonation.webp"
                     alt="explonation"
                     objectFit="contain"
                     width={400}
