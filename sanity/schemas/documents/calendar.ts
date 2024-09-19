@@ -19,7 +19,7 @@ export default defineType({
 
     defineField({
       name: 'parentMasterClass',
-      title: 'Sündmus toimub meistriklassi sündmuse raames',
+      title: 'VANA VÄLI:Sündmus toimub meistriklassi sündmuse raames',
       description: 'Vali seotud sündmus',
       type: 'reference',
       to: [{ type: 'calendar' }],
@@ -37,7 +37,7 @@ export default defineType({
     }),
     defineField({
       name: 'parentCourseModule',
-      title: 'Sündmus toimub eriklassi sündmuse raames',
+      title: 'VANA VÄLI: Sündmus toimub eriklassi sündmuse raames',
       description: 'Vali seotud sündmus',
       type: 'reference',
       to: [{ type: 'calendar' }],

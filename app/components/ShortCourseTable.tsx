@@ -101,12 +101,12 @@ export default function ShortCourseTable({
                 const nextRegisterableEvent = !c.documentNotReady && courseEvents.filter(isEventRegisterable)[0];
                 const content = <>
                   { c.name }
-                  { !enableRegister && !!nextEvent && !isEventInPast && <p className="text-xs mt-1">Toimub { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
-                  { !enableRegister && !!nextEvent && isEventInPast && <p className="text-xs mt-1">Toimus { format(nextEvent.startDate!, DATE_FORMAT) }</p> }
+                  { !enableRegister && !!nextEvent && !isEventInPast && <p className="text-xs mt-1">Toimub { formatRange(nextEvent.startDate!, nextEvent.endDate, DATE_FORMAT) }</p> }
+                  { !enableRegister && !!nextEvent && isEventInPast && <p className="text-xs mt-1">Toimus { formatRange(nextEvent.startDate!, nextEvent.endDate, DATE_FORMAT) }</p> }
                   {
                     !!enableRegister && (
                       !!nextRegisterableEvent ? <>
-                        <p className="text-xs mt-1">Toimub: { format(nextRegisterableEvent.startDate!, DATE_FORMAT) }</p>
+                        <p className="text-xs mt-1">Toimub: { formatRange(nextEvent.startDate!, nextEvent.endDate, DATE_FORMAT) }</p>
                         <p className="text-xs">Registreerimine kuni { format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) } (k.a)</p>
                       </> :
                       <p className="text-xs">{ c.documentNotReady ? 'Info peagi tulekul' : 'Klass ei ole registreerimiseks avatud' }</p>

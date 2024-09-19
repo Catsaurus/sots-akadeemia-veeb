@@ -32,7 +32,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
     return (
         <>
             <nav className={`flex h-20 items-center z-10 transition sticky top-0 ${scrollDirection === 'down' ? 'translate-y-[-80px]' : 'translate-x-0'} ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'gray-200 backdrop-blur' : 'relative'}`}>
-                <div className={`absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark ${isHeaderSticky ? 'opacity-20 dark:opacity-70' : 'opacity-0'} backdrop-blur transition duration-1000 ease-in-out z-[-1]`}></div>
+                <div className={`absolute top-0 left-0 right-0 bottom-0 bg-gray-200 dark:bg-dark ${isHeaderSticky ? 'dark:opacity-50' : 'opacity-0'} backdrop-blur transition duration-1000 ease-in-out z-[-1]`}></div>
                 <div className='container max-w-screen-xl mx-auto flex items-center'>
 
                     <div className="flex items-center">
