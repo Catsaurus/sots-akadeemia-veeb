@@ -63,11 +63,13 @@ export default function CourseLayout({
     
           <Container className="pb-10 pt-28 xxl:pt-40">
             <div className={`mb-4 xxl:mb-10 inline-block text-${!headingContainerBackground ? 'white' : 'black'}`}>
-              <BackLink linkToHomePage={course._type !== 'shortCourse'} />
+                <div>
+                    <BackLink linkToHomePage={course._type !== 'shortCourse'} />
+                </div>
             </div>
             <h1 className={`font-display font-normal text-2xl md:text-4xl text-${!headingContainerBackground ? 'white' : 'black'} mb-8`}>{ course.name }</h1>
     
-            <div className='flex flex-col-reverse md:flex-row gap-4 mb-10'>
+            <div className='flex flex-col-reverse md:flex-row gap-4 md:mb-10'>
 
                 <ContentBlock title="Õppe sisu">
                     <div className='text-sm md:text-base'>{ course.body ? <PortableText value={course.body} /> : undefined }</div>
