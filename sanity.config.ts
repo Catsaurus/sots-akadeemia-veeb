@@ -5,7 +5,7 @@
  */
 
 import {visionTool} from '@sanity/vision'
-import {defineConfig} from 'sanity'
+import {defineConfig, defineLocale} from 'sanity'
 import {structureTool} from 'sanity/structure'
 
 import { structure } from './sanity/structure'
@@ -57,10 +57,23 @@ export default defineConfig({
     const isAdmin = currentUser?.roles.some((role) => role.name === 'administrator')
     if (isAdmin) { return prev } return prev.filter((tool) => tool.name !== 'vision')
   },
-document: {
-  actions: (input, context) =>
-    singletonTypes.has(context.schemaType)
-      ? input.filter(({ action }) => action && singletonActions.has(action))
-      : input,
-} 
+  document: {
+    actions: (input, context) =>
+      singletonTypes.has(context.schemaType)
+        ? input.filter(({ action }) => action && singletonActions.has(action))
+        : input,
+  },
+  i18n: {
+    locales: [
+      { bundles: [],
+        id: 'et-EE',
+        title: 'Eesti',
+        weekInfo: {
+          firstDay: 1,
+          minimalDays: 4,
+          weekend: [6, 7],
+        },
+      }
+    ]
+  }
 })
