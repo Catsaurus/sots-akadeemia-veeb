@@ -107,7 +107,7 @@ export default function ShortCourseTable({
                     !!enableRegister && (
                       !!nextRegisterableEvent ? <>
                         <p className="text-xs mt-1">Toimub: { format(nextRegisterableEvent.startDate!, DATE_FORMAT) }</p>
-                        <p className="text-xs">Registreerida saab kuni { format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) }</p>
+                        <p className="text-xs">Registreerimine kuni { format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) } (k.a)</p>
                       </> :
                       <p className="text-xs">{ c.documentNotReady ? 'Info peagi tulekul' : 'Klass ei ole registreerimiseks avatud' }</p>
                     )
@@ -144,7 +144,7 @@ export default function ShortCourseTable({
           <tr>
             { !hideCourseModuleColumn && <th className="pr-6 py-3 w-[200px]">Eriklass</th>}
             <th className={`${hideCourseModuleColumn ? 'pr-6' : 'px-6'} py-3`}>Lühiklass</th>
-            <th className="px-6 py-3">Toimumise kuupäev</th>
+            <th className="px-6 py-3">Toimumise kuupäevad</th>
             { !!enableRegister && <th className="px-6 py-3"></th>}
           </tr>
         </thead>
@@ -167,7 +167,7 @@ export default function ShortCourseTable({
                   <td className="px-6 py-3">
                     { !c.documentNotReady && !enableRegister && !nextEvent && <span>Info peagi tulekul</span> }
                     { !c.documentNotReady && !enableRegister && isEventInPast && <span>Toimus {format(nextEvent.startDate!, DATE_FORMAT)}</span> }
-                    { !c.documentNotReady && !enableRegister && !!nextEvent && !isEventInPast && <span>{ format(nextEvent.startDate!, DATE_FORMAT) }</span> }
+                    { !c.documentNotReady && !enableRegister && !!nextEvent && !isEventInPast && <span>{ formatRange(nextEvent.startDate!, nextEvent.endDate, DATE_FORMAT) }</span> }
                     { !c.documentNotReady && !!enableRegister && !!nextRegisterableEvent && formatRange(nextRegisterableEvent.startDate!, nextRegisterableEvent.endDate, DATE_FORMAT) }
                     
                   </td>
@@ -177,7 +177,7 @@ export default function ShortCourseTable({
                           Registreeri
                           <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
                         </Button>
-                        <p className="text-xs mt-1">Registreerida saab kuni {format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) }</p>
+                        <p className="text-xs mt-1">Registreerimine kuni {format(getEventRegisterableUntilDate(nextRegisterableEvent), DATE_FORMAT) } (k.a)</p>
                       </> 
                     }
                     { !c.documentNotReady && !nextRegisterableEvent &&

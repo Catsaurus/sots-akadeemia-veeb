@@ -39,10 +39,10 @@ export default function ContactPage({
       masterClasses={masterClasses}
       courseModules={courseModules}
     >
-      <div className=' mb-20'>
+      <div className='mb-10'>
 
 
-        <div className='flex flex-col md:flex-row gap-6 mb-20'>
+        <div className='flex flex-col md:flex-row gap-6 mb-40 pt-10'>
           <ContactCard title="Viime oma koolitusi läbi:">
             { settings?.address }
           </ContactCard>
@@ -56,7 +56,7 @@ export default function ContactPage({
           </ContactCard>
         </div>
 
-        <h2 className='font-display text-2xl font-normal mb-10'>Akadeemikud</h2>
+        <h2 className='font-display text-2xl font-normal mb-10' id="meist">Akadeemikud</h2>
 
         { !!page?.teachers?.length && <Card title="Akadeemikud">
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16'>
