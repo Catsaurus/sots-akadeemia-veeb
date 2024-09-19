@@ -18,7 +18,6 @@ interface PageLayoutProps {
 export default function PageLayout({
     title, settings, masterClasses, courseModules, isHomepage, children
 }: Readonly<PageLayoutProps>) {
-
     return (
         <main className="min-h-screen flex flex-col">
             <Header
