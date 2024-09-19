@@ -5,6 +5,7 @@ import { Unbounded } from "next/font/google";
 import localFont from 'next/font/local'
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
+import ReactDOM from "react-dom";
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -47,6 +48,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  ReactDOM.preload('/static/bg-image.webp', { as: 'image' })
   return (
     <html lang="et">
       <body className={`${unbounded.variable} ${helvetica.variable}`}>
