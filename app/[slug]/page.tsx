@@ -46,7 +46,6 @@ export async function generateStaticParams() {
 export async function generateMetadata(
     { params }: Props
   ): Promise<Metadata> {
-    // read route params
   
     const [course, genericPage] = await Promise.all([
         sanityFetch<SingleClassModuleCourseQueryResult>({ query: SingleClassModuleCourseQuery, params }),
