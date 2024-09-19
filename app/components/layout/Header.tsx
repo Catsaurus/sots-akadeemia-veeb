@@ -10,6 +10,7 @@ import Accordion from '../Accordion';
 import Dropdown from '../Dropdown';
 import NavLink from '../links/NavLink';
 import { Logo } from '../Logo';
+import useScrollDirection from "@/app/hooks/useScrollDirection";
 
 interface HeaderProps {
     onDarkBackground?: boolean;
@@ -24,13 +25,14 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
 
     const [open, setOpen] = useState(false);
     const [{ y }] = useWindowScroll();
+    const scrollDirection = useScrollDirection();
 
     const isHeaderSticky = (y ?? 0) > 80;
 
     return (
         <>
-            <nav className={`flex h-20 items-center z-10 sticky top-0 ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'gray-200 backdrop-blur' : 'relative'}`}>
-                {(isHeaderSticky || onDarkBackground) && <div className="absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark opacity-0 dark:opacity-70 backdrop-blur transition-opacity z-[-1]"></div>}
+            <nav className={`flex h-20 items-center z-10 transition sticky top-0 ${scrollDirection === 'down' ? 'translate-y-[-80px]' : 'translate-x-0'} ${contentOverlap ? '-mb-[80px]' : ''} ${onDarkBackground ? 'dark' : ''} ${isHeaderSticky ? 'gray-200 backdrop-blur' : 'relative'}`}>
+                <div className={`absolute top-0 left-0 right-0 bottom-0 bg-gray-100 dark:bg-dark ${isHeaderSticky ? 'opacity-20 dark:opacity-70' : 'opacity-0'} backdrop-blur transition duration-1000 ease-in-out z-[-1]`}></div>
                 <div className='container max-w-screen-xl mx-auto flex items-center'>
 
                     <div className="flex items-center">
@@ -76,7 +78,7 @@ export default function Header({ onDarkBackground, contentOverlap, hideHeaderOnT
                             }
                         </div>
 
-                        <div className="hidden lg:flex lg:w-[200px] xl:w-[300px] justify-end">
+                        <div className="hidden lg:flex lg:w-[200px] xl:w-[300px] justify-end pr-5 lg:pr-10">
                             <NavLink to="/kontakt">
                                 Kontakt
                             </NavLink>
