@@ -28,9 +28,9 @@ export const getRegisterInterestLink = (settings: SettingsQueryResult, course: C
     if (course?._type === 'shortCourse' && settings?.registerInterestShortCourse) {
         return settings.registerInterestShortCourse + course.name;
     } else if (course?._type === 'courseModule' && settings?.registerInterestCourseModule) {
-        return settings.registerInterestCourseModule + course.name, '_blank';
+        return settings.registerInterestCourseModule + course.name;
     } else if (course?._type === 'masterClass' && settings?.registerInterestMasterClass) {
-        return settings.registerInterestMasterClass + course.name, '_blank';
+        return settings.registerInterestMasterClass + course.name;
     }
     return undefined;
 }
