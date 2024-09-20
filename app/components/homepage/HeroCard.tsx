@@ -32,9 +32,9 @@ const HeroCard = ({ event }: Readonly<HeroCardProps>) => {
   return (
     <Link key={event._id} href={`/${event.course.slug}`}
       style={{ backgroundColor: event.course.color?.hex }}
-      className='bg-gray-100 p-5 lg:p-6 rounded-tr-md rounded-bl-md shadow-2xl group'>
-        <p className='text-xs md:text-sm opacity-60'>Grupp alustab 10.oktoober</p>
-      <h3 className='text-md md:text-lg group-hover:underline font-semibold py-1 md:py-2'>{event.course.name}</h3>
+      className='bg-gray-100 p-5 lg:p-6 rounded-tr-md rounded-bl-md shadow-2xl group flex flex-col '>
+       { !(event.course._type == "masterClass") && <p className='text-xs md:text-sm opacity-60'>Grupp alustab 10.oktoober</p>}
+      <h3 className='text-md md:text-lg group-hover:underline font-semibold py-1 md:py-2 h-full'>{event.course.name}</h3>
 
       <div className="flex flex-col lg:flex-row justify-between">
         <span className="text-xs md:text-sm opacity-60">{ event.course.minParticipants }-{ event.course.maxParticipants } osalejat</span>

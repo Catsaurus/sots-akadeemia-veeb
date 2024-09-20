@@ -19,11 +19,7 @@ const Footer = () => {
           </div>
           <div className='flex flex-1 flex-col items-start'>
             <Link className='text-yellow hover:underline p-1' href={"/"}>Avakuva</Link>
-            <Link className='text-yellow hover:underline p-1' href={"/luhiklassid"}>Lühiklassid</Link>
-
             <Link className='text-yellow hover:underline p-1' href={"/kontakt"}>Kontakt</Link>
-            <Link className='text-yellow hover:underline p-1' href={"/oppetoo-korraldus"}>Õppetöö korraldus</Link>
-
           </div>
 
           <div className='flex flex-1 flex-col'>
@@ -33,7 +29,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className='border-t border-gray-800 flex justify-center p-3'>
+        <div className='border-t border-gray-800 flex justify-center p-4'>
           <p className='text-gray-400 text-xs'>© 2024 Sotsiaaltöö akadeemia OÜ</p>
         </div>
 
