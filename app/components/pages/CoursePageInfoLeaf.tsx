@@ -14,7 +14,7 @@ const CoursePageInfoLeaf = ({ bgColorClass, title, info }: Readonly<CoursePageIn
       <span className='text-xs'>{title}</span>
       <div className='flex justify-center items-center flex-col'>
         <span className='text-md md:text-lg font-display'>{info}</span>
-        {title === 'Maht' && <span className='text-xs ml-1'>ak tundi</span>}
+        {title === 'Maht' && <span className='text-xs ml-1'>akadeemilist tundi</span>}
       </div>
     </div>
 

@@ -99,7 +99,6 @@ export default defineType({
       name: 'courseSize',
       title: 'Eriklassi ainemaht',
       type: 'number',
-      initialValue: 168,
       description: 'Maht tundides'
     }),
     defineField({
