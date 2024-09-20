@@ -24,18 +24,20 @@ interface Course {
     registrationLink?: string | null;
 }
 
-export const handleRegisterInterest = (settings: SettingsQueryResult, course: Course) => {
+export const getRegisterInterestLink = (settings: SettingsQueryResult, course: Course) => {
     if (course?._type === 'shortCourse' && settings?.registerInterestShortCourse) {
-        window.open(settings.registerInterestShortCourse + course.name, '_blank')
+        return settings.registerInterestShortCourse + course.name;
     } else if (course?._type === 'courseModule' && settings?.registerInterestCourseModule) {
-        window.open(settings.registerInterestCourseModule + course.name, '_blank')
+        return settings.registerInterestCourseModule + course.name, '_blank';
     } else if (course?._type === 'masterClass' && settings?.registerInterestMasterClass) {
-        window.open(settings.registerInterestMasterClass + course.name, '_blank')
+        return settings.registerInterestMasterClass + course.name, '_blank';
     }
+    return undefined;
 }
 
-export const handleRegisterToEvent = (event: CalendarEventByCourseQueryResult[0], course: Course) => {
+export const getRegisterToEventLink = (event: CalendarEventByCourseQueryResult[0], course: Course) => {
     if (course.registrationLink) {
-        window.open(course.registrationLink + format(event.startDate!, DATE_FORMAT) + '-' + format(event.endDate!, DATE_FORMAT))
+        return course.registrationLink + format(event.startDate!, DATE_FORMAT) + '-' + format(event.endDate!, DATE_FORMAT);
     }
+    return undefined;
 }

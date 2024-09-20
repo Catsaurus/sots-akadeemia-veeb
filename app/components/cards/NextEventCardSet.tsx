@@ -2,7 +2,7 @@ import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/solid";
 import clsx from "clsx";
 
 import { DATE_FORMAT, DATE_FORMAT_LONG, format } from "@/app/helpers/date.helper";
-import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent } from "@/app/helpers/event.helper";
+import { getEventRegisterableUntilDate, getRegisterInterestLink, getRegisterToEventLink } from "@/app/helpers/event.helper";
 import { CalendarEventByCourseQueryResult, SettingsQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
 
 import Button from "../Button";
@@ -34,7 +34,7 @@ export default function NextEventCardSet({ event, course, settings, headingConta
                 { !!eventRegisterUntilDate && <>
                 <p>Järgmine grupp alustab:</p>
                 <p className="font-display font-normal text-md md:text-xl">{ format(event.startDate!, DATE_FORMAT_LONG) } </p>
-                <Button size="lg" onClick={() => handleRegisterToEvent(event, course)}>
+                <Button size="lg" as="link" href={getRegisterToEventLink(event, course)}>
                     Registreeri
                     <ArrowTopRightOnSquareIcon className="-mt-1 h-5 w-5" />
                 </Button>
@@ -43,7 +43,7 @@ export default function NextEventCardSet({ event, course, settings, headingConta
                 { !eventRegisterUntilDate && <>
                     <p className="font-display font-normal text-md lg:text-xl">Klass ei ole registreerimiseks avatud</p>
                     { availableForInterest && <>
-                        <Button size="lg"  onClick={() => handleRegisterInterest(settings, course)}>
+                        <Button size="lg" as="link" href={getRegisterInterestLink(settings, course)}>
                             Registreeri huvi
                             <ArrowTopRightOnSquareIcon className="-mt-1 h-5 w-5" />
                         </Button>

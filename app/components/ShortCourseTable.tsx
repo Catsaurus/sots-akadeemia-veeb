@@ -8,7 +8,7 @@ import { useState } from "react";
 import { CalendarEventByCourseQueryResult, CalendarQueryResult, CourseModule,SettingsQueryResult, ShortCourseListQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
 
 import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
-import { getEventRegisterableUntilDate, handleRegisterInterest, handleRegisterToEvent, isEventRegisterable, sortByStartDate } from "../helpers/event.helper";
+import { getEventRegisterableUntilDate, getRegisterInterestLink, getRegisterToEventLink, isEventRegisterable, sortByStartDate } from "../helpers/event.helper";
 import Button from "./Button";
 
 
@@ -173,7 +173,7 @@ export default function ShortCourseTable({
                   </td>
                   { !!enableRegister && <td className="py-2">
                     { !c.documentNotReady && !!nextRegisterableEvent && <>
-                        <Button color="blue" className="min-w-[150px]" onClick={() => handleRegisterToEvent(nextRegisterableEvent, c)}>
+                        <Button color="blue" as="link" className="min-w-[150px]" href={getRegisterToEventLink(nextRegisterableEvent, c)}>
                           Registreeri
                           <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
                         </Button>
@@ -181,7 +181,7 @@ export default function ShortCourseTable({
                       </> 
                     }
                     { !c.documentNotReady && !nextRegisterableEvent &&
-                      <Button color="yellow" className="min-w-[150px]" onClick={() => handleRegisterInterest(settings, c)}>
+                      <Button color="yellow" className="min-w-[150px]" as="link" href={getRegisterInterestLink(settings, c)}>
                         Registreeri huvi
                         <ArrowTopRightOnSquareIcon className="-mt-1 h-4 w-4" />
                       </Button>
