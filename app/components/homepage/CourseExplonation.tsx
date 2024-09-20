@@ -17,15 +17,15 @@ const CourseExplonation = () => {
             <div className='flex flex-1 flex-col justify-center'>
                 <div className='mb-10'>
                     
-                    <h2 className='font-display'>Meistriklass (180 ak)</h2>
-                    <p className='text-md'>Süsteemne lühiklassi koolituste sari, mis annab antud teemal süvendatud teadmised ja kogemused inimestega töös.</p>
+                    <h2 className='font-display'>Meistriklass</h2>
+                    <p className='text-md'>Süsteemne lühiklassi koolituste sari, mis annab antud teemal süvendatud teadmised ja kogemused inimestega töös. Kõik klassid läbitakse ühe (vajadusel ka kahe) aasta jooksul. Kokku läbitakse 188 akadeemilist tundi.</p>
                 </div>
                 <div className='mb-10'>
-                    <h2 className='font-display'>Eriklass (60-80 ak)</h2>
-                    <p className='text-md'>Lühiklasside sari, kus käsitletakse vastavat teemat järjest sügavamalt. Iga järgnev klass toetub eelmisel läbitule, seetõttu soovitame alustada esimesest.</p>
+                    <h2 className='font-display'>Eriklass</h2>
+                    <p className='text-md'>Lühiklasside sari, kus käsitletakse vastavat teemat järjest sügavamalt. Iga järgnev klass toetub eelmisel läbitule, seetõttu soovitame alustada esimesest. Kestab 60-80 akadeemilist tundi.</p>
                 </div>
                 <div className='mb-10'>
-                    <h2 className='font-display'>Lühiklass (20 ak)</h2>
+                    <h2 className='font-display'>Lühiklass</h2>
                     <p className='text-md'>Konkreetsel teemal toimuv koolitus, kestvus 20 akadeemilist tundi.</p>
                 </div>
 

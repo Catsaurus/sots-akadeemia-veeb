@@ -27,11 +27,11 @@ const MasterClassCardLarge = ({ masterClasses = [] }: { masterClasses: MasterCla
 
                         <p className="text-sm md:text-base flex-grow">{masterClass.shortDescription}</p>
 
-                        <div className="flex flex-row gap-2">
+                       {/* <div className="flex flex-row gap-2">
                             <span className="text-xs md:text-sm pb-1 pt-2 px-2 bg-dark bg-opacity-10 rounded-sm">{ masterClass.minParticipants }-{ masterClass.maxParticipants } osalejat</span>
                             <span className="text-xs md:text-sm pb-1 pt-2 px-2 bg-dark bg-opacity-10 rounded-sm">{ masterClass.courseSize } ak h</span>
                         </div>
-                        {/*<Link className="p-2 hover:underline underline-offset-2"
+                        <Link className="p-2 hover:underline underline-offset-2"
                             key={masterClass._id}
                             href={`/${masterClass.slug?.current}`}
                         >Loe rohkem </Link>*/}
