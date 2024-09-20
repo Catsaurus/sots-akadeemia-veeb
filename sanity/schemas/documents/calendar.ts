@@ -1,6 +1,7 @@
-import { client } from '@/sanity/lib/client'
 import { formatDate } from 'date-fns'
 import {defineField, defineType} from 'sanity'
+
+import { client } from '@/sanity/lib/client'
 
 export default defineType({
   name: 'calendar',
@@ -14,43 +15,6 @@ export default defineType({
       to: [{ type: 'shortCourse' }, { type: 'masterClass' }, { type: 'courseModule' }],
       options: {
         filter:  'documentNotReady != true'
-      }
-    }),
-
-    defineField({
-      name: 'parentMasterClass',
-      title: 'VANA VÄLI:Sündmus toimub meistriklassi sündmuse raames',
-      description: 'Vali seotud sündmus',
-      type: 'reference',
-      to: [{ type: 'calendar' }],
-      options: {
-        filter: async () => {
-          const masterClassEventIds = await client.fetch(
-            '*[_type == "calendar" && classes._ref in *[_type == "masterClass" && documentNotReady != true]._id]._id'
-          );
-          return {
-            filter: '_id in $masterClassEventIds',
-            params: { masterClassEventIds },
-          }
-        },
-      }
-    }),
-    defineField({
-      name: 'parentCourseModule',
-      title: 'VANA VÄLI: Sündmus toimub eriklassi sündmuse raames',
-      description: 'Vali seotud sündmus',
-      type: 'reference',
-      to: [{ type: 'calendar' }],
-      options: {
-        filter: async () => {
-          const courseModuleEventIds = await client.fetch(
-            '*[_type == "calendar" && classes._ref in *[_type == "courseModule" && documentNotReady != true]._id]._id'
-          );
-          return {
-            filter: '_id in $courseModuleEventIds',
-            params: { courseModuleEventIds },
-          }
-        },
       }
     }),
 
