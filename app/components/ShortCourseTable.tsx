@@ -165,7 +165,7 @@ export default function ShortCourseTable({
                     { !!c.documentNotReady && c.name }
                   </td>
                   <td className="px-6 py-3">
-                    { !c.documentNotReady && !enableRegister && !nextEvent && <span>Info peagi tulekul</span> }
+                    { (c.documentNotReady || !c.documentNotReady && !enableRegister && !nextEvent) && <span>Info peagi tulekul</span> }
                     { !c.documentNotReady && !enableRegister && isEventInPast && <span>Toimus {format(nextEvent.startDate!, DATE_FORMAT)}</span> }
                     { !c.documentNotReady && !enableRegister && !!nextEvent && !isEventInPast && <span>{ formatRange(nextEvent.startDate!, nextEvent.endDate, DATE_FORMAT) }</span> }
                     { !c.documentNotReady && !!enableRegister && !!nextRegisterableEvent && formatRange(nextRegisterableEvent.startDate!, nextRegisterableEvent.endDate, DATE_FORMAT) }
