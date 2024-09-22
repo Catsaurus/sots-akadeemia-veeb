@@ -1,13 +1,13 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/20/solid";
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import clsx from "clsx";
-import { format, isPast } from "date-fns";
+import { isPast } from "date-fns";
 import Link from "next/link";
 import { useState } from "react";
 
 import { CalendarEventByCourseQueryResult, CalendarQueryResult, CourseModule,SettingsQueryResult, ShortCourseListQueryResult, SingleClassModuleCourseQueryResult } from "@/sanity/types";
 
-import { DATE_FORMAT, formatRange } from "../helpers/date.helper";
+import { DATE_FORMAT, formatRange, format } from "../helpers/date.helper";
 import { getEventRegisterableUntilDate, getRegisterInterestLink, getRegisterToEventLink, isEventRegisterable, sortByStartDate } from "../helpers/event.helper";
 import Button from "./Button";
 

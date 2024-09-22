@@ -25,12 +25,12 @@ export default function Dropdown({ name, options }: Readonly<DropdownProps>) {
                 modal={false}
                 anchor="bottom"
                 transition
-                className="min-w-[300px] absolute right-0 z-10 mt-8 w-56 origin-top-right rounded-sm bg-gray-100 shadow-2xl transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-15 data-[enter]:ease-out data-[leave]:ease-in"
+                className="md:p-2 min-w-[300px] absolute right-0 z-10 mt-8 w-56 origin-top-right rounded-sm bg-gray-100 shadow-2xl transition focus:outline-none data-[closed]:scale-95 data-[closed]:transform data-[closed]:opacity-0 data-[enter]:duration-100 data-[leave]:duration-15 data-[enter]:ease-out data-[leave]:ease-in"
             >
             {
                 options.map(option => (
                     <MenuItem key={option.name}>
-                        <a className="block p-4 data-[focus]:bg-yellow hover:bg-yellow hover:underline data-[focus]:text-gray-900 transition" href={`/${option.slug}`}>
+                        <a className="rounded-sm block p-4 data-[focus]:bg-yellow hover:bg-yellow data-[focus]:text-gray-900 transition" href={`/${option.slug}`}>
                             { option.name }
                         </a>
                     </MenuItem>
