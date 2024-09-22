@@ -37,7 +37,11 @@ export const getRegisterInterestLink = (settings: SettingsQueryResult, course: C
 
 export const getRegisterToEventLink = (event: CalendarEventByCourseQueryResult[0], course: Course) => {
     if (course.registrationLink) {
-        return course.registrationLink + format(event.startDate!, DATE_FORMAT) + '-' + format(event.endDate!, DATE_FORMAT);
+        let eventDate = format(event.startDate!, DATE_FORMAT);
+        if (event.endDate) {
+            eventDate += '-' + format(event.endDate!, DATE_FORMAT);
+        }
+        return course.registrationLink + eventDate;
     }
     return undefined;
 }

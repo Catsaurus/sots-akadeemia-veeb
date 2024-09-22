@@ -2,6 +2,7 @@ import { formatDate } from 'date-fns'
 import {defineField, defineType} from 'sanity'
 
 import { client } from '@/sanity/lib/client'
+import { Rule } from 'postcss';
 
 export default defineType({
   name: 'calendar',
@@ -76,7 +77,8 @@ export default defineType({
     defineField({
       title: 'Kursuse algus',
       name: 'startDate',
-      type: 'date'
+      type: 'date',
+      validation: (Rule) => Rule.required().error('Alguskuupäev on kohustuslik')
     }),
 
     defineField({
@@ -112,9 +114,13 @@ export default defineType({
       endDate: 'endDate',
     },
     prepare: ({ className, classType, startDate, endDate }) => {
+      let eventDate = formatDate(startDate, 'dd.MM.yyyy');
+      if (endDate) {
+        eventDate += '-' + formatDate(endDate, 'dd.MM.yyyy')
+      }
       return {
         title: className,
-        subtitle: formatDate(startDate, 'dd.MM.yyyy') + '-' + formatDate(endDate, 'dd.MM.yyyy') + ' / ' +
+        subtitle: eventDate + ' / ' +
           (classType === 'shortCourse' ? 'Lühiklass' : classType === 'masterClass' ? 'Meistriklass' : 'Eriklass' )
       }
     },
