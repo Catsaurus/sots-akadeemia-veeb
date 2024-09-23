@@ -16,13 +16,6 @@ export const structure: StructureResolver = (S) =>
     .id('root')
     .title('Menüü')
     .items([
-      singletonListItem(S, 'settings', 'Seaded')
-      .icon(CogIcon),
-      singletonListItem(S, 'contact', 'Kontakti leht')
-      .icon(EnvelopeIcon),
-      S.divider(),
-      S.documentTypeListItem('genericPage').title('Üldised lehed').icon(DocumentIcon),
-      S.divider(),
       S.documentTypeListItem('calendar').title('Kõik sündmused').icon(CalendarIcon),
       S.listItem().title('Meistriklasside kalender').icon(CalendarIcon).child(
         S.documentList()
@@ -45,6 +38,12 @@ export const structure: StructureResolver = (S) =>
       S.documentTypeListItem('shortCourse').title('Lühiklassid').icon(UserIcon),
       S.divider(),
       S.documentTypeListItem('teacher').title('Akadeemikud').icon(AcademicCapIcon),
+      S.divider(),
+      singletonListItem(S, 'settings', 'Seaded')
+      .icon(CogIcon),
+      singletonListItem(S, 'contact', 'Kontakti leht')
+      .icon(EnvelopeIcon),
+      S.documentTypeListItem('genericPage').title('Üldised lehed').icon(DocumentIcon),
       S.divider(),
 
       /*S.listItem()
