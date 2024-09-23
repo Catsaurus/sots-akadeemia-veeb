@@ -45,12 +45,14 @@ export default defineType({
   preview: {
     select: {
       title: 'name', 
-      subtitle: 'slug.current'
+      subtitle: 'slug.current',
+      imageUrl: 'seo.metaImage.asset.url'
     },
-    prepare: ({title, subtitle}) => {
+    prepare: ({title, subtitle, imageUrl}) => {
       return {
         title,
-        subtitle
+        subtitle,
+        imageUrl
       }
     },
   },

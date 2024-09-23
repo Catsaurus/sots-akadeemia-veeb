@@ -172,7 +172,8 @@ export default defineType({
 
       return {
         title,
-        subtitle: 'Meistriklass' + (documentNotReady ? ' - TEGEMISEL' : '')
+        subtitle: 'Meistriklass' + (documentNotReady ? ' - TEGEMISEL' : ''),
+        media: <strong>MK</strong>
       }
     },
   }
