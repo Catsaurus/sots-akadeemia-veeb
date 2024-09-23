@@ -3,6 +3,7 @@ import {defineField, defineType} from 'sanity'
 
 import { client } from '@/sanity/lib/client'
 import { Rule } from 'postcss';
+import { DATE_FORMAT, format, formatRange } from '@/app/helpers/date.helper';
 
 export default defineType({
   name: 'calendar',
@@ -97,11 +98,19 @@ export default defineType({
   ],
   orderings: [
     {
-      title: 'Alguskuupäev',
+      title: 'Alguskuupäev kasvav',
       name: 'startDateAsc',
       by: [
         { field: 'startDate', direction: 'asc' },
         { field: 'endDate', direction: 'asc' }
+      ]
+    },
+    {
+      title: 'Alguskuupäev kahanev',
+      name: 'startDateDesc',
+      by: [
+        { field: 'startDate', direction: 'desc' },
+        { field: 'endDate', direction: 'desc' }
       ]
     }
   ],
@@ -114,14 +123,14 @@ export default defineType({
       endDate: 'endDate',
     },
     prepare: ({ className, classType, startDate, endDate }) => {
-      let eventDate = formatDate(startDate, 'dd.MM.yyyy');
-      if (endDate) {
-        eventDate += '-' + formatDate(endDate, 'dd.MM.yyyy')
-      }
+
+      const eventDate = formatRange(startDate, endDate, DATE_FORMAT);
+
       return {
         title: className,
         subtitle: eventDate + ' / ' +
-          (classType === 'shortCourse' ? 'Lühiklass' : classType === 'masterClass' ? 'Meistriklass' : 'Eriklass' )
+          (classType === 'shortCourse' ? 'Lühiklass' : classType === 'masterClass' ? 'Meistriklass' : 'Eriklass' ),
+        media: <strong>{ classType === 'shortCourse' ? 'LK' : classType === 'masterClass' ? 'MK' : 'EK'  }</strong>
       }
     },
   },

@@ -134,7 +134,8 @@ export default defineType({
 
       return {
         title,
-        subtitle: 'Lühiklass' + (documentNotReady ? ' - TEGEMISEL' : '')
+        subtitle: 'Lühiklass' + (documentNotReady ? ' - TEGEMISEL' : ''),
+        media: <strong>LK</strong>
       }
     },
   },

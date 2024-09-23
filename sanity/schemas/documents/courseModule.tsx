@@ -188,7 +188,8 @@ export default defineType({
 
       return {
         title,
-        subtitle: 'Eriklass' + (documentNotReady ? ' - TEGEMISEL' : '')
+        subtitle: 'Eriklass' + (documentNotReady ? ' - TEGEMISEL' : ''),
+        media: <strong>EK</strong>
       }
     },
   }
