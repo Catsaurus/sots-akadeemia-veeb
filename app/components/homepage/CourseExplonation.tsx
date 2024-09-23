@@ -18,7 +18,7 @@ const CourseExplonation = () => {
                 <div className='mb-10'>
                     
                     <h2 className='font-display'>Meistriklass</h2>
-                    <p className='text-md'>Süsteemne lühiklassi koolituste sari, mis annab antud teemal süvendatud teadmised ja kogemused inimestega töös. Kõik klassid läbitakse ühe (vajadusel ka kahe) aasta jooksul. Kokku läbitakse 188 akadeemilist tundi.</p>
+                    <p className='text-md'>Süsteemne valitud lühiklasside sari, mis annab antud teemal süvendatud teadmised ja kogemused inimestega töös. Kõik klassid läbitakse ühe (vajadusel ka kahe) aasta jooksul. Kokku läbitakse 188 akadeemilist tundi.</p>
                 </div>
                 <div className='mb-10'>
                     <h2 className='font-display'>Eriklass</h2>

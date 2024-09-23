@@ -6,6 +6,8 @@ import localFont from 'next/font/local'
 import { draftMode } from "next/headers";
 import { VisualEditing } from "next-sanity";
 import ReactDOM from "react-dom";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { Analytics } from "@vercel/analytics/react"
 
 const unbounded = Unbounded({
   subsets: ["latin"],
@@ -52,6 +54,8 @@ export default function RootLayout({
   return (
     <html lang="et">
       <body className={`${unbounded.variable} ${helvetica.variable}`}>
+      <SpeedInsights/>
+      <Analytics/>
         {draftMode().isEnabled && (
           <a
             className="fixed right-0 bottom-0 bg-blue-500 text-white p-4 m-4"
