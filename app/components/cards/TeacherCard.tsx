@@ -1,11 +1,11 @@
 import Image from "next/image";
-import { PortableText } from "next-sanity";
 import { useState } from "react";
 
 import { urlFor } from "@/sanity/lib/image";
 import { Teacher } from "@/sanity/types";
 
 import Button from "../Button";
+import FormattedPortableText from "../FormattedPortableText";
 import Modal from "../Modal";
 import Card from "./Card";
 
@@ -31,7 +31,7 @@ export default function TeacherCard({ teacher, showContacts }: Readonly<TeacherC
                     {!!teacher.description &&
                     <>
                         <div className="custom-truncate">
-                            <PortableText value={teacher.description} />
+                            <FormattedPortableText value={teacher.description} />
                         </div>
                         <Button color="yellow" onClick={() =>setMoreInfoOpen(true)}>Loe rohkem</Button>
                     </>
@@ -43,7 +43,7 @@ export default function TeacherCard({ teacher, showContacts }: Readonly<TeacherC
         <Modal onHide={() => setMoreInfoOpen(false)} open={moreInfoOpen} title={teacher.name}>
             <div className="flex flex-col md:flex-row items-start gap-6 lg:gap-10">
                 <div className="flex flex-col gap-3">
-                    { !!teacher.description && <PortableText value={teacher.description} /> }
+                    { !!teacher.description && <FormattedPortableText value={teacher.description} /> }
                 </div>
                 <div className="flex flex-col gap-4">
                     {!!teacher.image && <Image width={200} height={200} alt={teacher.name!} className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg hidden md:block min-w-52" src={urlFor(teacher.image).width(200).url()} />}

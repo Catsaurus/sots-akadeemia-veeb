@@ -1,7 +1,6 @@
 "use client"
 
 import { ArrowLongRightIcon } from "@heroicons/react/24/solid";
-import { PortableText } from 'next-sanity';
 import React from 'react'
 
 import {
@@ -13,6 +12,7 @@ import {
   ShortCourseListQueryResult
 } from '@/sanity/types';
 
+import FormattedPortableText from "../FormattedPortableText";
 import PageLayout from '../layout/PageLayout';
 import ShortCourseTable from '../ShortCourseTable';
 import ServiceProcess from "./../ServiceProcess";
@@ -59,13 +59,7 @@ export default function GenericPageComponent({
           if (block._type === 'textBlock') {
             return (
               <div key={block._key} className="portable-text">
-                <PortableText value={block.content!} components={{
-                  list: {
-                    'number': (props) => (
-                      <ol className="list-counter">{props.children}</ol>
-                    )
-                  }
-                }} />
+                <FormattedPortableText value={block.content!} />
               </div>
             );
           }

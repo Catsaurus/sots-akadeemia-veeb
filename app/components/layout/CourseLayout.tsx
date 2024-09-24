@@ -1,7 +1,5 @@
 "use client"
 
-import { PortableText } from "next-sanity";
-
 import { isEventRegisterable, sortByStartDate } from "@/app/helpers/event.helper";
 import {
     CalendarEventByCourseQueryResult,
@@ -19,6 +17,7 @@ import NextEventCardSet from "../cards/NextEventCardSet";
 import TeacherCard from "../cards/TeacherCard";
 import ClassCourseSchedule from "../ClassCourseSchedule";
 import ContentBlock from "../ContentBlock";
+import FormattedPortableText from "../FormattedPortableText";
 import BackLink from "../links/BackLink";
 import ShortCourseSchedule from "../ShortCourseSchedule";
 import Container from "./Container";
@@ -74,7 +73,7 @@ export default function CourseLayout({
             <div className='flex flex-col-reverse md:flex-row gap-4 md:mb-10'>
 
                 <ContentBlock title="Õppe sisu">
-                    <div className='text-sm md:text-base'>{ course.body ? <PortableText value={course.body} /> : undefined }</div>
+                    <div className='text-sm md:text-base'>{ course.body ? <FormattedPortableText value={course.body} /> : undefined }</div>
                 </ContentBlock>
     
                 <NextEventCardSet event={nextEvent} course={course} settings={settings} headingContainerBackground={headingContainerBackground}/>
@@ -94,11 +93,11 @@ export default function CourseLayout({
 
             <div className='flex flex-col md:flex-row md:gap-10'>
                 { !!course.expectedParticipants && <ContentBlock title="Keda ootame osalema">
-                    <div className='text-sm md:text-base'><PortableText value={course.expectedParticipants} /></div>
+                    <div className='text-sm md:text-base'><FormattedPortableText value={course.expectedParticipants} /></div>
                 </ContentBlock>}
                 { !!course.registrationAndPaymentInfo && <ContentBlock title="Registreerumine ja tasumine">
                     <div className='text-sm md:text-base'>
-                        <PortableText value={course.registrationAndPaymentInfo} />
+                        <FormattedPortableText value={course.registrationAndPaymentInfo} />
                     </div>
                 </ContentBlock> }
             </div>
