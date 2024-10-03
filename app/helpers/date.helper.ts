@@ -3,6 +3,7 @@ import { et } from 'date-fns/locale'
 
 export const DATE_FORMAT_LONG = 'd. MMMM yyyy';
 export const DATE_FORMAT = 'd. MMM yyyy';
+export const EVENT_URL_DATE_FORMAT = 'dd.MM.yyyy'
 export const DAY_MONTH_FORMAT = 'd. MMM';
 const DAY_FORMAT = 'd.';
 

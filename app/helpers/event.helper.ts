@@ -2,7 +2,7 @@ import { compareAsc, endOfDay, isBefore, subDays } from "date-fns"
 
 import { CalendarEventByCourseQueryResult, SettingsQueryResult } from "@/sanity/types"
 
-import { DATE_FORMAT, format } from "./date.helper";
+import { DATE_FORMAT, EVENT_URL_DATE_FORMAT, format } from "./date.helper";
 
 export const EVENT_REGISTRATION_DAYS = 7;
 
@@ -37,9 +37,9 @@ export const getRegisterInterestLink = (settings: SettingsQueryResult, course: C
 
 export const getRegisterToEventLink = (event: CalendarEventByCourseQueryResult[0], course: Course) => {
     if (course.registrationLink) {
-        let eventDate = format(event.startDate!, DATE_FORMAT);
+        let eventDate = format(event.startDate!, EVENT_URL_DATE_FORMAT);
         if (event.endDate) {
-            eventDate += '-' + format(event.endDate!, DATE_FORMAT);
+            eventDate += '-' + format(event.endDate!, EVENT_URL_DATE_FORMAT);
         }
         return course.registrationLink + eventDate;
     }
