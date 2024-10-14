@@ -41,8 +41,8 @@ const helvetica = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "Sotsiaaltöö akadeemia",
-  description: "Sotsiaaltöö akadeemia veebileht",
+  title: "Sotsiaaltöö Akadeemia",
+  description: "Sotsiaaltöö Akadeemia veebileht",
 };
 
 export default function RootLayout({
