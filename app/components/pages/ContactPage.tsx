@@ -2,6 +2,7 @@
 
 import { PortableText } from 'next-sanity';
 import React from 'react'
+import Link from 'next/link'
 
 import { urlFor } from '@/sanity/lib/image';
 import {
@@ -42,21 +43,24 @@ export default function ContactPage({
       <div className='mb-10'>
 
 
-        <div className='flex flex-col md:flex-row gap-6 mb-40 pt-10'>
+        <div className='flex flex-col md:flex-row gap-6 mb-20 pt-10'>
           <ContactCard title="Viime oma koolitusi läbi:">
-            { settings?.address }
+            <Link href={'https://maps.app.goo.gl/KA4TxP3FNR2Cibz16'} target='_blank' className='hover:underline'>{ settings?.address }</Link>
           </ContactCard>
           <ContactCard title="Küsimuste korral võta ühendust:">
             E-post: { settings?.mainContactEmail }<br />
             Telefon: { settings?.mainContactPhone }
           </ContactCard>
-          <ContactCard title="Sotsiaaltöö akadeemia">
+          <ContactCard title="Sotsiaaltöö Akadeemia">
             Registrikood: { settings?.companyCode }<br />
-            Pangakonto IBAN: { settings?.bankIban }
+            Pangakonto IBAN: { settings?.bankIban } <br />
+            <span className='text-sm pt-2'>Sotsiaaltöö Akadeemia on registreeritud Eesti Hariduse Infosüsteemis täiendkoolitusasutusena reg.nr 17006432.</span>
           </ContactCard>
         </div>
 
-        <h2 className='font-display text-2xl font-normal mb-10' id="meist">Akadeemikud</h2>
+        <div id="meist" className='pt-20'></div>
+
+        <h2 className='font-display text-2xl font-normal mb-10'>Akadeemikud</h2>
 
         { !!page?.teachers?.length && <Card title="Akadeemikud">
           <div className='grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16'>
