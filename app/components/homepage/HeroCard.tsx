@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import React from 'react'
 
-import { CalendarQueryResult, Color } from '@/sanity/types';
+import { DAY_MONTH_FORMAT, format } from '@/app/helpers/date.helper';
+import { Color } from '@/sanity/types';
 
 interface HeroCardProps {
   event: {
@@ -33,7 +34,7 @@ const HeroCard = ({ event }: Readonly<HeroCardProps>) => {
     <Link key={event._id} href={`/${event.course.slug}`}
       style={{ backgroundColor: event.course.color?.hex }}
       className='bg-gray-100 p-5 lg:p-6 rounded-tr-md rounded-bl-md shadow-2xl group flex flex-col '>
-       { !(event.course._type == "masterClass") && <p className='text-xs md:text-sm opacity-60'>Grupp alustab 10.oktoober</p>}
+       { !(event.course._type == "masterClass") && <p className='text-xs md:text-sm opacity-60'>Grupp alustab { format(event.startDate!, DAY_MONTH_FORMAT) }</p>}
       <h3 className='text-md md:text-lg group-hover:underline font-semibold py-1 md:py-2 h-full'>{event.course.name}</h3>
 
       <div className="flex flex-col lg:flex-row justify-between">
