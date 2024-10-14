@@ -5,6 +5,8 @@ export const DATE_FORMAT_LONG = 'd. MMMM yyyy';
 export const DATE_FORMAT = 'd. MMM yyyy';
 export const EVENT_URL_DATE_FORMAT = 'dd.MM.yyyy'
 export const DAY_MONTH_FORMAT = 'd. MMM';
+export const DAY_MONTH_FORMAT_LONG = 'd. MMMM';
+
 const DAY_FORMAT = 'd.';
 
 export const format = (date: string | Date, dateFormat: string) => {
