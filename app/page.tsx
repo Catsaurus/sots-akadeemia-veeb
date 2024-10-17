@@ -14,6 +14,7 @@ import MasterClassCardLarge from "./components/homepage/MasterClassCardLarge"
 import PageLayout from "./components/layout/PageLayout";
 import { sortByStartDate } from "./helpers/event.helper";
 import { getSeoMetadata } from "./helpers/metadata.helper";
+import VideoBlock from "./components/homepage/VideoBlock";
 
 export async function generateMetadata(): Promise<Metadata> {
 
@@ -62,10 +63,10 @@ export default async function Home() {
 
 
 
-      {/* <div className="pt-40 h-60">
-        <h2 className="font-display mb-10 text-2xl font-normal mb-8">Mida meie lõpetajad arvavad?</h2>
+      <div className="mt-40 rounded-md lg:rounded-lg">
+        <h2 className="font-display mb-10 text-2xl font-normal"> Mida räägivad meie vilistlased ?</h2>
+        <VideoBlock></VideoBlock>
       </div>
-*/}
 
       <div className="mt-40 mb-40 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
         <h2 className="font-display mb-10 text-2xl font-normal">Kes me oleme?</h2>
