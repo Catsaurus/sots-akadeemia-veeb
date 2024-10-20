@@ -40,7 +40,7 @@ export default function ClientFeedback({ items }: Readonly<ClientFeedbackProps>)
                 </div>
 
                 { item.wistiaVideo &&
-                  <VideoPlayer videoId={item.wistiaVideo.hashed_id} isPortrait={item.videoOrientationPortrait} />
+                  <VideoPlayer videoId={item.wistiaVideo.hashed_id.replaceAll('%E2%80%8B%', '')} isPortrait={item.videoOrientationPortrait} />
                 }
               </div>
             }
@@ -52,12 +52,5 @@ export default function ClientFeedback({ items }: Readonly<ClientFeedbackProps>)
       />
 
     </div>
-    // <div className="grid grid-cols-4 gap-3">
-    //   { items.map(item => <div key={item.key} className="flex-auto ">
-    //     <strong>{ item.name }</strong>
-    //     <p>{ item.description }</p>
-    //     { item.wistiaVideo && <VideoPlayer videoId={item.wistiaVideo.hashed_id} title={item.name} />}
-    //   </div>)}
-    // </div>
   )
 }
