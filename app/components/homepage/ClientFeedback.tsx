@@ -40,7 +40,7 @@ export default function ClientFeedback({ items }: Readonly<ClientFeedbackProps>)
                 </div>
 
                 { item.wistiaVideo &&
-                  <VideoPlayer videoId={item.wistiaVideo.hashed_id.replaceAll(/%E2%80%8B/g, '')} isPortrait={item.videoOrientationPortrait} />
+                  <VideoPlayer videoId={item.wistiaVideo.hashed_id.substring(0, 10)} isPortrait={item.videoOrientationPortrait} />
                 }
               </div>
             }
