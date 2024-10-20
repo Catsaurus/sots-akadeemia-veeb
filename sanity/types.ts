@@ -68,6 +68,29 @@ export type Geopoint = {
   alt?: number;
 };
 
+export type FeedbackVideoItem = {
+  _type: "feedbackVideoItem";
+  name?: string;
+  description?: string;
+  wistiaVideo?: WistiaMedia;
+  videoOrientationPortrait?: boolean;
+};
+
+export type HomePage = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  clientFeedback?: Array<
+    {
+      _key: string;
+    } & FeedbackVideoItem
+  >;
+  seo?: SeoMetaFields;
+};
+
 export type Contact = {
   _id: string;
   _type: "contact";
@@ -112,18 +135,6 @@ export type Calendar = {
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "courseModule";
       };
-  parentMasterClass?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
-  };
-  parentCourseModule?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
-  };
   parentMasterClasses?: Array<{
     _ref: string;
     _type: "reference";
@@ -1108,12 +1119,20 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type WistiaMedia = {
+  _type: "wistiaMedia";
+  id?: number;
+  hashed_id?: string;
+};
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
+  | FeedbackVideoItem
+  | HomePage
   | Contact
   | Calendar
   | TextBlock
@@ -1143,7 +1162,8 @@ export type AllSanitySchemaTypes =
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
-  | SanityImageMetadata;
+  | SanityImageMetadata
+  | WistiaMedia;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: MasterClassListQuery
@@ -1354,7 +1374,7 @@ export type ShortCourseListQueryResult = Array<{
   documentNotReady: boolean | null;
 }>;
 // Variable: SingleClassModuleCourseQuery
-// Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  courses[]{    ...,    "slug": @->slug,  },  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],  contactPerson{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    },}
+// Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  courses[]{    ...,    "slug": @->slug,  },  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],  contactPerson{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    metaImage{            _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        },    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    },}
 export type SingleClassModuleCourseQueryResult =
   | {
       _id: string;
@@ -1581,6 +1601,45 @@ export type SingleClassModuleCourseQueryResult =
         nofollowAttributes: boolean | null;
         seoKeywords: Array<string> | null;
         metaDescription: string | null;
+        metaImage: {
+          _type: "image";
+          crop: {
+            _type: "sanity.imageCrop";
+            right: number | null;
+            top: number | null;
+            left: number | null;
+            bottom: number | null;
+          } | null;
+          hotspot: {
+            _type: "sanity.imageHotspot";
+            x: number | null;
+            y: number | null;
+            height: number | null;
+            width: number | null;
+          } | null;
+          asset: {
+            _id: string;
+            _type: "sanity.imageAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            metadata?: SanityImageMetadata;
+            source?: SanityAssetSourceData;
+          } | null;
+        } | null;
         openGraph: {
           _type: "openGraph";
           siteName: string | null;
@@ -1965,6 +2024,45 @@ export type SingleClassModuleCourseQueryResult =
         nofollowAttributes: boolean | null;
         seoKeywords: Array<string> | null;
         metaDescription: string | null;
+        metaImage: {
+          _type: "image";
+          crop: {
+            _type: "sanity.imageCrop";
+            right: number | null;
+            top: number | null;
+            left: number | null;
+            bottom: number | null;
+          } | null;
+          hotspot: {
+            _type: "sanity.imageHotspot";
+            x: number | null;
+            y: number | null;
+            height: number | null;
+            width: number | null;
+          } | null;
+          asset: {
+            _id: string;
+            _type: "sanity.imageAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            metadata?: SanityImageMetadata;
+            source?: SanityAssetSourceData;
+          } | null;
+        } | null;
         openGraph: {
           _type: "openGraph";
           siteName: string | null;
@@ -2396,6 +2494,45 @@ export type SingleClassModuleCourseQueryResult =
         nofollowAttributes: boolean | null;
         seoKeywords: Array<string> | null;
         metaDescription: string | null;
+        metaImage: {
+          _type: "image";
+          crop: {
+            _type: "sanity.imageCrop";
+            right: number | null;
+            top: number | null;
+            left: number | null;
+            bottom: number | null;
+          } | null;
+          hotspot: {
+            _type: "sanity.imageHotspot";
+            x: number | null;
+            y: number | null;
+            height: number | null;
+            width: number | null;
+          } | null;
+          asset: {
+            _id: string;
+            _type: "sanity.imageAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            metadata?: SanityImageMetadata;
+            source?: SanityAssetSourceData;
+          } | null;
+        } | null;
         openGraph: {
           _type: "openGraph";
           siteName: string | null;
@@ -2502,7 +2639,7 @@ export type SingleClassModuleCourseQueryResult =
     }
   | null;
 // Variable: SingleGenericPageQuery
-// Query: *[_type == "genericPage" && slug.current == $slug][0]{  ...,  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
+// Query: *[_type == "genericPage" && slug.current == $slug][0]{  ...,  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    metaImage{            _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        },    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
 export type SingleGenericPageQueryResult = {
   _id: string;
   _type: "genericPage";
@@ -2525,6 +2662,45 @@ export type SingleGenericPageQueryResult = {
     nofollowAttributes: boolean | null;
     seoKeywords: Array<string> | null;
     metaDescription: string | null;
+    metaImage: {
+      _type: "image";
+      crop: {
+        _type: "sanity.imageCrop";
+        right: number | null;
+        top: number | null;
+        left: number | null;
+        bottom: number | null;
+      } | null;
+      hotspot: {
+        _type: "sanity.imageHotspot";
+        x: number | null;
+        y: number | null;
+        height: number | null;
+        width: number | null;
+      } | null;
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
     openGraph: {
       _type: "openGraph";
       siteName: string | null;
@@ -2637,7 +2813,7 @@ export type MasterClassPathsQueryResult = Array<{
   updatedAt: string;
 }>;
 // Variable: SettingsQuery
-// Query: *[_type == "settings"][0]{  ...,  menu[]{    ...,    "slug": @.reference->slug.current  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
+// Query: *[_type == "settings"][0]{  ...,  menu[]{    ...,    "slug": @.reference->slug.current  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    metaImage{            _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        },    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
 export type SettingsQueryResult = {
   _id: string;
   _type: "settings";
@@ -2726,6 +2902,45 @@ export type SettingsQueryResult = {
     nofollowAttributes: boolean | null;
     seoKeywords: Array<string> | null;
     metaDescription: string | null;
+    metaImage: {
+      _type: "image";
+      crop: {
+        _type: "sanity.imageCrop";
+        right: number | null;
+        top: number | null;
+        left: number | null;
+        bottom: number | null;
+      } | null;
+      hotspot: {
+        _type: "sanity.imageHotspot";
+        x: number | null;
+        y: number | null;
+        height: number | null;
+        width: number | null;
+      } | null;
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
     openGraph: {
       _type: "openGraph";
       siteName: string | null;
@@ -2830,7 +3045,7 @@ export type SettingsQueryResult = {
   } | null;
 } | null;
 // Variable: ContactQuery
-// Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
+// Query: *[_type == "contact"][0]{  ...,  teachers[]{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    metaImage{            _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        },    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    }}
 export type ContactQueryResult = {
   _id: string;
   _type: "contact";
@@ -2901,6 +3116,210 @@ export type ContactQueryResult = {
     nofollowAttributes: boolean | null;
     seoKeywords: Array<string> | null;
     metaDescription: string | null;
+    metaImage: {
+      _type: "image";
+      crop: {
+        _type: "sanity.imageCrop";
+        right: number | null;
+        top: number | null;
+        left: number | null;
+        bottom: number | null;
+      } | null;
+      hotspot: {
+        _type: "sanity.imageHotspot";
+        x: number | null;
+        y: number | null;
+        height: number | null;
+        width: number | null;
+      } | null;
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
+    openGraph: {
+      _type: "openGraph";
+      siteName: string | null;
+      url: string | null;
+      description: string | null;
+      title: string | null;
+      image: {
+        _type: "image";
+        crop: {
+          _type: "sanity.imageCrop";
+          right: number | null;
+          top: number | null;
+          left: number | null;
+          bottom: number | null;
+        } | null;
+        hotspot: {
+          _type: "sanity.imageHotspot";
+          x: number | null;
+          y: number | null;
+          height: number | null;
+          width: number | null;
+        } | null;
+        asset: {
+          _id: string;
+          _type: "sanity.imageAsset";
+          _createdAt: string;
+          _updatedAt: string;
+          _rev: string;
+          originalFilename?: string;
+          label?: string;
+          title?: string;
+          description?: string;
+          altText?: string;
+          sha1hash?: string;
+          extension?: string;
+          mimeType?: string;
+          size?: number;
+          assetId?: string;
+          uploadId?: string;
+          path?: string;
+          url?: string;
+          metadata?: SanityImageMetadata;
+          source?: SanityAssetSourceData;
+        } | null;
+      } | null;
+    } | null;
+    twitter: {
+      _type: "twitter";
+      site: string | null;
+      creator: string | null;
+      cardType: string | null;
+      handle: string | null;
+    } | null;
+    additionalMetaTags: Array<{
+      _type: "metaTag";
+      metaAttributes: Array<{
+        _type: "metaAttribute";
+        attributeValueString: string | null;
+        attributeType: "image" | "string" | null;
+        attributeKey: string | null;
+        attributeValueImage: {
+          _type: "image";
+          crop: {
+            _type: "sanity.imageCrop";
+            right: number | null;
+            top: number | null;
+            left: number | null;
+            bottom: number | null;
+          } | null;
+          hotspot: {
+            _type: "sanity.imageHotspot";
+            x: number | null;
+            y: number | null;
+            height: number | null;
+            width: number | null;
+          } | null;
+          asset: {
+            _id: string;
+            _type: "sanity.imageAsset";
+            _createdAt: string;
+            _updatedAt: string;
+            _rev: string;
+            originalFilename?: string;
+            label?: string;
+            title?: string;
+            description?: string;
+            altText?: string;
+            sha1hash?: string;
+            extension?: string;
+            mimeType?: string;
+            size?: number;
+            assetId?: string;
+            uploadId?: string;
+            path?: string;
+            url?: string;
+            metadata?: SanityImageMetadata;
+            source?: SanityAssetSourceData;
+          } | null;
+        } | null;
+      }> | null;
+    }> | null;
+  } | null;
+} | null;
+// Variable: HomePageQuery
+// Query: *[_type == "homePage"][0]{  ...,  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    metaImage{            _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        },    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    },  clientFeedback[]{    ...  }}
+export type HomePageQueryResult = {
+  _id: string;
+  _type: "homePage";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  clientFeedback: Array<{
+    _key: string;
+    _type: "feedbackVideoItem";
+    name?: string;
+    description?: string;
+    wistiaVideo?: WistiaMedia;
+    videoOrientationPortrait?: boolean;
+  }> | null;
+  seo: {
+    _type: "seoMetaFields";
+    metaTitle: string | null;
+    nofollowAttributes: boolean | null;
+    seoKeywords: Array<string> | null;
+    metaDescription: string | null;
+    metaImage: {
+      _type: "image";
+      crop: {
+        _type: "sanity.imageCrop";
+        right: number | null;
+        top: number | null;
+        left: number | null;
+        bottom: number | null;
+      } | null;
+      hotspot: {
+        _type: "sanity.imageHotspot";
+        x: number | null;
+        y: number | null;
+        height: number | null;
+        width: number | null;
+      } | null;
+      asset: {
+        _id: string;
+        _type: "sanity.imageAsset";
+        _createdAt: string;
+        _updatedAt: string;
+        _rev: string;
+        originalFilename?: string;
+        label?: string;
+        title?: string;
+        description?: string;
+        altText?: string;
+        sha1hash?: string;
+        extension?: string;
+        mimeType?: string;
+        size?: number;
+        assetId?: string;
+        uploadId?: string;
+        path?: string;
+        url?: string;
+        metadata?: SanityImageMetadata;
+        source?: SanityAssetSourceData;
+      } | null;
+    } | null;
     openGraph: {
       _type: "openGraph";
       siteName: string | null;
@@ -3089,18 +3508,6 @@ export type CalendarQueryResult = Array<{
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
-  parentMasterClass?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
-  };
-  parentCourseModule?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
-  };
   parentMasterClasses: Array<{
     _ref: string;
     _type: "calendar";
@@ -3519,18 +3926,6 @@ export type CalendarEventByCourseQueryResult = Array<{
         _weak?: boolean;
         [internalGroqTypeReferenceTo]?: "shortCourse";
       };
-  parentMasterClass?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
-  };
-  parentCourseModule?: {
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
-    [internalGroqTypeReferenceTo]?: "calendar";
-  };
   parentMasterClasses: Array<{
     _ref: string;
     _type: "calendar";
@@ -3929,11 +4324,12 @@ declare module "@sanity/client" {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize,\n    documentNotReady\n}': MasterClassListQueryResult;
     '*[_type == "courseModule"] {\n  _id,\n  _type,\n  name,\n  slug,\n  color,\n  documentNotReady,\n  notSeparatelyTakeable\n}': CourseModuleListQueryResult;
     '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": *[_type == "courseModule" && references(^._id)][0]{\n    ...\n  },\n  slug,\n  registrationLink,\n  documentNotReady\n}': ShortCourseListQueryResult;
-    '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  courses[]{\n    ...,\n    "slug": @->slug,\n  },\n  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n},\n}': SingleClassModuleCourseQueryResult;
-    '*[_type == "genericPage" && slug.current == $slug][0]{\n  ...,\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SingleGenericPageQueryResult;
+    '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  courses[]{\n    ...,\n    "slug": @->slug,\n  },\n  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n},\n}': SingleClassModuleCourseQueryResult;
+    '*[_type == "genericPage" && slug.current == $slug][0]{\n  ...,\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{\n  "params": { "slug": slug.current },\n  "updatedAt": _updatedAt\n}': MasterClassPathsQueryResult;
-    '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SettingsQueryResult;
-    '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': ContactQueryResult;
+    '*[_type == "settings"][0]\n{\n  ...,\n  menu[]{\n    ...,\n    "slug": @.reference->slug.current\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SettingsQueryResult;
+    '*[_type == "contact"][0]{\n  ...,\n  teachers[]{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': ContactQueryResult;
+    '*[_type == "homePage"][0]{\n  ...,\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n},\n  clientFeedback[]{\n    ...\n  }\n}': HomePageQueryResult;
     '*[_type == "teacher"]': TeachersQueryResult;
     '*[_type == "calendar"]{\n  ...,\n  "course": {\n    "_id": @.classes->_id, \n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants,\n    "courseSize": @.classes->courseSize\n  },\n  parentMasterClasses[]{\n    ...,\n    "_id": @->_id,\n    "_type": @->_type,\n    "startDate": @->startDate,\n    "endDate": @->endDate,\n    "course": {\n      "_id": @->classes->_id,\n      "_type": @->classes->_type,\n      "slug": @->classes->slug.current,\n      "name": @->classes->name,\n    }\n  },\n  parentCourseModules[]{\n    ...,\n    "_id": @->_id,\n    "_type": @->_type,\n    "startDate": @->startDate,\n    "endDate": @->endDate,\n    "course": {\n      "_id": @->classes->_id,\n      "_type": @->classes->_type,\n      "slug": @->classes->slug.current,\n      "name": @->classes->name,\n    }\n  }\n}': CalendarQueryResult;
     '*[_type == "calendar" && classes->slug.current == $slug][]{\n  ...,\n  "course": {\n    "_id": @.classes->_id, \n    "_type": @.classes->_type,\n    "slug": @.classes->slug.current,\n    "name": @.classes->name,\n    "courseModule": *[_type == "courseModule" && references(^.classes->_id)][0],\n    "masterClass": *[_type == "masterClass" && references(^.classes->_id)][0],\n    "color": @.classes->color,\n    "maxParticipants": @.classes->maxParticipants,\n    "minParticipants": @.classes->minParticipants\n  },\n  parentMasterClasses[]{\n    ...,\n    "_id": @->_id,\n    "_type": @->_type,\n    "startDate": @->startDate,\n    "endDate": @->endDate,\n    "course": {\n      "_id": @->classes->_id,\n      "_type": @->classes->_type,\n      "slug": @->classes->slug.current,\n      "name": @->classes->name,\n    }\n  },\n  parentCourseModules[]{\n    ...,\n    "_id": @->_id,\n    "_type": @->_type,\n    "startDate": @->startDate,\n    "endDate": @->endDate,\n    "course": {\n      "_id": @->classes->_id,\n      "_type": @->classes->_type,\n      "slug": @->classes->slug.current,\n      "name": @->classes->name,\n    }\n  }\n}': CalendarEventByCourseQueryResult;

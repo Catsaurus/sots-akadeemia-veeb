@@ -4,21 +4,21 @@
  * This configuration is used to for the Sanity Studio that’s mounted on the `/app/studio/[[...tool]]/page.tsx` route
  */
 
-import {visionTool} from '@sanity/vision'
-import {defineConfig, defineLocale} from 'sanity'
-import {structureTool} from 'sanity/structure'
-
-import { structure } from './sanity/structure'
-import { defaultDocumentNode } from './sanity/structure/defaultDocumentNode'
-import { media } from 'sanity-plugin-media'
+import { colorInput } from '@sanity/color-input'
 import { table } from '@sanity/table';
+import {visionTool} from '@sanity/vision'
+import {defineConfig} from 'sanity'
+import { presentationTool } from 'sanity/presentation'
+import {structureTool} from 'sanity/structure'
+import { media } from 'sanity-plugin-media'
 import { seoMetaFields } from 'sanity-plugin-seo';
+import {wistiaInput} from 'sanity-plugin-wistia-input'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import {apiVersion, dataset, projectId} from './sanity/env'
 import { schema, singletonTypes } from './sanity/schema'
-import { presentationTool } from 'sanity/presentation'
-import { colorInput } from '@sanity/color-input'
+import { structure } from './sanity/structure'
+import { defaultDocumentNode } from './sanity/structure/defaultDocumentNode'
 
 // Define the actions that should be available for singleton documents
 const singletonActions = new Set(["publish", "discardChanges", "restore"])
@@ -30,6 +30,9 @@ export default defineConfig({
   // Add and edit the content schema in the './sanity/schema' folder
   schema: schema,
   plugins: [
+    wistiaInput({
+      token: process.env.NEXT_PUBLIC_SANITY_STUDIO_WISTIA_ACCESS_TOKEN!,
+    }),
     seoMetaFields(),
     structureTool({structure, defaultDocumentNode}),
     // Vision is a tool that lets you query your content with GROQ in the studio
