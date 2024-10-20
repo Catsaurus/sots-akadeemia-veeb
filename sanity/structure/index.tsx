@@ -1,4 +1,4 @@
-import { AcademicCapIcon,CalendarIcon, CogIcon, DocumentIcon, EnvelopeIcon, UserGroupIcon, UserIcon, UsersIcon } from '@heroicons/react/20/solid'
+import { AcademicCapIcon,CalendarIcon, CogIcon, DocumentIcon, EnvelopeIcon, HomeIcon, UserGroupIcon, UserIcon, UsersIcon } from '@heroicons/react/20/solid'
 import type { StructureBuilder, StructureResolver } from 'sanity/structure'
 
 const singletonListItem = (
@@ -41,6 +41,8 @@ export const structure: StructureResolver = (S) =>
       S.divider(),
       singletonListItem(S, 'settings', 'Seaded')
       .icon(CogIcon),
+      singletonListItem(S, 'homePage', 'Avaleht')
+      .icon(HomeIcon),
       singletonListItem(S, 'contact', 'Kontakti leht')
       .icon(EnvelopeIcon),
       S.documentTypeListItem('genericPage').title('Üldised lehed').icon(DocumentIcon),

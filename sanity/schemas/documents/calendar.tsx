@@ -1,9 +1,7 @@
-import { formatDate } from 'date-fns'
 import {defineField, defineType} from 'sanity'
 
+import { DATE_FORMAT, formatRange } from '@/app/helpers/date.helper';
 import { client } from '@/sanity/lib/client'
-import { Rule } from 'postcss';
-import { DATE_FORMAT, format, formatRange } from '@/app/helpers/date.helper';
 
 export default defineType({
   name: 'calendar',

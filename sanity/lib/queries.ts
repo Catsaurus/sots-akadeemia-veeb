@@ -1,4 +1,5 @@
 import { groq } from "next-sanity";
+
 import { seo } from "./seoQueryFields";
 
 // Get all meistriklassid
@@ -87,6 +88,14 @@ export const ContactQuery = groq`*[_type == "contact"][0]{
     "phone": @->phone
   },
   ${seo}
+}`;
+
+export const HomePageQuery = groq`*[_type == "homePage"][0]{
+  ...,
+  ${seo},
+  clientFeedback[]{
+    ...
+  }
 }`;
 
 export const TeachersQuery = groq`*[_type == "teacher"]`;

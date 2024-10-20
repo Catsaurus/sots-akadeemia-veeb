@@ -2,7 +2,7 @@ import { compareAsc, endOfDay, isBefore, subDays } from "date-fns"
 
 import { CalendarEventByCourseQueryResult, SettingsQueryResult } from "@/sanity/types"
 
-import { DATE_FORMAT, EVENT_URL_DATE_FORMAT, format } from "./date.helper";
+import { EVENT_URL_DATE_FORMAT, format } from "./date.helper";
 
 export const EVENT_REGISTRATION_DAYS = 7;
 

@@ -1,17 +1,19 @@
 import { SchemaPluginOptions } from 'sanity'
 
-import blockContent from './schemas/objects/blockContent'
-import masterClass from './schemas/documents/masterClass'
-import shortCourse from './schemas/documents/shortCourse'
-import courseModule from './schemas/documents/courseModule'
-import teacher from './schemas/documents/teacher'
 import calendar from './schemas/documents/calendar'
-import settings from './schemas/documents/settings'
-import menuItem from './schemas/objects/menuItem'
+import contact from './schemas/documents/contact'
+import courseModule from './schemas/documents/courseModule'
 import genericPage from './schemas/documents/genericPage'
+import homePage from './schemas/documents/homePage'
+import masterClass from './schemas/documents/masterClass'
+import settings from './schemas/documents/settings'
+import shortCourse from './schemas/documents/shortCourse'
+import teacher from './schemas/documents/teacher'
+import blockContent from './schemas/objects/blockContent'
+import feedbackVideoItem from './schemas/objects/feedbackVideoItem'
+import menuItem from './schemas/objects/menuItem'
 import shortCourseTable from './schemas/objects/shortCourseTable'
 import textBlock from './schemas/objects/textBlock'
-import contact from './schemas/documents/contact'
 
 
 export const schemaTypes = [
@@ -26,10 +28,12 @@ export const schemaTypes = [
   menuItem,
   textBlock,
   calendar,
-  contact
+  contact,
+  homePage,
+  feedbackVideoItem
 ];
 
-export const singletonTypes = new Set(['settings', 'contact']);
+export const singletonTypes = new Set(['settings', 'contact', 'homePage']);
 
 export const schema: SchemaPluginOptions = {
   types: schemaTypes,
