@@ -59,7 +59,7 @@ export default async function Home() {
       </div>
 
 
-      <h2 className="font-display mb-6 md:mb-10 text-2xl font-normal mt-20 lg:mt-60">Meistriklassid</h2>
+      <h2 className="font-display mb-6 md:mb-10 text-2xl font-normal mt-20 lg:mt-36">Meistriklassid</h2>
       <MasterClassCardLarge masterClasses={masterClasses} />
 
 
