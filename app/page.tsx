@@ -53,7 +53,7 @@ export default async function Home() {
         <Calendar events={futureEvents} />
       </div>
 
-      <div className="mt-20 lg:mt-60">
+      <div className="mt-20 lg:mt-40">
         {/*<h2 className="font-display mb-8">..</h2>*/}
         <CourseExplonation></CourseExplonation>
       </div>
@@ -64,11 +64,11 @@ export default async function Home() {
 
 
 
-      <div className="mt-16 lg:mt-30 rounded-md lg:rounded-lg">
+      <div className="mt-16 lg:mt-40  rounded-md lg:rounded-lg">
         <ClientFeedback items={homePage!.clientFeedback ?? [] as any}></ClientFeedback>
       </div>
 
-      <div className="mt-16 lg:mt-30 mb-30 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
+      <div className="mt-16 lg:mt-40 mb-30 bg-gray-100 rounded-md lg:rounded-lg p-8 md:p-12 lg:p-20">
         <h2 className="font-display mb-10 text-2xl font-normal">Kes me oleme?</h2>
         <AboutUs></AboutUs>
       </div>
