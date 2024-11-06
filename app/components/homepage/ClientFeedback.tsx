@@ -22,7 +22,7 @@ export default function ClientFeedback({ items }: Readonly<ClientFeedbackProps>)
   return (
     <div>
       <EmblaCarousel
-        title="Mida arvavad meie vilistlased?"
+        title="3 taipamist perelepitajate väljaõppest"
         slides={
           items.map((item, index) => {
             return {
