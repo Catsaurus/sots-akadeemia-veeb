@@ -21,7 +21,7 @@ export default function TeacherCard({ teacher, showContacts }: Readonly<TeacherC
         <>
         <Card title={teacher.name!}>
             <div className="flex flex-col md:flex-row items-start gap-6 lg:gap-10">
-                {!!teacher.image && <Image width={200} height={200} alt={teacher.name!} className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg" src={urlFor(teacher.image).width(200).url()} />}
+                {!!teacher.image && <Image width={200} height={200} alt={teacher.name!} quality={100} className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg" src={urlFor(teacher.image).url()} />}
                 <div className="flex flex-col items-start">
                     <h3 className="font-display font-normal text-xl">{teacher.name}</h3>
                     { !!showContacts && teacher.email && <div>
@@ -46,7 +46,7 @@ export default function TeacherCard({ teacher, showContacts }: Readonly<TeacherC
                     { !!teacher.description && <FormattedPortableText value={teacher.description} /> }
                 </div>
                 <div className="flex flex-col gap-4">
-                    {!!teacher.image && <Image width={200} height={200} alt={teacher.name!} className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg hidden md:block min-w-52" src={urlFor(teacher.image).width(200).url()} />}
+                    {!!teacher.image && <Image width={200} height={200} alt={teacher.name!} quality={100} className="rounded-bl-md lg:rounded-bl-lg rounded-tr-md lg:rounded-tr-lg hidden md:block min-w-52" src={urlFor(teacher.image).url()} />}
                     { !!showContacts && <div className="mb-2">
                         <p>{ teacher.email }</p>
                         <p>{ teacher.phone }</p>
