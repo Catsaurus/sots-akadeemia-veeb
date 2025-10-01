@@ -36,6 +36,9 @@ export const getRegisterInterestLink = (settings: SettingsQueryResult, course: C
 }
 
 export const getRegisterToEventLink = (event: CalendarEventByCourseQueryResult[0], course: Course) => {
+    if (course._type === 'masterClass') {
+        return course.registrationLink;
+    }
     if (course.registrationLink) {
         let eventDate = format(event.startDate!, EVENT_URL_DATE_FORMAT);
         if (event.endDate) {
