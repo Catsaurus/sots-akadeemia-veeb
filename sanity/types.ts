@@ -488,6 +488,7 @@ export type ShortCourse = {
   _updatedAt: string;
   _rev: string;
   name?: string;
+  isSimplifiedShortCourse?: boolean;
   documentNotReady?: boolean;
   body?: Array<
     | {
@@ -1180,18 +1181,52 @@ export type MasterClassListQueryResult = Array<{
   documentNotReady: boolean | null;
 }>;
 // Variable: CourseModuleListQuery
-// Query: *[_type == "courseModule"] {  _id,  _type,  name,  slug,  color,  documentNotReady,  notSeparatelyTakeable}
+// Query: *[_type == "courseModule"] {  _id,  _type,  name,  slug,  color,  body,  documentNotReady}
 export type CourseModuleListQueryResult = Array<{
   _id: string;
   _type: "courseModule";
   name: string | null;
   slug: Slug | null;
   color: Color | null;
+  body: Array<
+    | ({
+        _key: string;
+      } & Table)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
   documentNotReady: boolean | null;
-  notSeparatelyTakeable: boolean | null;
 }>;
 // Variable: ShortCourseListQuery
-// Query: *[_type == "shortCourse"]{  _id,  _type,  name,  "courseModule": *[_type == "courseModule" && references(^._id)][0]{    ...  },  slug,  registrationLink,  documentNotReady}
+// Query: *[_type == "shortCourse"]{  _id,  _type,  name,  "courseModule": *[_type == "courseModule" && references(^._id)][0]{    ...  },  "masterClass": *[_type == "masterClass" && references(^._id)][0]{    ...  },  slug,  body,  organizationalInformation,  registrationLink,  documentNotReady,  isSimplifiedShortCourse}
 export type ShortCourseListQueryResult = Array<{
   _id: string;
   _type: "shortCourse";
@@ -1369,9 +1404,253 @@ export type ShortCourseListQueryResult = Array<{
     registrationLink?: string;
     seo?: SeoMetaFields;
   } | null;
+  masterClass: {
+    _id: string;
+    _type: "masterClass";
+    _createdAt: string;
+    _updatedAt: string;
+    _rev: string;
+    name?: string;
+    documentNotReady?: boolean;
+    slug?: Slug;
+    shortDescription?: string;
+    body?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    expectedParticipants?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    registrationAndPaymentInfo?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    organizationalInformation?: Array<
+      | ({
+          _key: string;
+        } & Table)
+      | {
+          children?: Array<{
+            marks?: Array<string>;
+            text?: string;
+            _type: "span";
+            _key: string;
+          }>;
+          style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+          listItem?: "bullet" | "number";
+          markDefs?: Array<{
+            href?: string;
+            _type: "link";
+            _key: string;
+          }>;
+          level?: number;
+          _type: "block";
+          _key: string;
+        }
+      | {
+          asset?: {
+            _ref: string;
+            _type: "reference";
+            _weak?: boolean;
+            [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+          };
+          hotspot?: SanityImageHotspot;
+          crop?: SanityImageCrop;
+          _type: "image";
+          _key: string;
+        }
+    >;
+    color?: Color;
+    courses?: Array<{
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      _key: string;
+      [internalGroqTypeReferenceTo]?: "shortCourse";
+    }>;
+    minParticipants?: number;
+    maxParticipants?: number;
+    courseSize?: number;
+    price?: number;
+    city?: string;
+    address?: string;
+    contactPerson?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "teacher";
+    };
+    registrationLink?: string;
+    seo?: SeoMetaFields;
+  } | null;
   slug: Slug | null;
+  body: Array<
+    | ({
+        _key: string;
+      } & Table)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
+  organizationalInformation: Array<
+    | ({
+        _key: string;
+      } & Table)
+    | {
+        children?: Array<{
+          marks?: Array<string>;
+          text?: string;
+          _type: "span";
+          _key: string;
+        }>;
+        style?: "blockquote" | "h2" | "h3" | "h4" | "normal";
+        listItem?: "bullet" | "number";
+        markDefs?: Array<{
+          href?: string;
+          _type: "link";
+          _key: string;
+        }>;
+        level?: number;
+        _type: "block";
+        _key: string;
+      }
+    | {
+        asset?: {
+          _ref: string;
+          _type: "reference";
+          _weak?: boolean;
+          [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+        };
+        hotspot?: SanityImageHotspot;
+        crop?: SanityImageCrop;
+        _type: "image";
+        _key: string;
+      }
+  > | null;
   registrationLink: string | null;
   documentNotReady: boolean | null;
+  isSimplifiedShortCourse: boolean | null;
 }>;
 // Variable: SingleClassModuleCourseQuery
 // Query: *[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{  ...,  courses[]{    ...,    "slug": @->slug,  },  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],  contactPerson{    ...,    "name": @->name,    "image": @->image,    "description": @->description,    "email": @->email,    "phone": @->phone  },  seo{        _type,    metaTitle,    nofollowAttributes,    seoKeywords,    metaDescription,    metaImage{            _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        },    openGraph{        _type,    siteName,    url,    description,    title,    image{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        },    twitter{        _type,    site,    creator,    cardType,    handle        },    additionalMetaTags[]{    _type,    metaAttributes[]{        _type,    attributeValueString,    attributeType,    attributeKey,    attributeValueImage{        _type,    crop{    _type,    right,    top,    left,    bottom    },    hotspot{    _type,    x,    y,    height,    width,    },    asset->{...}        }        }}    },}
@@ -2229,6 +2508,7 @@ export type SingleClassModuleCourseQueryResult =
       _updatedAt: string;
       _rev: string;
       name?: string;
+      isSimplifiedShortCourse?: boolean;
       documentNotReady?: boolean;
       body?: Array<
         | ({
@@ -4322,8 +4602,8 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     '*[_type == "masterClass"] {\n    _id,\n    name,\n    slug,\n    shortDescription,\n    color,\n    minParticipants,\n    maxParticipants,\n    courseSize,\n    documentNotReady\n}': MasterClassListQueryResult;
-    '*[_type == "courseModule"] {\n  _id,\n  _type,\n  name,\n  slug,\n  color,\n  documentNotReady,\n  notSeparatelyTakeable\n}': CourseModuleListQueryResult;
-    '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": *[_type == "courseModule" && references(^._id)][0]{\n    ...\n  },\n  slug,\n  registrationLink,\n  documentNotReady\n}': ShortCourseListQueryResult;
+    '*[_type == "courseModule"] {\n  _id,\n  _type,\n  name,\n  slug,\n  color,\n  body,\n  documentNotReady\n}': CourseModuleListQueryResult;
+    '*[_type == "shortCourse"]{\n  _id,\n  _type,\n  name,\n  "courseModule": *[_type == "courseModule" && references(^._id)][0]{\n    ...\n  },\n  "masterClass": *[_type == "masterClass" && references(^._id)][0]{\n    ...\n  },\n  slug,\n  body,\n  organizationalInformation,\n  registrationLink,\n  documentNotReady,\n  isSimplifiedShortCourse\n}': ShortCourseListQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse"] && slug.current == $slug][0]{\n  ...,\n  courses[]{\n    ...,\n    "slug": @->slug,\n  },\n  "teachers": *[_type == "teacher" && _id in *[_type == "shortCourse" && (_id in ^.^.courses[]._ref || _id == ^.^._id)].teachers[]._ref],\n  contactPerson{\n    ...,\n    "name": @->name,\n    "image": @->image,\n    "description": @->description,\n    "email": @->email,\n    "phone": @->phone\n  },\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n},\n}': SingleClassModuleCourseQueryResult;
     '*[_type == "genericPage" && slug.current == $slug][0]{\n  ...,\n  seo{\n    \n    _type,\n    metaTitle,\n    nofollowAttributes,\n    seoKeywords,\n    metaDescription,\n    metaImage{\n        \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    },\n    openGraph{\n    \n    _type,\n    siteName,\n    url,\n    description,\n    title,\n    image{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    },\n    twitter{\n    \n    _type,\n    site,\n    creator,\n    cardType,\n    handle\n    \n    },\n    additionalMetaTags[]{\n    _type,\n    metaAttributes[]{\n    \n    _type,\n    attributeValueString,\n    attributeType,\n    attributeKey,\n    attributeValueImage{\n    \n    _type,\n    crop{\n    _type,\n    right,\n    top,\n    left,\n    bottom\n    },\n    hotspot{\n    _type,\n    x,\n    y,\n    height,\n    width,\n    },\n    asset->{...}\n    \n    }\n    \n    }\n}\n    \n}\n}': SingleGenericPageQueryResult;
     '*[_type in ["masterClass", "courseModule", "shortCourse", "genericPage"] && defined(slug.current) && documentNotReady != true][]{\n  "params": { "slug": slug.current },\n  "updatedAt": _updatedAt\n}': MasterClassPathsQueryResult;

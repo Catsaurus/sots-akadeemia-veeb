@@ -65,7 +65,7 @@ export default defineType({
     }),
     defineField({
       name: 'organizationalInformation',
-      title: 'Korralduslik info (päevakava jm)',
+      title: 'Korralduslik info (päevakava jm). HETKEL VEEBIS EI KUVATA SEDA!',
       type: 'blockContent'
     }),
     defineField({

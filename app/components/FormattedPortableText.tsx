@@ -24,7 +24,7 @@ export default function FormattedPortableText({ value }: Readonly<FormattedPorta
                 )
             },
             listItem: (props) => {
-                return <li className="my-1">{ props.children }</li>
+                return <li className="my-1 ml-3">{ props.children }</li>
             },
             block: {
                 h2: (props) => (
@@ -54,7 +54,7 @@ export default function FormattedPortableText({ value }: Readonly<FormattedPorta
                       <table className="hidden md:table w-full max-w-screen-md">
                         <tbody>{ props.value.rows.map((row: any, i: number) => (
                           <tr key={row._key}>
-                            { row.cells.map((cell: string) => i === 0 ? <th className="text-start" key={cell}>{ cell }</th> : <td key={cell}>{ cell }</td>)}
+                            { row.cells.map((cell: string) => i === 0 ? <th className="text-start p-2 border border-gray-300" key={cell}>{ cell }</th> : <td className=" p-2 border border-gray-300" key={cell}>{ cell }</td>)}
                           </tr>
                           )) }
                         </tbody>
