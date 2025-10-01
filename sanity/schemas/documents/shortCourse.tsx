@@ -18,11 +18,19 @@ export default defineType({
       type: 'string'
     }),
     defineField({
+      name: 'isSimplifiedShortCourse',
+      title: 'Kas lühiklassi müüakse ainult koos meistriklassiga?',
+      description: 'Mõistlik sisse lülitada siis, kui lühiklassile EI SAA eraldi registreerida. Lülita sisse, kui lühiklass on kindlasti seotud konkreetse meistriklassiga. Kui on sisse lülitatud, siis ei kuvata lühiklassi muudes kohtades.',
+      type: 'boolean',
+      initialValue: false
+    }),
+    defineField({
       name: 'documentNotReady',
       title: 'Leht on tegemisel',
       description: 'Selle sisselülitamisel ei saa lühiklassi linkidele klikkida ja lehte avada',
       type: 'boolean',
-      initialValue: false
+      initialValue: false,
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
     defineField({
       name: 'body',
@@ -32,12 +40,14 @@ export default defineType({
     defineField({
       name: 'expectedParticipants',
       title: 'Keda ootame osalema',
-      type: 'blockContent'
+      type: 'blockContent',
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
     defineField({
       name: 'registrationAndPaymentInfo',
       title: 'Registreerumine ja tasumine',
-      type: 'blockContent'
+      type: 'blockContent',
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
     defineField({
       name: 'organizationalInformation',
@@ -60,6 +70,7 @@ export default defineType({
       title: 'Minimaalne osalejate arv',
       type: 'string',
       fieldset: 'participants',
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
     defineField({
       name: 'maxParticipants',
@@ -67,6 +78,7 @@ export default defineType({
       type: 'number',
       initialValue: 18,
       fieldset: 'participants',
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
     defineField({
       name: 'courseSize',
@@ -78,7 +90,8 @@ export default defineType({
     defineField({
       name: 'price',
       title: 'Hind (€)',
-      type: 'number'
+      type: 'number',
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
     defineField({
       name: 'city',
@@ -116,13 +129,16 @@ export default defineType({
       name: 'registrationLink',
       title: 'Registreerimise link (Google Forms)',
       type: 'url',
-      description: 'Kui see puudub, kuvatakse "Registreeri huvi linki". NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit'
+      description: 'Kui see puudub, kuvatakse "Registreeri huvi linki". NB! Seda välja muuta ainult siis, kui tead, mis teed. URL peab sisaldama kuupäeva välja query parameetrit',
+      hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
+    
     defineField({
       title: "SEO",
       name: "seo",
       type: "seoMetaFields",
-      group: 'seo'
+      group: 'seo',
+      // hidden: ({document}) => !!document?.isSimplifiedShortCourse
     }),
   ], // list end
   preview: {

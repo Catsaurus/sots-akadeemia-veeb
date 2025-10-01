@@ -21,8 +21,8 @@ export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
   name,
   slug,
   color,
-  documentNotReady,
-  notSeparatelyTakeable
+  body,
+  documentNotReady
 }`;
 
 export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
@@ -32,9 +32,15 @@ export const ShortCourseListQuery = groq`*[_type == "shortCourse"]{
   "courseModule": *[_type == "courseModule" && references(^._id)][0]{
     ...
   },
+  "masterClass": *[_type == "masterClass" && references(^._id)][0]{
+    ...
+  },
   slug,
+  body,
+  organizationalInformation,
   registrationLink,
-  documentNotReady
+  documentNotReady,
+  isSimplifiedShortCourse
 }`;
 
 // Get a single post by its slug

@@ -10,6 +10,7 @@ const config: Config = {
   theme: {
     colors: {
       'blue': '#7DD5D0',
+      'blue-800': '#1D4ED8',
       'pink': '#C299A1',
       'orange': '#dc9783',
       'green': '#B6C98C',
