@@ -68,7 +68,7 @@ export default function NextEventCardSet({
                     </> }
                 </> }
 
-               {!!eventRegisterUntilDate &&  
+               {!!eventRegisterUntilDate && course._type !== 'masterClass' && 
                <div className="pt-4 border-t border-dark border-opacity-15 text-left">
                     <p className="text-sm text-left">Kui sulle toodud kuupäevad ei sobi, siis võid märku anda oma huvist. Me kirjutame sulle, kui avame uue grupi. 
                         <Link className="text-sm text-nowrap underline hover:no-underline ml-1" href={getRegisterInterestLink(settings, course)!} target="_blank">
