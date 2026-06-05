@@ -10,6 +10,7 @@ import settings from './schemas/documents/settings'
 import shortCourse from './schemas/documents/shortCourse'
 import teacher from './schemas/documents/teacher'
 import blockContent from './schemas/objects/blockContent'
+import dateRange from './schemas/objects/dateRange'
 import feedbackVideoItem from './schemas/objects/feedbackVideoItem'
 import menuItem from './schemas/objects/menuItem'
 import shortCourseTable from './schemas/objects/shortCourseTable'
@@ -18,6 +19,7 @@ import textBlock from './schemas/objects/textBlock'
 
 export const schemaTypes = [
   blockContent,
+  dateRange,
   masterClass,
   shortCourse,
   shortCourseTable,

@@ -25,6 +25,14 @@ export default defineType({
       initialValue: false
     }),
     defineField({
+      name: 'dateRanges',
+      title: 'Toimumise kuupäevad',
+      description: 'Lisa lühiklassi toimumise kuupäevavahemikud. Kuvatakse meistriklassi graafikus kodulehel.',
+      type: 'array',
+      of: [{ type: 'dateRange' }],
+      hidden: ({document}) => !document?.isSimplifiedShortCourse,
+    }),
+    defineField({
       name: 'documentNotReady',
       title: 'Leht on tegemisel',
       description: 'Selle sisselülitamisel ei saa lühiklassi linkidele klikkida ja lehte avada',

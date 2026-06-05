@@ -12,7 +12,13 @@ export const MasterClassListQuery = groq`*[_type == "masterClass"] {
     minParticipants,
     maxParticipants,
     courseSize,
-    documentNotReady
+    documentNotReady,
+    "simplifiedShortCourses": courses[@->isSimplifiedShortCourse == true && defined(@->dateRanges) && count(@->dateRanges) > 0]->{
+      _id,
+      name,
+      isSimplifiedShortCourse,
+      dateRanges
+    }
 }`;
 
 export const CourseModuleListQuery = groq`*[_type == "courseModule"] {
